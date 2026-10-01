@@ -13,6 +13,7 @@ dependencies {
     implementation project(':mc-core')
     implementation project(':mc-core-springboot')
     implementation project(':mc-feature-webmvc')
+    implementation project(':mc-feature-webflux')
     implementation libs.commonsIo
     implementation libs.picocli.spring.boot.starter
 

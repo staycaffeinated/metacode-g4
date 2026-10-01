@@ -15,4 +15,5 @@ rootProject.name = 'metacode'
 include "mc-core"
 include "mc-core-springboot"
 include "mc-feature-webmvc"
+include "mc-feature-webflux"
 include "mc-application"

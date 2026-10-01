@@ -1,0 +1,338 @@
+# WebFlux feature catalog.
+# All entries carry 'when: flavor: [webflux]'.
+# Feature-gated entries add 'features:' conditions on top.
+# Endpoint-scope entries are below the project-scope section.
+# Base scaffold (Application.java, app.yml, etc.) comes from mc-core-springboot.
+
+entries:
+
+  # ─── Project scope: always renders for webflux ───────────────────────────────
+
+  - scope: project
+    archetype: WebFluxConfiguration
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/config/WebFluxConfiguration.ftl
+
+  - scope: project
+    archetype: ApplicationConfiguration
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/config/ApplicationConfiguration.ftl
+
+  - scope: project
+    archetype: ObjectMapperConfiguration
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/config/ObjectMapperConfiguration.ftl
+
+  - scope: project
+    archetype: DateTimeFormatConfiguration
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/config/DateTimeFormatConfiguration.ftl
+
+  - scope: project
+    archetype: GlobalExceptionHandler
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/advice/GlobalExceptionHandler.ftl
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/advice/GlobalExceptionHandlerTests.ftl
+
+  - scope: project
+    archetype: SecurityResponseHeadersFilter
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/filter/SecurityResponseHeadersWebFilter.ftl
+
+  - scope: project
+    archetype: RootController
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/endpoint-root/RootController.ftl
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/endpoint-root/RootControllerTest.ftl
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/webflux/integrationTest/endpoint-root/RootControllerIT.ftl
+
+  - scope: project
+    archetype: RootService
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/endpoint-root/RootService.ftl
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/endpoint-root/RootServiceTest.ftl
+
+  - scope: project
+    archetype: AbstractDataStoreApi
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/spi/DataStore.ftl
+
+  - scope: project
+    archetype: ResourceIdSupplier
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/spi/ResourceIdSupplier.ftl
+
+  - scope: project
+    archetype: ResourceIdTrait
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/trait/ResourceIdTrait.ftl
+
+  - scope: project
+    archetype: UpdateAwareConverter
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/trait/UpdateAwareConverter.ftl
+
+  - scope: project
+    archetype: UnprocessableEntityException
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/exception/UnprocessableEntityException.ftl
+
+  - scope: project
+    archetype: ResourceNotFoundException
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/exception/ResourceNotFoundException.ftl
+
+  - scope: project
+    archetype: BadRequestException
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/exception/BadRequestException.ftl
+
+  - scope: project
+    archetype: AbstractIntegrationTest
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/webflux/integrationTest/common/AbstractIntegrationTest.ftl
+
+  - scope: project
+    archetype: ContainerConfiguration
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/webflux/integrationTest/config/ContainerConfiguration.ftl
+
+  - scope: project
+    archetype: Architecture
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/ArchitectureTest.ftl
+
+  # ─── Project scope: postgres ─────────────────────────────────────────────────
+
+  - scope: project
+    archetype: AbstractPostgresIntegrationTest
+    when:
+      flavor: [webflux]
+      features: [postgres]
+    facets:
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/webflux/integrationTest/common/AbstractPostgresIntegrationTest.ftl
+
+  - scope: project
+    archetype: RegisterDatabaseProperties
+    when:
+      flavor: [webflux]
+      features: [postgres]
+    facets:
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/webflux/integrationTest/database/RegisterDatabaseProperties.ftl
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [webflux]
+      features: [postgres]
+    facets:
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/webflux/integrationTest/resources/CreateSchemaDotSql.ftl
+        destination: "src/integrationTest/resources/db/scripts/01-create-schema.sql"
+
+  # ─── Project scope: liquibase (implies postgres) ─────────────────────────────
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [webflux]
+      features: [postgres, liquibase]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/resources/db/liquibase/db.changelog-master.ftl
+        destination: "src/main/resources/db/changelog/db.changelog-master.yaml"
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/resources/db/liquibase/db.changelog-001-create-schema.ftl
+        destination: "src/main/resources/db/changelog/db.changelog-001-create-schema.sql"
+
+  # ─── Project scope: flyway (implies postgres) ────────────────────────────────
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [webflux]
+      features: [postgres, flyway]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/resources/db/flyway/create-schema.ftl
+        destination: "src/main/resources/db/migration/V0001__create-schema.sql"
+
+  # ─── Endpoint scope ──────────────────────────────────────────────────────────
+
+  - scope: endpoint
+    archetype: Controller
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/endpoint/RestController.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Controller.java"
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/endpoint/ControllerTests.ftl
+        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerTests.java"
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/webflux/integrationTest/endpoint/ControllerIT.ftl
+        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
+
+  - scope: endpoint
+    archetype: ServiceImpl
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/endpoint/RestServiceProvider.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceProvider.java"
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/endpoint/ServiceTests.ftl
+        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceTests.java"
+
+  - scope: endpoint
+    archetype: Entity
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/database/entity/Entity.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}.java"
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/database/EntityTests.ftl
+        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Tests.java"
+
+  - scope: endpoint
+    archetype: Repository
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/database/entity/Repository.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/webflux/integrationTest/database/endpoint/RepositoryIT.ftl
+        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
+
+  - scope: endpoint
+    archetype: EntityResource
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/domain/EntityResource.ftl
+        destination: "{{basePackagePath}}/domain/{{entityName}}Resource.java"
+
+  - scope: endpoint
+    archetype: EntityRequest
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/adapter/in/web/EntityRequest.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Request.java"
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/adapter/in/web/EntityRequestTest.ftl
+        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}RequestTest.java"
+
+  - scope: endpoint
+    archetype: EntityResponse
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/adapter/in/web/EntityResponse.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Response.java"
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/adapter/in/web/EntityResponseTest.ftl
+        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResponseTest.java"
+
+  - scope: endpoint
+    archetype: PojoToEntityConverter
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/database/converter/PojoToEntityConverter.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToEntityConverter.java"
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/database/converter/PojoToEntityConverterTests.ftl
+        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToEntityConverterTests.java"
+
+  - scope: endpoint
+    archetype: EntityToPojoConverter
+    when:
+      flavor: [webflux]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/database/converter/EntityToPojoConverter.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/converter/{{entityName}}ToPojoConverter.java"
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/database/converter/EntityToPojoConverterTests.ftl
+        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/converter/{{entityName}}ToPojoConverterTests.java"
+
+  - scope: endpoint
+    archetype: Text
+    when:
+      flavor: [webflux]
+      features: [flyway]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webflux/main/resources/db/flyway/create-table.ftl
+        destination: "src/main/resources/db/migration/{{createTableScriptName}}"
