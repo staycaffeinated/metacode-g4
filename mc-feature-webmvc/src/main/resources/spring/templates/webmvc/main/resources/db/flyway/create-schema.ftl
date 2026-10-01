@@ -1,0 +1,1 @@
+<#-- stub: create-schema.ftl -->

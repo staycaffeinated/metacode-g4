@@ -1,0 +1,1 @@
+<#-- stub: AbstractPostgresIntegrationTest.ftl -->

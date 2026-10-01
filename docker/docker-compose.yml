@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+    application:
+        container_name: "metacode_api"
+        image: "metacode:latest"
+        ports:
+            - "8080:8080"

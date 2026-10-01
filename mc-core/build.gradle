@@ -1,0 +1,25 @@
+plugins {
+    id 'buildlogic.library-conventions'
+    alias(libs.plugins.lombok.plugin)
+}
+
+dependencies {
+    implementation libs.commonsIo
+    implementation libs.commonsLang3
+    implementation libs.freemarker
+    implementation libs.jacksonYaml
+    implementation libs.jmustache
+    implementation libs.slf4jApi
+
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.assertJ
+    testImplementation libs.junit.jupiter
+    testImplementation libs.mockito
+    testRuntimeOnly libs.junit.platform.launcher
+}
+
+sonar {
+    properties {
+        property "sonar.tests", "src/test/java"
+    }
+}

@@ -1,0 +1,1 @@
+<#-- stub: AbstractIntegrationTest.ftl -->

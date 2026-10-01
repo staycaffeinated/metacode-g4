@@ -1,0 +1,55 @@
+plugins {
+    id 'buildlogic.application-conventions'
+    id 'jacoco-report-aggregation'
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.dependency.management)
+    alias(libs.plugins.versions)
+    alias(libs.plugins.lombok.plugin)
+}
+
+dependencies {
+    annotationProcessor libs.picocli.codegen
+
+    implementation project(':mc-core')
+    implementation project(':mc-core-springboot')
+    implementation project(':mc-feature-webmvc')
+    implementation libs.commonsIo
+    implementation libs.picocli.spring.boot.starter
+
+    testImplementation libs.spring.boot.starter.test
+    testImplementation libs.junit.jupiter
+}
+
+jib {
+    dockerClient {
+        executable = project.findProperty('dockerExecutable') ?: '/usr/local/bin/docker'
+    }
+    from {
+        image = 'eclipse-temurin:21-jre-jammy'
+        platforms {
+            platform {
+                os = 'linux'
+                architecture = 'arm64'
+           }
+           platform {
+                os = 'linux'
+                architecture = 'amd64'
+           }
+        }
+    }
+    to {
+        image = 'metacode'
+        tags = [ 'latest', version ]
+    }
+    container {
+        format = 'OCI'
+    }
+}
+
+sonar {
+    properties {
+        property "sonar.projectName", "metacode"
+        property "sonar.projectKey", "metacode"
+        property "sonar.gradle.skipCompile", "true"
+    }
+}

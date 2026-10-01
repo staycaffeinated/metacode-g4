@@ -1,0 +1,11 @@
+includes:
+  - /catalogs/base.yaml
+
+entries:
+  - scope: project
+    archetype: WebMvcConfiguration
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /templates/WebMvcConfiguration.ftl

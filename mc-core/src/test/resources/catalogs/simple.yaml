@@ -1,0 +1,33 @@
+entries:
+  - scope: project
+    archetype: Application
+    facets:
+      - facet: main
+        sourceTemplate: /templates/Application.ftl
+        destination: "{{basePackagePath}}/Application.java"
+
+  - scope: project
+    archetype: WebMvcConfiguration
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /templates/WebMvcConfiguration.ftl
+
+  - scope: project
+    archetype: DatabaseConfig
+    when:
+      flavor: [webmvc]
+      features: [postgres]
+    facets:
+      - facet: main
+        sourceTemplate: /templates/DatabaseConfig.ftl
+
+  - scope: endpoint
+    archetype: Controller
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /templates/Controller.ftl
+        destination: "{{basePackagePath}}/{{entityName}}Controller.java"

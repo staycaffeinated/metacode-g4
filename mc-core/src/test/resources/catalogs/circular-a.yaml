@@ -1,0 +1,9 @@
+includes:
+  - /catalogs/circular-b.yaml
+
+entries:
+  - scope: project
+    archetype: Alpha
+    facets:
+      - facet: main
+        sourceTemplate: /templates/Alpha.ftl

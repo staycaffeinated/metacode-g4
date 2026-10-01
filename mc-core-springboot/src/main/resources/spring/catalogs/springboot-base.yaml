@@ -1,0 +1,53 @@
+# Base catalog for all Spring Boot project flavors.
+# No 'when:' conditions — every entry renders regardless of flavor.
+# Other flavor catalogs pull this in via 'includes:'.
+
+entries:
+
+  - scope: project
+    archetype: Application
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/springboot/main/Application.ftl
+        destination: "{{basePackagePath}}/Application.java"
+      - facet: test
+        sourceTemplate: /spring/templates/springboot/test/ApplicationTest.ftl
+        destination: "{{testBasePackagePath}}/ApplicationTest.java"
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/springboot/integrationTest/ApplicationIT.ftl
+        destination: "{{testBasePackagePath}}/ApplicationIT.java"
+
+  - scope: project
+    archetype: AbstractIntegrationTest
+    facets:
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/springboot/integrationTest/AbstractIntegrationTest.ftl
+        destination: "{{testBasePackagePath}}/common/AbstractIntegrationTest.java"
+
+  - scope: project
+    archetype: Text
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/springboot/resources/ApplicationDotYml.ftl
+        destination: "src/main/resources/application.yml"
+
+  - scope: project
+    archetype: Text
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/common/README.ftl
+        destination: "README.adoc"
+
+  - scope: project
+    archetype: Text
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/common/DotGitIgnore.ftl
+        destination: ".gitignore"
+
+  - scope: project
+    archetype: Text
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/common/LombokConfig.ftl
+        destination: "lombok.config"

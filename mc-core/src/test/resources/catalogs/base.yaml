@@ -1,0 +1,13 @@
+entries:
+  - scope: project
+    archetype: Application
+    facets:
+      - facet: main
+        sourceTemplate: /templates/Application.ftl
+
+  - scope: project
+    archetype: LombokConfig
+    facets:
+      - facet: main
+        sourceTemplate: /templates/LombokConfig.ftl
+        destination: "lombok.config"
