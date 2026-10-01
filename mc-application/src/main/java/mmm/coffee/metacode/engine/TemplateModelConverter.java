@@ -21,9 +21,12 @@ public class TemplateModelConverter {
 
     public Map<String, String> toMustacheTokens(ProjectDescriptor d) {
         var tokens = new HashMap<String, String>();
+        String packagePath = d.getBasePackage().replace('.', '/');
         tokens.put("applicationName", d.getApplicationName());
         tokens.put("basePackage", d.getBasePackage());
-        tokens.put("basePackagePath", d.getBasePackage().replace('.', '/'));
+        tokens.put("basePackagePath", "src/main/java/" + packagePath);
+        tokens.put("testBasePackagePath", "src/test/java/" + packagePath);
+        tokens.put("integrationTestBasePackagePath", "src/integrationTest/java/" + packagePath);
         return tokens;
     }
 }
