@@ -1,1 +1,4 @@
-<#-- stub: db.changelog-001-create-schema.ftl -->
+--changeset author:id1
+create schema if not exists "yourschema";
+
+

@@ -3,6 +3,7 @@ package mmm.coffee.metacode.engine;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import mmm.coffee.metacode.core.archetype.ArchetypeModel;
 import mmm.coffee.metacode.core.catalog.CatalogEntry;
 import mmm.coffee.metacode.core.catalog.TemplateFacet;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
@@ -37,14 +38,16 @@ public class CodeGenerationEngine implements ICodeGenerator<ProjectDescriptor> {
 
     @Override
     public int generateCode(ProjectDescriptor descriptor) {
-        List<CatalogEntry> entries = registry.entriesFor(descriptor);
+        List<CatalogEntry> entries = registry.projectEntriesFor(descriptor);
         Map<String, Object> ftlModel = converter.toFtlModel(descriptor);
         Map<String, String> tokens = converter.toMustacheTokens(descriptor);
 
         for (CatalogEntry entry : entries) {
             for (TemplateFacet facet : entry.getFacets()) {
+                String destination = resolveDestination(facet, entry.getArchetype(), ftlModel);
+                if (destination == null) continue;
                 String content = renderer.render(facet.getSourceTemplate(), ftlModel);
-                String path = MustacheExpressionResolver.resolve(facet.getDestination(), tokens);
+                String path = MustacheExpressionResolver.resolve(destination, tokens);
                 try {
                     writer.write(descriptor.getBaseDirectory(), path, content);
                 } catch (IOException e) {
@@ -53,5 +56,53 @@ public class CodeGenerationEngine implements ICodeGenerator<ProjectDescriptor> {
             }
         }
         return 0;
+    }
+
+    /**
+     * Returns the explicit destination from the facet, or derives one from the
+     * archetype model when the catalog entry has no destination set.
+     * Returns null if no archetype model is found (entry is silently skipped).
+     */
+    private String resolveDestination(TemplateFacet facet, String archetypeName, Map<String, Object> ftlModel) {
+        if (facet.getDestination() != null && !facet.getDestination().isEmpty()) {
+            return facet.getDestination();
+        }
+        Object modelObj = ftlModel.get(archetypeName);
+        if (!(modelObj instanceof ArchetypeModel archetype)) {
+            return null;
+        }
+        String pkgPath = archetype.packageName().replace('.', '/');
+        String subPath = stripBasePackage(pkgPath, ftlModel);
+        // For auto-derived destinations: test facets append "Test", integrationTest facets
+        // place the class (unchanged name) in the integrationTest source set — these are
+        // infrastructure classes (AbstractIntegrationTest, ContainerConfiguration, etc.),
+        // not generated IT wrappers. Explicit IT wrappers carry their own destination in the catalog.
+        return switch (facet.getFacet()) {
+            case "test" -> join("{{testBasePackagePath}}", subPath, archetype.testClass() + ".java");
+            case "integrationTest" ->
+                join("{{integrationTestBasePackagePath}}", subPath, archetype.className() + ".java");
+            default -> join("{{basePackagePath}}", subPath, archetype.className() + ".java");
+        };
+    }
+
+    private String join(String base, String subPath, String filename) {
+        return subPath.isEmpty() ? base + "/" + filename : base + "/" + subPath + "/" + filename;
+    }
+
+    /**
+     * Strips the basePackage path prefix so the destination is relative to the source root.
+     * e.g. "com/example/app/infrastructure/config" → "infrastructure/config"
+     */
+    private String stripBasePackage(String pkgPath, Map<String, Object> ftlModel) {
+        Object bp = ftlModel.get("basePackagePath");
+        if (bp == null) return pkgPath;
+        String prefix = bp.toString().replace('.', '/');
+        if (pkgPath.startsWith(prefix + "/")) {
+            return pkgPath.substring(prefix.length() + 1);
+        }
+        if (pkgPath.equals(prefix)) {
+            return "";
+        }
+        return pkgPath;
     }
 }

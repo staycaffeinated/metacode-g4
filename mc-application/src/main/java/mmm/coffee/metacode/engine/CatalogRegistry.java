@@ -25,4 +25,10 @@ public class CatalogRegistry {
                 .filter(e -> e.matches(descriptor.getFlavor(), descriptor.getFeatures()))
                 .collect(Collectors.toList());
     }
+
+    public List<CatalogEntry> projectEntriesFor(ProjectDescriptor descriptor) {
+        return entriesFor(descriptor).stream()
+                .filter(e -> "project".equals(e.getScope()))
+                .collect(Collectors.toList());
+    }
 }

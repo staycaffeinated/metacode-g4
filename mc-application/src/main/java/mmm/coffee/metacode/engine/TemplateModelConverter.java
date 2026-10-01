@@ -1,12 +1,21 @@
 package mmm.coffee.metacode.engine;
 
+import java.time.Year;
 import java.util.HashMap;
 import java.util.Map;
+import mmm.coffee.metacode.core.archetype.ArchetypeModel;
+import mmm.coffee.metacode.core.archetype.PackageLayout;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TemplateModelConverter {
+
+    private final PackageLayout packageLayout;
+
+    public TemplateModelConverter(PackageLayout packageLayout) {
+        this.packageLayout = packageLayout;
+    }
 
     public Map<String, Object> toFtlModel(ProjectDescriptor d) {
         var model = new HashMap<String, Object>();
@@ -16,6 +25,12 @@ public class TemplateModelConverter {
         model.put("flavor", d.getFlavor());
         model.put("features", d.getFeatures());
         model.put("javaVersion", d.getJavaVersion());
+        model.put("YEAR", Year.now().getValue());
+        model.put("project", new ProjectModel(d));
+
+        Map<String, ArchetypeModel> archetypes = packageLayout.buildArchetypeModels(d.getBasePackage());
+        model.putAll(archetypes);
+
         return model;
     }
 

@@ -1,0 +1,147 @@
+archetypes:
+  # Root package
+  Application:
+    subPackage: ""
+    className: Application
+  Architecture:
+    subPackage: ""
+    className: Architecture
+
+  # infrastructure.config
+  ApplicationConfiguration:
+    subPackage: infrastructure.config
+    className: ResourceIdSupplierConfiguration
+  DateTimeFormatConfiguration:
+    subPackage: infrastructure.config
+    className: DateTimeFormatConfiguration
+  ProblemConfiguration:
+    subPackage: infrastructure.config
+    className: ProblemConfiguration
+  LocalDateConverter:
+    subPackage: infrastructure.config
+    className: LocalDateConverter
+  WebMvcConfiguration:
+    subPackage: infrastructure.config
+    className: WebMvcConfiguration
+  WebFluxConfiguration:
+    subPackage: infrastructure.config
+    className: WebFluxConfiguration
+  ContainerConfiguration:
+    subPackage: infrastructure.config
+    className: ContainerConfiguration
+  ObjectMapperConfiguration:
+    subPackage: infrastructure.config
+    className: JacksonConfiguration
+
+  # infrastructure.advice
+  GlobalExceptionHandler:
+    subPackage: infrastructure.advice
+    className: GlobalExceptionHandler
+
+  # application.shared.exceptions
+  Exception:
+    subPackage: application.shared.exceptions
+    className: Exception
+  BadRequestException:
+    subPackage: application.shared.exceptions
+    className: BadRequestException
+  ResourceNotFoundException:
+    subPackage: application.shared.exceptions
+    className: ResourceNotFoundException
+  UnprocessableEntityException:
+    subPackage: application.shared.exceptions
+    className: UnprocessableEntityException
+
+  # adapter.inbound.web.home
+  RootController:
+    subPackage: adapter.inbound.web.home
+    className: RootController
+  RootService:
+    subPackage: application.service
+    className: RootService
+
+  # infrastructure.profiles
+  SpringProfiles:
+    subPackage: infrastructure.profiles
+    className: SpringProfiles
+
+  # infrastructure.utils
+  SecureRandomSeries:
+    subPackage: infrastructure.utils
+    className: ResourceIdGenerator
+
+  # domain.shared
+  ResourceIdTrait:
+    subPackage: domain.shared
+    className: ResourceIdAware
+  ResourceIdentity:
+    subPackage: domain.shared
+    className: ResourceIdentity
+
+  # adapter.shared.outbound
+  UpdateAwareConverter:
+    subPackage: adapter.shared.outbound
+    className: UpdateAwareConverter
+
+  # adapter.inbound.web.validation
+  AlphabeticAnnotation:
+    subPackage: adapter.inbound.web.validation
+    className: Alphabetic
+  AlphabeticValidator:
+    subPackage: adapter.inbound.web.validation
+    className: AlphabeticValidator
+  ResourceIdAnnotation:
+    subPackage: adapter.inbound.web.validation
+    className: ResourceId
+  ResourceIdValidator:
+    subPackage: adapter.inbound.web.validation
+    className: ResourceIdValidator
+  SearchTextAnnotation:
+    subPackage: adapter.inbound.web.validation
+    className: SearchText
+  SearchTextValidator:
+    subPackage: adapter.inbound.web.validation
+    className: SearchTextValidator
+
+  # infrastructure.common
+  AbstractIntegrationTest:
+    subPackage: infrastructure.common
+    className: AbstractIntegrationTest
+
+  # common.persistence
+  RegisterDatabaseProperties:
+    subPackage: common.persistence
+    className: RegisterDatabaseProperties
+  AbstractPostgresIntegrationTest:
+    subPackage: common.persistence
+    className: AbstractPostgresIntegrationTest
+  PostgresDbContainerTests:
+    subPackage: common.persistence
+    className: PostgresContainerTest
+
+  # application.shared.validation
+  OnCreateAnnotation:
+    subPackage: application.shared.validation
+    className: OnCreate
+  OnUpdateAnnotation:
+    subPackage: application.shared.validation
+    className: OnUpdate
+
+  # application.port.outbound
+  ResourceIdSupplier:
+    subPackage: application.port.outbound
+    className: ResourceIdSupplier
+  AbstractDataStoreApi:
+    subPackage: application.port.outbound
+    className: DataStore
+  CustomRepository:
+    subPackage: application.shared.port.outbound
+    className: GenericRepository
+
+  # fixtures
+  EjbTestFixtures:
+    subPackage: fixtures
+    className: EjbTestFixtures
+  ModelTestFixtures:
+    subPackage: fixtures
+    className: ModelTestFixtures

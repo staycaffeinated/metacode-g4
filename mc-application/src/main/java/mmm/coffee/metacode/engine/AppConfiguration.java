@@ -1,5 +1,6 @@
 package mmm.coffee.metacode.engine;
 
+import mmm.coffee.metacode.core.archetype.PackageLayout;
 import mmm.coffee.metacode.core.catalog.CatalogReader;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
 import mmm.coffee.metacode.core.renderer.FreemarkerTemplateRenderer;
@@ -36,5 +37,10 @@ public class AppConfiguration {
     @Bean
     CatalogContributor webFluxCatalogContributor() {
         return new WebFluxCatalogContributor();
+    }
+
+    @Bean
+    PackageLayout packageLayout() {
+        return PackageLayout.loadDefault();
     }
 }

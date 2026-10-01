@@ -69,6 +69,7 @@ entries:
         sourceTemplate: /spring/templates/webmvc/test/endpoint-root/RootControllerTest.ftl
       - facet: integrationTest
         sourceTemplate: /spring/templates/webmvc/integrationTest/endpoint-root/RootControllerIT.ftl
+        destination: "{{integrationTestBasePackagePath}}/adapter/inbound/web/home/RootControllerIT.java"
 
   - scope: project
     archetype: RootService
