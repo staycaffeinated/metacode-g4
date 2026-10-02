@@ -31,4 +31,11 @@ public class ProjectDescriptor {
     private Set<String> features = new HashSet<>();
 
     private String javaVersion;
+
+    /**
+     * The subproject directory containing application source code.
+     * Defaults to "application" for multi-module builds.
+     */
+    @Builder.Default
+    private String appModule = "application";
 }

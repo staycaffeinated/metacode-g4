@@ -189,7 +189,7 @@ entries:
     facets:
       - facet: integrationTest
         sourceTemplate: /spring/templates/webmvc/integrationTest/resources/CreateSchemaDotSql.ftl
-        destination: "src/integrationTest/resources/db/scripts/01-create-schema.sql"
+        destination: "{{appModule}}/src/integrationTest/resources/db/scripts/01-create-schema.sql"
 
   # ─── Project scope: liquibase (implies postgres) ─────────────────────────────
 
@@ -201,10 +201,10 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/resources/db/liquibase/db.changelog-master.ftl
-        destination: "src/main/resources/db/changelog/db.changelog-master.yaml"
+        destination: "{{appModule}}/src/main/resources/db/changelog/db.changelog-master.yaml"
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/resources/db/liquibase/db.changelog-001-create-schema.ftl
-        destination: "src/main/resources/db/changelog/db.changelog-001-create-schema.sql"
+        destination: "{{appModule}}/src/main/resources/db/changelog/db.changelog-001-create-schema.sql"
 
   # ─── Project scope: flyway (implies postgres) ────────────────────────────────
 
@@ -216,7 +216,7 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/resources/db/flyway/create-schema.ftl
-        destination: "src/main/resources/db/migration/V0001__create-schema.sql"
+        destination: "{{appModule}}/src/main/resources/db/migration/V0001__create-schema.sql"
 
   # ─── Endpoint scope ──────────────────────────────────────────────────────────
   # Templates here render once per endpoint (e.g. 'create endpoint Pet').
@@ -337,4 +337,4 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/resources/db/flyway/create-table.ftl
-        destination: "src/main/resources/db/migration/{{createTableScriptName}}"
+        destination: "{{appModule}}/src/main/resources/db/migration/{{createTableScriptName}}"

@@ -14,6 +14,7 @@ public class ProjectModel {
     private final String basePackage;
     private final String basePath;
     private final String schema;
+    private final String flavor;
 
     public ProjectModel(ProjectDescriptor d) {
         this.features = d.getFeatures();
@@ -21,6 +22,7 @@ public class ProjectModel {
         this.basePackage = d.getBasePackage();
         this.basePath = "/api";
         this.schema = "public";
+        this.flavor = d.getFlavor() != null ? d.getFlavor() : "";
     }
 
     public String getApplicationName() {
@@ -65,5 +67,21 @@ public class ProjectModel {
 
     public boolean isWithKafka() {
         return features.contains("kafka");
+    }
+
+    public boolean isWebMvc() {
+        return "webmvc".equalsIgnoreCase(flavor);
+    }
+
+    public boolean isWebFlux() {
+        return "webflux".equalsIgnoreCase(flavor);
+    }
+
+    public boolean isSpringBoot() {
+        return "springboot".equalsIgnoreCase(flavor);
+    }
+
+    public boolean isSpringBatch() {
+        return "springbatch".equalsIgnoreCase(flavor);
     }
 }
