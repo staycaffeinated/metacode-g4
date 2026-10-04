@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.dependency.management)
     alias(libs.plugins.versions)
     alias(libs.plugins.lombok.plugin)
+
 }
 
 dependencies {
@@ -19,6 +20,24 @@ dependencies {
 
     testImplementation libs.spring.boot.starter.test
     testImplementation libs.junit.jupiter
+}
+
+application {
+    mainClass = 'mmm.coffee.metacode.Application'
+    applicationName = 'metacode'
+}
+
+tasks.named('bootJar') {
+    archiveBaseName = application.applicationName
+    manifest.attributes['Implementation-Title'] = 'MetaCode'
+    manifest.attributes['Implementation-Version'] = archiveVersion.getOrElse('0.1')
+}
+
+tasks.register('stage', Exec) {
+    group = 'Verification'
+    description = 'Copy the jar to a staging area for end-to-end testing'
+    workingDir = file('.')
+    commandLine 'bash', './stageIt.sh'
 }
 
 jib {
