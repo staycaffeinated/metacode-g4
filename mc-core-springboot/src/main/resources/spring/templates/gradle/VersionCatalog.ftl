@@ -7,32 +7,39 @@ flyway-test = '10.0.0'
 guava = '33.4.8-jre'
 gradle-retry = '1.6.2'
 h2 = '2.5.250'
+junitSystemRules = '1.19.0'
 junit = '6.1.3'
 liquibase = '5.0.2'
 lombok = '1.18.46'
 lombokPlugin = '9.2.0'
 mockito = '5.23.0'
+nebulaLint = '21.2.1'
 openApiStarterWebMvc = '3.1.1'
 openApiStarterWebflux = '3.1.1'
 postgresql = '42.7.13'
+rsql = '7.0.2'
 r2dbcH2 = '1.1.0.RELEASE'
 r2dbcPostgres = '1.1.2.RELEASE'
 r2dbcSpi = '1.0.0.RELEASE'
 reactorTest = '3.8.6'
-rsql = '7.0.2'
 sonar = '7.5.0.8588'
 spotless = '7.0.4'
 springBoot = '4.1.0'
+springCloud = '5.0.3'
 springDependencyManagement = '1.1.7'
+springOrm = '7.0.7'
 swaggerAnnotations = '2.2.55'
+problemJacksonDataType = '0.27.1'
+problemSpringWeb = '0.29.1'
 testContainers = '2.0.5'
 truth = '1.4.4'
-jib = '3.4.4'
 benManesPlugin = '0.62.0'
-problemSpringWeb = '0.29.1'
-problemJacksonDataType = '0.27.1'
+
 
 [libraries]
+apache-kafka-streams = { module = "org.apache.kafka:kafka-streams" }
+apache-kafka-streams-test-utils = { module = "org.apache.kafka:kafka-streams-test-utils" }
+
 archunit-junit5 = { module = "com.tngtech.archunit:archunit-junit5", version.ref = "archunit" }
 
 assertJ = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
@@ -41,6 +48,7 @@ datafaker = { module = "net.datafaker:datafaker", version.ref = "datafaker" }
 
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway-database-postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
+flyway-database-nc-mongodb = { module = "org.flywaydb:flyway-database-nc-mongodb", version.ref = "flyway" }
 flyway-spring-test = { module = "org.flywaydb.flyway-test-extensions:flyway-spring-test", version.ref = "flyway-test" }
 flyway-test = { module = "org.flywaydb.flyway-test-extensions:flyway-test", version.ref = "flyway-test" }
 
@@ -51,19 +59,23 @@ jackson-core = { module = "tools.jackson.core:jackson-core" }
 jackson-databind = { module = "tools.jackson.core:jackson-databind" }
 
 jakarta-persistence-api = { module = "jakarta.persistence:jakarta.persistence-api" }
+jakarta-servlet-api = { module = "jakarta.servlet:jakarta.servlet-api" }
 jakarta-validation-api = { module = "jakarta.validation:jakarta.validation-api" }
 
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
-junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
-junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
-
-liquibase-core = { module = "org.liquibase:liquibase-core", version.ref = "liquibase" }
+junit-platform-runner = { module = "org.junit.platform:junit-platform-runner" }
+junit-system-rules = { module = "com.github.stefanbirkner:system-rules", version.ref = "junitSystemRules" }
 
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+liquibase-core = { module = "org.liquibase:liquibase-core", version.ref = "liquibase" }
 
+mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter" }
 mockito = { module = "org.mockito:mockito-core", version.ref = "mockito" }
-mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
+mongodb-driver-sync = { module = "org.mongodb:mongodb-driver-sync" }
 
 openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "openApiStarterWebMvc" }
 openapi-starter-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "openApiStarterWebflux" }
@@ -74,43 +86,71 @@ problem-spring-web-starter = { module = "org.zalando:problem-spring-web-starter"
 problem-spring-webflux = { module = "org.zalando:problem-spring-webflux", version.ref = "problemSpringWeb" }
 problem-jackson-datatype = { module = "org.zalando:jackson-datatype-problem", version.ref = "problemJacksonDataType" }
 
+reactor-test = { module = "io.projectreactor:reactor-test", version.ref = "reactorTest" }
+rsql-jpa-spring-boot-starter = { module = "io.github.perplexhub:rsql-jpa-spring-boot-starter", version.ref = "rsql" }
 r2dbc-h2 = { module = "io.r2dbc:r2dbc-h2", version.ref = "r2dbcH2" }
 r2dbc-postgres = { module = "org.postgresql:r2dbc-postgresql", version.ref = "r2dbcPostgres" }
 r2dbc-spi = { module = "io.r2dbc:r2dbc-spi", version.ref = "r2dbcSpi" }
 
-reactor-test = { module = "io.projectreactor:reactor-test", version.ref = "reactorTest" }
-rsql-jpa-spring-boot-starter = { module = "io.github.perplexhub:rsql-jpa-spring-boot-starter", version.ref = "rsql" }
-
+spring-batch-test = { module = "org.springframework.batch:spring-batch-test" }
 spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
+spring-boot-data-jpa = { module = "org.springframework.boot:spring-boot-data-jpa" }
+spring-boot-webmvc = { module = "org.springframework.boot:spring-boot-webmvc" }
+spring-boot-webmvc-test = { module = "org.springframework.boot:spring-boot-webmvc-test" }
 spring-boot-config-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
+spring-boot-data-mongodb-test = { module = "org.springframework.boot:spring-boot-data-mongodb-test" }
 spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
 spring-boot-properties-migrator = { module = "org.springframework.boot:spring-boot-properties-migrator" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop" }
+spring-boot-starter-batch = { module = "org.springframework.boot:spring-boot-starter-batch" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-data-mongodb = { module = "org.springframework.boot:spring-boot-starter-data-mongodb" }
 spring-boot-starter-data-r2dbc = { module = "org.springframework.boot:spring-boot-starter-data-r2dbc" }
 spring-boot-starter-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway" }
+spring-boot-starter-flyway-test = { module = "org.springframework.boot:spring-boot-starter-flyway-test" }
 spring-boot-starter-hateoas = { module = "org.springframework.boot:spring-boot-starter-hateoas" }
+spring-boot-starter-integration = { module = "org.springframework.boot:spring-boot-starter-integration" }
+spring-boot-starter-kafka = { module = "org.springframework.boot:spring-boot-starter-kafka" }
 spring-boot-starter-liquibase = { module = "org.springframework.boot:spring-boot-starter-liquibase" }
+spring-boot-starter-liquibase-test = { module = "org.springframework.boot:spring-boot-starter-liquibase-test" }
+spring-boot-starter-mail = { module = "org.springframework.boot:spring-boot-starter-mail" }
+spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
-spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-webmvc-test = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
 spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
+spring-boot-starter-webflux-test = { module = "org.springframework.boot:spring-boot-starter-webflux-test" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-boot-starter-jdbc-test = { module = "org.springframework.boot:spring-boot-starter-jdbc-test" }
+spring-boot-starter-data-jpa-test = { module = "org.springframework.boot:spring-boot-starter-data-jpa-test" }
 spring-boot-test-autoconfigure = { module = "org.springframework.boot:spring-boot-test-autoconfigure" }
 spring-boot-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
+
+spring-cloud = { module = "org.springframework.cloud:spring-cloud-starter", version.ref = "springCloud" }
+spring-cloud-binder-kafka-streams = { module = "org.springframework.cloud:spring-cloud-stream-binder-kafka-streams", version.ref = "springCloud" }
+spring-cloud-starter-stream-kafka = { module = "org.springframework.cloud:spring-cloud-starter-stream-kafka", version.ref = "springCloud" }
+spring-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+spring-integration-kafka = { module = "org.springframework.integration:spring-integration-kafka" }
+spring-kafka = { module = "org.springframework.kafka:spring-kafka" }
+spring-kafka-test = { module = "org.springframework.kafka:spring-kafka-test" }
+spring-orm = { module = "org.springframework:spring-orm", version.ref = "springOrm" }
 
 swagger-annotations = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swaggerAnnotations" }
 
 testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testContainers" }
-testcontainers-jupiter = { module = "org.testcontainers:junit-jupiter" }
-testcontainers-postgres = { module = "org.testcontainers:postgresql" }
-testcontainers-r2dbc = { module = "org.testcontainers:r2dbc" }
+testcontainers-jupiter = { module = "org.testcontainers:testcontainers-junit-jupiter" }
+testcontainers-kafka = { module = "org.testcontainers:testcontainers-kafka" }
+testcontainers-mongodb = { module = "org.testcontainers:testcontainers-mongodb" }
+testcontainers-postgres = { module = "org.testcontainers:testcontainers-postgresql" }
+testcontainers-r2dbc = { module = "org.testcontainers:testcontainers-r2dbc" }
 
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 
 [plugins]
 dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
-jib = { id = "com.google.cloud.tools.jib", version.ref = "jib" }
 lombok-plugin = { id = "io.freefair.lombok", version.ref = "lombokPlugin" }
+nebula-lint = { id = "nebula.lint", version.ref = "nebulaLint" }
 sonar = { id = "org.sonarqube", version.ref = "sonar" }
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "benManesPlugin" }

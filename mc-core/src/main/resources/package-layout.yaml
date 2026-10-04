@@ -71,6 +71,9 @@ archetypes:
     className: ResourceIdGenerator
 
   # domain.shared
+  ResourceIdFormat:
+    subPackage: domain.shared
+    className: ResourceIdFormat
   ResourceIdTrait:
     subPackage: domain.shared
     className: ResourceIdAware

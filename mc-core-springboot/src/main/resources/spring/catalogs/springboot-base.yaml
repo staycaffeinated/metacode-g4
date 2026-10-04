@@ -18,6 +18,12 @@ entries:
         destination: "{{testBasePackagePath}}/ApplicationIT.java"
 
   - scope: project
+    archetype: SpringProfiles
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/springboot/main/SpringProfiles.ftl
+
+  - scope: project
     archetype: AbstractIntegrationTest
     facets:
       - facet: integrationTest

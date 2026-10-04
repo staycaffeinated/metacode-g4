@@ -98,6 +98,22 @@ entries:
         sourceTemplate: /spring/templates/webmvc/main/spi/ResourceIdSupplier.ftl
 
   - scope: project
+    archetype: SecureRandomSeries
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/math/SecureRandomSeries.ftl
+
+  - scope: project
+    archetype: ResourceIdFormat
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/domain/ResourceIdFormat.ftl
+
+  - scope: project
     archetype: ResourceIdTrait
     when:
       flavor: [webmvc]
