@@ -8,7 +8,7 @@ import picocli.CommandLine;
 
 @Component
 @CommandLine.Command(
-        name = "webflux-project",
+        name = "spring-webflux",
         description = "Generate a Spring WebFlux project",
         mixinStandardHelpOptions = true)
 public class SubcommandCreateWebFluxProject extends AbstractCreateProject {

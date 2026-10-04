@@ -8,7 +8,7 @@ import picocli.CommandLine;
 
 @Component
 @CommandLine.Command(
-        name = "webmvc-project",
+        name = "spring-webmvc",
         description = "Generate a Spring WebMVC project",
         mixinStandardHelpOptions = true)
 public class SubcommandCreateWebMvcProject extends AbstractCreateProject {

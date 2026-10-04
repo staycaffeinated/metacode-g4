@@ -12,7 +12,7 @@ public abstract class AbstractCreateProject implements Runnable {
     protected String basePackage;
 
     @CommandLine.Option(
-            names = {"-a", "--application-name"},
+            names = {"-n", "--application-name"},
             required = true,
             description = "Application name (e.g. DemoApplication)")
     protected String applicationName;

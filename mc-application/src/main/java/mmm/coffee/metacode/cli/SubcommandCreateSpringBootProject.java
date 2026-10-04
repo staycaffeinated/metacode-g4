@@ -8,7 +8,7 @@ import picocli.CommandLine;
 
 @Component
 @CommandLine.Command(
-        name = "springboot-project",
+        name = "spring-boot",
         description = "Generate a plain Spring Boot project (no web framework)",
         mixinStandardHelpOptions = true)
 public class SubcommandCreateSpringBootProject extends AbstractCreateProject {
