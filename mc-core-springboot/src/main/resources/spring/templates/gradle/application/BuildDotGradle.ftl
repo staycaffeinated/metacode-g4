@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.dependency.management)
     alias(libs.plugins.versions)
     alias(libs.plugins.lombok.plugin)
-    alias(libs.plugins.jib)
 }
 
 version = '0.0.1'

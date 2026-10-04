@@ -165,6 +165,13 @@ entries:
     archetype: Text
     facets:
       - facet: main
+        sourceTemplate: /spring/templates/gradle/plugins/java-conventions/groovy/Docker.ftl
+        destination: "gradle/plugins/java-conventions/src/main/groovy/buildlogic.docker.gradle"
+
+  - scope: project
+    archetype: Text
+    facets:
+      - facet: main
         sourceTemplate: /spring/templates/gradle/plugins/java-conventions/groovy/SubprojectConfigurations.ftl
         destination: "gradle/plugins/java-conventions/src/main/groovy/buildlogic.subproject-configurations.gradle"
 
