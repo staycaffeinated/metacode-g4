@@ -16,6 +16,7 @@ public class ProjectDescriptor {
     private String applicationName;
     private String basePackage;
     private String baseDirectory;
+    private String basePath;
 
     /**
      * The project flavor: "webmvc", "webflux", "springbatch", or "springboot".

@@ -20,7 +20,7 @@ public class ProjectModel {
         this.features = d.getFeatures();
         this.applicationName = d.getApplicationName();
         this.basePackage = d.getBasePackage();
-        this.basePath = "/api";
+        this.basePath = d.getBasePath() != null ? d.getBasePath() : "/";
         this.schema = "public";
         this.flavor = d.getFlavor() != null ? d.getFlavor() : "";
     }

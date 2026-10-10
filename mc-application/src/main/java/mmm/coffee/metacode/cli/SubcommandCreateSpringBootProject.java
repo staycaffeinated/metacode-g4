@@ -22,6 +22,7 @@ public class SubcommandCreateSpringBootProject extends AbstractCreateProject {
                 .applicationName(applicationName)
                 .basePackage(basePackage)
                 .baseDirectory(baseDirectory)
+                .basePath(basePath)
                 .flavor("springboot")
                 .features(activeFeatures())
                 .javaVersion(javaVersion)

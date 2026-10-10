@@ -22,6 +22,7 @@ public class SubcommandCreateWebFluxProject extends AbstractCreateProject {
                 .applicationName(applicationName)
                 .basePackage(basePackage)
                 .baseDirectory(baseDirectory)
+                .basePath(basePath)
                 .flavor("webflux")
                 .features(activeFeatures())
                 .javaVersion(javaVersion)

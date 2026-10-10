@@ -24,6 +24,12 @@ public abstract class AbstractCreateProject implements Runnable {
     protected String baseDirectory;
 
     @CommandLine.Option(
+            names = {"-r", "--route", "--base-path"},
+            description = "The base path (URL) of this application (e.g. /petstore)",
+            defaultValue = "/")
+    protected String basePath;
+
+    @CommandLine.Option(
             names = {"--add"},
             description = "Features: postgres, liquibase, flyway, openapi, testcontainers",
             split = ",")

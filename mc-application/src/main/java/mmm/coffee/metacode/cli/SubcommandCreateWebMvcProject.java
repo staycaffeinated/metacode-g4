@@ -22,6 +22,7 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateProject {
                 .applicationName(applicationName)
                 .basePackage(basePackage)
                 .baseDirectory(baseDirectory)
+                .basePath(basePath)
                 .flavor("webmvc")
                 .features(activeFeatures())
                 .javaVersion(javaVersion)
