@@ -307,7 +307,7 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/endpoint/EntityRoutes.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
+        destination: "{{basePackagePath}}/adapter/inbound/web/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
 
   - scope: endpoint
     archetype: Controller
@@ -316,13 +316,13 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/endpoint/RestController.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Controller.java"
+        destination: "{{basePackagePath}}/adapter/inbound/web/{{lowerCaseEntityName}}/{{entityName}}Controller.java"
       - facet: test
         sourceTemplate: /spring/templates/webmvc/test/endpoint/ControllerTests.ftl
-        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerTests.java"
+        destination: "{{testBasePackagePath}}/adapter/inbound/web/{{lowerCaseEntityName}}/{{entityName}}ControllerTests.java"
       - facet: integrationTest
         sourceTemplate: /spring/templates/webmvc/integrationTest/endpoint/ControllerIT.ftl
-        destination: "{{integrationTestBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
+        destination: "{{integrationTestBasePackagePath}}/adapter/inbound/web/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
 
   - scope: endpoint
     archetype: ServiceImpl
@@ -331,10 +331,10 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/endpoint/RestServiceProvider.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceProvider.java"
+        destination: "{{basePackagePath}}/application/service/{{entityName}}ServiceProvider.java"
       - facet: test
         sourceTemplate: /spring/templates/webmvc/test/endpoint/ServiceTests.ftl
-        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceTests.java"
+        destination: "{{testBasePackagePath}}/application/service/{{entityName}}ServiceTests.java"
 
   - scope: endpoint
     archetype: Entity
@@ -343,10 +343,10 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/database/entity/Entity.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}.java"
+        destination: "{{basePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}.java"
       - facet: test
         sourceTemplate: /spring/templates/webmvc/test/database/EntityTests.ftl
-        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Tests.java"
+        destination: "{{testBasePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}Tests.java"
 
   - scope: endpoint
     archetype: Repository
@@ -355,10 +355,10 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/database/entity/Repository.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
+        destination: "{{basePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
       - facet: integrationTest
         sourceTemplate: /spring/templates/webmvc/integrationTest/database/endpoint/RepositoryIT.ftl
-        destination: "{{integrationTestBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
+        destination: "{{integrationTestBasePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
 
   - scope: endpoint
     archetype: EntityResource
@@ -376,10 +376,10 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/EntityRequest.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Request.java"
+        destination: "{{basePackagePath}}/adapter/inbound/web/{{lowerCaseEntityName}}/{{entityName}}Request.java"
       - facet: test
         sourceTemplate: /spring/templates/webmvc/test/adapter/in/web/EntityRequestTest.ftl
-        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}RequestTest.java"
+        destination: "{{testBasePackagePath}}/adapter/inbound/web/{{lowerCaseEntityName}}/{{entityName}}RequestTest.java"
 
   - scope: endpoint
     archetype: EntityResponse
@@ -388,10 +388,10 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/EntityResponse.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Response.java"
+        destination: "{{basePackagePath}}/adapter/inbound/web/{{lowerCaseEntityName}}/{{entityName}}Response.java"
       - facet: test
         sourceTemplate: /spring/templates/webmvc/test/adapter/in/web/EntityResponseTest.ftl
-        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResponseTest.java"
+        destination: "{{testBasePackagePath}}/adapter/inbound/web/{{lowerCaseEntityName}}/{{entityName}}ResponseTest.java"
 
   - scope: endpoint
     archetype: PojoToEntityConverter
@@ -400,10 +400,10 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/database/converter/PojoToEntityConverter.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToEntityConverter.java"
+        destination: "{{basePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToEntityConverter.java"
       - facet: test
         sourceTemplate: /spring/templates/webmvc/test/database/converter/PojoToEntityConverterTests.ftl
-        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToEntityConverterTests.java"
+        destination: "{{testBasePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToEntityConverterTests.java"
 
   - scope: endpoint
     archetype: EntityToPojoConverter
@@ -412,10 +412,10 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/database/converter/EntityToPojoConverter.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/converter/{{entityName}}ToPojoConverter.java"
+        destination: "{{basePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/converter/{{entityName}}ToPojoConverter.java"
       - facet: test
         sourceTemplate: /spring/templates/webmvc/test/database/converter/EntityToPojoConverterTests.ftl
-        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/converter/{{entityName}}ToPojoConverterTests.java"
+        destination: "{{testBasePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/converter/{{entityName}}ToPojoConverterTests.java"
 
   - scope: endpoint
     archetype: EntityCommandUseCase
@@ -424,7 +424,7 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/endpoint/EntityCommandUseCase.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}CommandUseCase.java"
+        destination: "{{basePackagePath}}/application/port/inbound/{{lowerCaseEntityName}}/{{entityName}}CommandUseCase.java"
 
   - scope: endpoint
     archetype: EntityQueryUseCase
@@ -433,7 +433,7 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/endpoint/EntityQueryUseCase.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}QueryUseCase.java"
+        destination: "{{basePackagePath}}/application/port/inbound/{{lowerCaseEntityName}}/{{entityName}}QueryUseCase.java"
 
   - scope: endpoint
     archetype: ConcreteDataStoreApi
@@ -442,7 +442,16 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/database/entity/ObjectDataStore.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}DataStore.java"
+        destination: "{{basePackagePath}}/application/port/outbound/{{lowerCaseEntityName}}/{{entityName}}DataStore.java"
+
+  - scope: endpoint
+    archetype: ConcreteDataStoreImpl
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/database/entity/ObjectDataStoreProvider.ftl
+        destination: "{{basePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}DataStoreProvider.java"
 
   - scope: endpoint
     archetype: EntitySpecification
@@ -451,7 +460,7 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/database/entity/EntitySpecification.ftl
-        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Specification.java"
+        destination: "{{basePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/predicate/{{entityName}}Specification.java"
 
   - scope: endpoint
     archetype: EjbTestFixtures

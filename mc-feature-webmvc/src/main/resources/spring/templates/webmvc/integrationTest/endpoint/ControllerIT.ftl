@@ -233,7 +233,7 @@ class ${Controller.integrationTestClass()} implements ${RegisterDatabaseProperti
     /**
      * Submits a well-formed update request
      */
-    protected MvcTestResult updateEntity(${endpoint.pojoName} pojo) throws Exception {
+    protected MvcTestResult updateEntity(${EntityResource.className()} pojo) throws Exception {
         return updateEntity(pojo.getResourceId(), pojo);
     }
 
@@ -241,7 +241,7 @@ class ${Controller.integrationTestClass()} implements ${RegisterDatabaseProperti
      * Submits an update request, with support for a badly formed request
      * where the ID in the query string and the ID in the payload do not match.
      */
-    protected MvcTestResult updateEntity(String resourceId, ${endpoint.pojoName} pojo) throws Exception {
+    protected MvcTestResult updateEntity(String resourceId, ${EntityResource.className()} pojo) throws Exception {
         ${EntityRequest.className()} request = ${EntityRequest.className()}.fromDomain(pojo);
         return mockMvcTester.put()
                     .uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, resourceId)
@@ -254,7 +254,7 @@ class ${Controller.integrationTestClass()} implements ${RegisterDatabaseProperti
     /**
      * Create an entity
      */
-    protected MvcTestResult createEntity(${endpoint.pojoName} pojo) throws Exception {
+    protected MvcTestResult createEntity(${EntityResource.className()} pojo) throws Exception {
         ${EntityRequest.className()} request = ${EntityRequest.className()}.fromDomain(pojo);
         return mockMvcTester
                     .post()

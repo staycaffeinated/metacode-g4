@@ -68,27 +68,40 @@ public class TemplateModelConverter {
         model.putAll(packageLayout.buildArchetypeModels(base));
 
         // Entity-specific archetypes (override/supplement the static map)
-        String epPkg = base + ".endpoint." + lower;
-        String convPkg = epPkg + ".converter";
-        model.put("Controller", new ArchetypeModel(epPkg, d.getEntityName() + "Controller"));
-        model.put("Routes", new ArchetypeModel(epPkg, d.getEntityName() + "Routes"));
+        String webPkg = base + ".adapter.inbound.web." + lower;
+        String persistPkg = base + ".adapter.outbound.persistence." + lower;
+        String convPkg = persistPkg + ".converter";
+        String inboundPkg = base + ".application.port.inbound." + lower;
+        String outboundPkg = base + ".application.port.outbound." + lower;
+        String svcPkg = base + ".application.service";
+        // adapter.inbound.web
+        model.put("Controller", new ArchetypeModel(webPkg, d.getEntityName() + "Controller"));
+        model.put("Routes", new ArchetypeModel(webPkg, d.getEntityName() + "Routes"));
+        model.put("EntityRequest", new ArchetypeModel(webPkg, d.getEntityName() + "Request"));
+        model.put("EntityResponse", new ArchetypeModel(webPkg, d.getEntityName() + "Response"));
+        // domain
         model.put("EntityResource", new ArchetypeModel(base + ".domain", d.getEntityName() + "Resource"));
-        model.put("EntityRequest", new ArchetypeModel(epPkg, d.getEntityName() + "Request"));
-        model.put("EntityResponse", new ArchetypeModel(epPkg, d.getEntityName() + "Response"));
-        model.put("EntityCommandUseCase", new ArchetypeModel(epPkg, d.getEntityName() + "CommandUseCase"));
-        model.put("EntityQueryUseCase", new ArchetypeModel(epPkg, d.getEntityName() + "QueryUseCase"));
-        model.put("Entity", new ArchetypeModel(epPkg, d.getEntityName()));
-        model.put("Repository", new ArchetypeModel(epPkg, d.getEntityName() + "Repository"));
-        model.put("ServiceImpl", new ArchetypeModel(epPkg, d.getEntityName() + "ServiceProvider"));
-        model.put("ConcreteDataStoreApi", new ArchetypeModel(epPkg, d.getEntityName() + "DataStore"));
+        // application.port.inbound
+        model.put("EntityCommandUseCase", new ArchetypeModel(inboundPkg, d.getEntityName() + "CommandUseCase"));
+        model.put("EntityQueryUseCase", new ArchetypeModel(inboundPkg, d.getEntityName() + "QueryUseCase"));
+        model.put("ServiceApi", new ArchetypeModel(inboundPkg, d.getEntityName() + "ServiceUseCase"));
+        // application.port.outbound
+        model.put("ConcreteDataStoreApi", new ArchetypeModel(outboundPkg, d.getEntityName() + "DataStore"));
+        // application.service
+        model.put("ServiceImpl", new ArchetypeModel(svcPkg, d.getEntityName() + "ServiceProvider"));
+        // adapter.outbound.persistence
+        model.put("Entity", new ArchetypeModel(persistPkg, d.getEntityName()));
+        model.put("Repository", new ArchetypeModel(persistPkg, d.getEntityName() + "Repository"));
+        model.put(
+                "EntitySpecification",
+                new ArchetypeModel(persistPkg + ".predicate", d.getEntityName() + "Specification"));
+        model.put("ConcreteDataStoreImpl", new ArchetypeModel(persistPkg, d.getEntityName() + "DataStoreProvider"));
         model.put("PojoToEntityConverter", new ArchetypeModel(convPkg, d.getEntityName() + "PojoToEntityConverter"));
         model.put("EntityToPojoConverter", new ArchetypeModel(convPkg, d.getEntityName() + "ToPojoConverter"));
-        model.put("EjbTestFixtures", new ArchetypeModel(epPkg, d.getEntityName() + "Fixtures"));
-        model.put("ModelTestFixtures", new ArchetypeModel(epPkg, d.getEntityName() + "ModelFixtures"));
-        model.put("EntitySpecification", new ArchetypeModel(epPkg, d.getEntityName() + "Specification"));
-        model.put("ServiceApi", new ArchetypeModel(epPkg, d.getEntityName() + "ServiceUseCase"));
-        model.put("ConcreteDataStoreImpl", new ArchetypeModel(epPkg, d.getEntityName() + "DataStoreProvider"));
-        model.put("TestTableInitializer", new ArchetypeModel(epPkg, d.getEntityName() + "TestTableInitializer"));
+        // test fixtures
+        model.put("EjbTestFixtures", new ArchetypeModel(persistPkg, d.getEntityName() + "Fixtures"));
+        model.put("ModelTestFixtures", new ArchetypeModel(webPkg, d.getEntityName() + "ModelFixtures"));
+        model.put("TestTableInitializer", new ArchetypeModel(persistPkg, d.getEntityName() + "TestTableInitializer"));
 
         return model;
     }
