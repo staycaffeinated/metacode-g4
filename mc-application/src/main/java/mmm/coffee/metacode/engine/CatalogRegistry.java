@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import mmm.coffee.metacode.core.catalog.CatalogEntry;
 import mmm.coffee.metacode.core.catalog.CatalogReader;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
+import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,14 @@ public class CatalogRegistry {
     public List<CatalogEntry> projectEntriesFor(ProjectDescriptor descriptor) {
         return entriesFor(descriptor).stream()
                 .filter(e -> "project".equals(e.getScope()))
+                .collect(Collectors.toList());
+    }
+
+    public List<CatalogEntry> endpointEntriesFor(EndpointDescriptor descriptor) {
+        return contributors.stream()
+                .flatMap(c -> reader.read(c.getCatalogResource()).stream())
+                .filter(e -> e.matches(descriptor.getFlavor(), descriptor.getFeatures()))
+                .filter(e -> "endpoint".equals(e.getScope()))
                 .collect(Collectors.toList());
     }
 }

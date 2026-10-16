@@ -55,19 +55,19 @@ public class ${ServiceImpl.className()} implements ${EntityCommandUseCase.classN
 
     @Override
     @Transactional
-    public ${EntityResource.className()} create${endpoint.entityName}( @NonNull ${endpoint.pojoName} resource ) {
+    public ${EntityResource.className()} create${endpoint.entityName}( @NonNull ${EntityResource.className()} resource ) {
         return ${ConcreteDataStoreApi.varName()}.save(resource);
     }
 
     @Override
     @Transactional
-    public Optional<${endpoint.pojoName}> update${endpoint.entityName}(@NonNull ${endpoint.pojoName} resource ) {
+    public Optional<${EntityResource.className()}> update${endpoint.entityName}(@NonNull ${EntityResource.className()} resource ) {
         return ${ConcreteDataStoreApi.varName()}.update(resource);
     }
 
     @Override
     @Transactional
-    public Optional<${endpoint.pojoName}> delete${endpoint.entityName}ByResourceId(@NonNull String id) {
+    public Optional<${EntityResource.className()}> delete${endpoint.entityName}ByResourceId(@NonNull String id) {
         return ${ConcreteDataStoreApi.varName()}.deleteByResourceId(id);
     }
 }

@@ -6,7 +6,7 @@ import picocli.CommandLine;
 @Component
 @CommandLine.Command(
         name = "create",
-        subcommands = {SubcommandCreateProject.class, CommandLine.HelpCommand.class},
+        subcommands = {SubcommandCreateProject.class, SubcommandCreateEndpoint.class, CommandLine.HelpCommand.class},
         mixinStandardHelpOptions = true,
         description = "Create a new project")
 public class CreateCommand implements Runnable {

@@ -26,12 +26,12 @@ class ${PojoToEntityConverter.testClass()} {
 
     @Test
     void shouldReturnNullWhenResourceIsNull() {
-        assertThrows (NullPointerException.class, () ->  { converter.convert((${endpoint.pojoName}) null); });
+        assertThrows (NullPointerException.class, () ->  { converter.convert((${EntityResource.className()}) null); });
     }
 
     @Test
     void shouldReturnNullWhenListIsNull() {
-        assertThrows (NullPointerException.class, () -> { converter.convert((List<${endpoint.pojoName}>)null); });
+        assertThrows (NullPointerException.class, () -> { converter.convert((List<${EntityResource.className()}>)null); });
     }
 
     @Test

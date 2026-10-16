@@ -143,7 +143,7 @@ public class ${Controller.className()} {
     public PagedModel<EntityModel<${EntityResponse.className()}>> searchByQuery (
     @RequestParam(name="q", required = false) Optional<<#noparse>@SearchText</#noparse> String> rsqlQuery,
         @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
-        @SortDefault(sort = ${endpoint.pojoName}.Fields.TEXT, direction = Sort.Direction.ASC)
+        @SortDefault(sort = ${EntityResource.className()}.Fields.TEXT, direction = Sort.Direction.ASC)
             <#if endpoint.isWithOpenApi()>@Parameter</#if> Pageable pageable,
         PagedResourcesAssembler<${EntityResponse.className()}> resourceAssembler)
     {

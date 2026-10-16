@@ -177,6 +177,70 @@ entries:
       - facet: test
         sourceTemplate: /spring/templates/webmvc/test/ArchitectureTest.ftl
 
+  - scope: project
+    archetype: AlphabeticAnnotation
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/validation/Alphabetic.ftl
+
+  - scope: project
+    archetype: AlphabeticValidator
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/validation/AlphabeticValidator.ftl
+
+  - scope: project
+    archetype: ResourceIdAnnotation
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/validation/ResourceId.ftl
+
+  - scope: project
+    archetype: ResourceIdValidator
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/validation/ResourceIdValidator.ftl
+
+  - scope: project
+    archetype: SearchTextAnnotation
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/validation/SearchText.ftl
+
+  - scope: project
+    archetype: SearchTextValidator
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/validation/SearchTextValidator.ftl
+
+  - scope: project
+    archetype: OnCreateAnnotation
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/validation/OnCreate.ftl
+
+  - scope: project
+    archetype: OnUpdateAnnotation
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/validation/OnUpdate.ftl
+
   # ─── Project scope: postgres ─────────────────────────────────────────────────
 
   - scope: project
@@ -192,7 +256,6 @@ entries:
     archetype: RegisterDatabaseProperties
     when:
       flavor: [webmvc]
-      features: [postgres]
     facets:
       - facet: integrationTest
         sourceTemplate: /spring/templates/webmvc/integrationTest/database/RegisterDatabaseProperties.ftl
@@ -238,6 +301,15 @@ entries:
   # Templates here render once per endpoint (e.g. 'create endpoint Pet').
 
   - scope: endpoint
+    archetype: Routes
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/endpoint/EntityRoutes.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
+
+  - scope: endpoint
     archetype: Controller
     when:
       flavor: [webmvc]
@@ -250,7 +322,7 @@ entries:
         destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerTests.java"
       - facet: integrationTest
         sourceTemplate: /spring/templates/webmvc/integrationTest/endpoint/ControllerIT.ftl
-        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
+        destination: "{{integrationTestBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
 
   - scope: endpoint
     archetype: ServiceImpl
@@ -286,7 +358,7 @@ entries:
         destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
       - facet: integrationTest
         sourceTemplate: /spring/templates/webmvc/integrationTest/database/endpoint/RepositoryIT.ftl
-        destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
+        destination: "{{integrationTestBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
 
   - scope: endpoint
     archetype: EntityResource
@@ -344,6 +416,60 @@ entries:
       - facet: test
         sourceTemplate: /spring/templates/webmvc/test/database/converter/EntityToPojoConverterTests.ftl
         destination: "{{testBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/converter/{{entityName}}ToPojoConverterTests.java"
+
+  - scope: endpoint
+    archetype: EntityCommandUseCase
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/endpoint/EntityCommandUseCase.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}CommandUseCase.java"
+
+  - scope: endpoint
+    archetype: EntityQueryUseCase
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/endpoint/EntityQueryUseCase.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}QueryUseCase.java"
+
+  - scope: endpoint
+    archetype: ConcreteDataStoreApi
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/database/entity/ObjectDataStore.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}DataStore.java"
+
+  - scope: endpoint
+    archetype: EntitySpecification
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/webmvc/main/database/entity/EntitySpecification.ftl
+        destination: "{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Specification.java"
+
+  - scope: endpoint
+    archetype: EjbTestFixtures
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: testFixtures
+        sourceTemplate: /spring/templates/webmvc/testFixtures/endpoint/EjbTestFixtures.ftl
+        destination: "{{testFixturesBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Fixtures.java"
+
+  - scope: endpoint
+    archetype: ModelTestFixtures
+    when:
+      flavor: [webmvc]
+    facets:
+      - facet: testFixtures
+        sourceTemplate: /spring/templates/webmvc/testFixtures/endpoint/ModelTestFixtures.ftl
+        destination: "{{testFixturesBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ModelFixtures.java"
 
   - scope: endpoint
     archetype: Text

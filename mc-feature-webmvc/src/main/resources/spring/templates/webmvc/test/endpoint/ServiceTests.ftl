@@ -5,6 +5,7 @@ package ${ServiceImpl.packageName()};
 
 import ${Entity.fqcn()};
 import ${EntityResource.fqcn()};
+import ${EjbTestFixtures.fqcn()};
 import ${ModelTestFixtures.fqcn()};
 import ${SecureRandomSeries.fqcn()};
 import ${ResourceIdSupplier.fqcn()};
@@ -57,7 +58,7 @@ class ${ServiceImpl.testClass()} {
     @BeforeEach
     void setUpEachTime() {
         ${endpoint.entityVarName}List = new ArrayList<>();
-        ${endpoint.entityVarName}List.addAll(${endpoint.pojoName}TestFixtures.allItems());
+        ${endpoint.entityVarName}List.addAll(${ModelTestFixtures.className()}.allItems());
         pageOfData = new PageImpl<>(${endpoint.entityVarName}List);
     }
 
@@ -162,7 +163,7 @@ class ${ServiceImpl.testClass()} {
         given(${endpoint.entityVarName}DataStore.findByResourceId(any())).willReturn(Optional.empty());
 
         // when/then
-        Optional<${endpoint.pojoName}> actual = serviceUnderTest.find${endpoint.entityName}ByResourceId(resourceIdSupplier.nextResourceId());
+        Optional<${EntityResource.className()}> actual = serviceUnderTest.find${endpoint.entityName}ByResourceId(resourceIdSupplier.nextResourceId());
 
         assertThat(actual).isNotNull().isNotPresent();
         }
@@ -231,7 +232,7 @@ class ${ServiceImpl.testClass()} {
             given(${endpoint.entityVarName}DataStore.update(any())).willReturn(Optional.empty());
 
             // when: the service is asked to update an item that cannot be found in the database
-            ${endpoint.pojoName} changedVersion = ${endpoint.entityName}TestFixtures.oneWithResourceId();
+            ${EntityResource.className()} changedVersion = ${ModelTestFixtures.className()}.oneWithResourceId();
             Optional<${EntityResource.className()}> result = serviceUnderTest.update${endpoint.entityName}(changedVersion);
 
             // expect: an empty Optional is returned
@@ -252,7 +253,7 @@ class ${ServiceImpl.testClass()} {
          */
         @Test
         void shouldDeleteWhenEntityExists()  {
-            String knownId = ${endpoint.entityName}TestFixtures.oneWithResourceId().getResourceId();
+            String knownId = ${EjbTestFixtures.className()}.oneWithResourceId().getResourceId();
             serviceUnderTest.delete${endpoint.entityName}ByResourceId(knownId);
 
             // Verify the deleteByResourceId method was invoked
