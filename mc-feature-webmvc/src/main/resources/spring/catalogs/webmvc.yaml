@@ -469,7 +469,7 @@ entries:
     facets:
       - facet: testFixtures
         sourceTemplate: /spring/templates/webmvc/testFixtures/endpoint/EjbTestFixtures.ftl
-        destination: "{{testFixturesBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Fixtures.java"
+        destination: "{{testFixturesBasePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}Fixtures.java"
 
   - scope: endpoint
     archetype: ModelTestFixtures
@@ -478,7 +478,7 @@ entries:
     facets:
       - facet: testFixtures
         sourceTemplate: /spring/templates/webmvc/testFixtures/endpoint/ModelTestFixtures.ftl
-        destination: "{{testFixturesBasePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ModelFixtures.java"
+        destination: "{{testFixturesBasePackagePath}}/adapter/inbound/web/{{lowerCaseEntityName}}/{{entityName}}ModelFixtures.java"
 
   - scope: endpoint
     archetype: Text

@@ -32,7 +32,7 @@ public class ArchetypeModel {
     }
 
     public String integrationTestClass() {
-        return className + "IntegrationTest";
+        return className + "IT";
     }
 
     public String varName() {

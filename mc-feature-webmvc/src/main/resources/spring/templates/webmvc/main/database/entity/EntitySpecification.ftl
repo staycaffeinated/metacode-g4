@@ -22,7 +22,7 @@ public class ${EntitySpecification.className()} implements Specification<${Entit
     @Override
     public Predicate toPredicate(Root<${Entity.className()}> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
-        if (text != null && !text.isEmpty()) {
+        if (text != null) {
             predicates.add(cb.equal(root.get("text"), text));
         }
         return cb.and(predicates.toArray(new Predicate[0]));

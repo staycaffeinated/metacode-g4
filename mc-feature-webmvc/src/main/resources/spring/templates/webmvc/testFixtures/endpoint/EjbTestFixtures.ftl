@@ -10,7 +10,7 @@ public class ${EjbTestFixtures.className()} {
 
     public static ${Entity.className()} oneWithResourceId() {
         ${Entity.className()} item = new ${Entity.className()}();
-        item.setResourceId("abcdefghij12");
+        item.setResourceId("abcdefghijklmnopqrstuvwxyz1");
         item.setText("sample text");
         return item;
     }
@@ -19,7 +19,7 @@ public class ${EjbTestFixtures.className()} {
         List<${Entity.className()}> list = new ArrayList<>();
         list.add(oneWithResourceId());
         ${Entity.className()} second = new ${Entity.className()}();
-        second.setResourceId("bcdefghijk34");
+        second.setResourceId("bcdefghijklmnopqrstuvwxyz2");
         second.setText("another text");
         list.add(second);
         return list;

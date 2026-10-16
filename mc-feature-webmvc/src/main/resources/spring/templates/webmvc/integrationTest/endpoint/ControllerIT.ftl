@@ -202,7 +202,7 @@ class ${Controller.integrationTestClass()} implements ${RegisterDatabaseProperti
     protected MvcTestResult searchByTextAttribute(String attributeValue) {
         return mockMvcTester.get()
                 .uri(${Routes.className()}.${endpoint.routeConstants.findByProperty})
-                .param(${endpoint.entityName}.Fields.TEXT, URLEncoder.encode(attributeValue, StandardCharsets.UTF_8))
+                .param(${Entity.className()}.Columns.TEXT, URLEncoder.encode(attributeValue, StandardCharsets.UTF_8))
                 .accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_PROBLEM_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .exchange();
