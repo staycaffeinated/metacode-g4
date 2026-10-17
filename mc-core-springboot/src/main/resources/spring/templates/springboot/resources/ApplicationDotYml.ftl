@@ -2,11 +2,13 @@
 server:
   port: 8080
   shutdown: graceful
+<#if !project.isWebFlux()>
   servlet:
 <#if (project.basePath)??>
     context-path: ${project.basePath}
 <#else>
     context-path: /
+</#if>
 </#if>
 
 <#if (project.isWithOpenApi())>
@@ -38,6 +40,23 @@ spring:
     name: ${project.applicationName}
 <#else>
     name: example-service
+</#if>
+
+<#if project.isWebFlux()>
+  webflux:
+<#if (project.basePath)??>
+    base-path: ${project.basePath}
+<#else>
+    base-path: /
+</#if>
+<#if !project.isWithPostgres()>
+  r2dbc:
+    <#noparse>
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:secret}
+    </#noparse>
+    url: r2dbc:h2:mem:///testdb;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+</#if>
 </#if>
 
 <#if (project.isWithPostgres())>

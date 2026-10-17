@@ -27,8 +27,8 @@ class ${EntityToPojoConverter.testClass()}  {
 		final String expectedPublicId = randomSeries.nextResourceId();
 		final String expectedText = "hello world";
 
-		${endpoint.ejbName} ejb = ${endpoint.ejbName}.builder().resourceId(expectedPublicId).id(0L).text(expectedText).build();
-		${endpoint.pojoName} pojo = converterUnderTest.convert(ejb);
+		${Entity.className()} ejb = ${Entity.className()}.builder().resourceId(expectedPublicId).id(0L).text(expectedText).build();
+		${EntityResource.className()} pojo = converterUnderTest.convert(ejb);
 
 		assertThat(pojo).isNotNull();
 		assertThat(pojo.getResourceId()).isEqualTo(expectedPublicId);
@@ -50,20 +50,20 @@ class ${EntityToPojoConverter.testClass()}  {
 		final Long itemThree_expectedDatabaseId = 9341L;
 		final String itemThree_expectedText = "sgt pepper";
 
-		${endpoint.ejbName} itemOne = ${endpoint.ejbName}.builder().resourceId(itemOne_expectedPublicId).text(itemOne_expectedText)
+		${Entity.className()} itemOne = ${Entity.className()}.builder().resourceId(itemOne_expectedPublicId).text(itemOne_expectedText)
 				.id(itemOne_expectedDatabaseId).build();
-		${endpoint.ejbName} itemTwo = ${endpoint.ejbName}.builder().resourceId(itemTwo_expectedPublicId).text(itemTwo_expectedText)
+		${Entity.className()} itemTwo = ${Entity.className()}.builder().resourceId(itemTwo_expectedPublicId).text(itemTwo_expectedText)
 				.id(itemTwo_expectedDatabaseId).build();
-		${endpoint.ejbName} itemThree = ${endpoint.ejbName}.builder().resourceId(itemThree_expectedPublicId).text(itemThree_expectedText)
+		${Entity.className()} itemThree = ${Entity.className()}.builder().resourceId(itemThree_expectedPublicId).text(itemThree_expectedText)
 				.id(itemThree_expectedDatabaseId).build();
 
-		ArrayList<${endpoint.ejbName}> list = new ArrayList<>();
+		ArrayList<${Entity.className()}> list = new ArrayList<>();
 		list.add(itemOne);
 		list.add(itemTwo);
 		list.add(itemThree);
 
 		// When
-		List<${endpoint.pojoName}> results = converterUnderTest.convert(list);
+		List<${EntityResource.className()}> results = converterUnderTest.convert(list);
 
 		// Then expect the fields of the converted items to match the original items
 		assertThat(results).hasSameSizeAs(list);
@@ -74,12 +74,12 @@ class ${EntityToPojoConverter.testClass()}  {
 
 	@Test
 	void whenBeanIsNull_expectNullPointerException() {
-		assertThrows(NullPointerException.class, () -> converterUnderTest.convert((${endpoint.ejbName}) null));
+		assertThrows(NullPointerException.class, () -> converterUnderTest.convert((${Entity.className()}) null));
 	}
 
 	@Test
 	void whenListIsNull_expectNullPointerException() {
-		assertThrows(NullPointerException.class, () -> converterUnderTest.convert((List<${endpoint.ejbName}>) null));
+		assertThrows(NullPointerException.class, () -> converterUnderTest.convert((List<${Entity.className()}>) null));
 	}
 
     /**
@@ -92,12 +92,12 @@ class ${EntityToPojoConverter.testClass()}  {
      */
     @Test
     void shouldCopyOnlyExposedProperties() {
-        ${endpoint.ejbName} bean = new ${endpoint.ejbName}();
+        ${Entity.className()} bean = new ${Entity.className()}();
         bean.setResourceId(randomSeries.nextResourceId());
         bean.setText("hello, world");
         bean.setId(100L);
 
-        ${endpoint.pojoName} pojo = converterUnderTest.convert(bean);
+        ${EntityResource.className()} pojo = converterUnderTest.convert(bean);
         assertThat(pojo.getResourceId()).isEqualTo(bean.getResourceId());
         assertThat(pojo.getText()).isEqualTo(bean.getText());
     }
@@ -105,7 +105,7 @@ class ${EntityToPojoConverter.testClass()}  {
 	// ------------------------------------------------------------------
 	// Helper methods
 	// ------------------------------------------------------------------
-	private boolean fieldsMatch(${endpoint.ejbName} expected, ${endpoint.pojoName} actual) {
+	private boolean fieldsMatch(${Entity.className()} expected, ${EntityResource.className()} actual) {
 		if (!Objects.equals(expected.getResourceId(), actual.getResourceId()))
 			return false;
 		if (!Objects.equals(expected.getText(), actual.getText()))

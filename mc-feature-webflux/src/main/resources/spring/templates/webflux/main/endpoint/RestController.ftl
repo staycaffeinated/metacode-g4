@@ -98,21 +98,21 @@ public class ${Controller.className()} {
     @ApiResponse(responseCode = "400", description = "An invalid ID was supplied")})
 </#if>
     @PostMapping (value=${Routes.className()}.${endpoint.routeConstants.create}, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Validated(OnCreate.class) 
-    public Mono<ResponseEntity<ResourceIdentity>> create${endpoint.entityName}(@RequestBody ${EntityRequest.className()} request ) {
+    @Validated(${OnCreateAnnotation.className()}.class)
+    public Mono<ResponseEntity<${ResourceIdentity.className()}>> create${endpoint.entityName}(@RequestBody ${EntityRequest.className()} request ) {
         Mono<String> id = ${endpoint.entityVarName}Service.create${endpoint.entityName}(request.toDomain());
-        return id.map(value -> ResponseEntity.status(HttpStatus.CREATED).body(new ResourceIdentity(value)));
+        return id.map(value -> ResponseEntity.status(HttpStatus.CREATED).body(new ${ResourceIdentity.className()}(value)));
     }
-    
+
 
 <#if endpoint.isWithOpenApi()>
     @Operation(summary = "Update an existing ${endpoint.entityName}")
         @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Updated the ${endpoint.entityName}"),
             @ApiResponse(responseCode = "400", description = "Incorrect data was submitted")})
 </#if>
-    @PutMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.update}, produces = MediaType.APPLICATION_JSON_VALUE )
-    @Validated(OnUpdate.class) 
-    public Mono<${EntityResponse.className()}> update${endpoint.entityName}(@PathVariable @ResourceId String id, @RequestBody ${EntityRequest.className()} request) {
+    @PutMapping(value=${Routes.className()}.${endpoint.routeConstants.update}, produces = MediaType.APPLICATION_JSON_VALUE )
+    @Validated(${OnUpdateAnnotation.className()}.class)
+    public Mono<${EntityResponse.className()}> update${endpoint.entityName}(@PathVariable @${ResourceIdAnnotation.className()} String id, @RequestBody ${EntityRequest.className()} request) {
         if (!Objects.equals(id, request.resourceId())) {
             log.error("Update declined: mismatch between query string identifier, {}, and resource identifier, {}", id, request.resourceId());
             return Mono.error(new UnprocessableEntityException("Mismatch between the identifiers in the URI and the payload"));
@@ -128,9 +128,9 @@ public class ${Controller.className()} {
             description = "Removed the ${endpoint.entityName}. Returns number of records removed."),
         @ApiResponse(responseCode = "400", description = "An incorrect identifier was submitted")})
 </#if>
-    @DeleteMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.delete})
+    @DeleteMapping(value=${Routes.className()}.${endpoint.routeConstants.delete})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Long> delete${endpoint.entityName}(@PathVariable @ResourceId String id) {
+    public Mono<Long> delete${endpoint.entityName}(@PathVariable @${ResourceIdAnnotation.className()} String id) {
         return ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(id);
     }
 }

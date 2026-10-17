@@ -10,8 +10,13 @@ import ${Repository.fqcn()};
 import ${EjbTestFixtures.fqcn()};
 import ${Entity.fqcn()};
 import ${EntityResource.fqcn()};
+import ${EntityRequest.fqcn()};
 import ${ModelTestFixtures.fqcn()};
+<#if !endpoint.isWithPostgres()>
 import ${TestTableInitializer.fqcn()};
+<#else>
+import ${ContainerConfiguration.fqcn()};
+</#if>
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +39,11 @@ import reactor.test.StepVerifier;
 /**
  * Integration tests of ${endpoint.entityName}Controller
  */
+<#if !endpoint.isWithPostgres()>
 @ComponentScan(basePackageClasses = { ${TestTableInitializer.className()}.class })
+<#else>
+@ComponentScan(basePackageClasses = { ${ContainerConfiguration.className()}.class })
+</#if>
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 <#if (endpoint.isWithPostgres() && endpoint.isWithTestContainers())>
@@ -42,8 +51,8 @@ class ${Controller.integrationTestClass()} extends ${PostgresDbContainerTests.cl
 <#else>
 class ${Controller.integrationTestClass()} implements ${RegisterDatabaseProperties.className()} {
 </#if>
-   private static final String PATH_TO_TEXT = "$." + ${endpoint.entityName}.Fields.TEXT;
-   private static final String PATH_TO_RESOURCE_ID = "$." + ${endpoint.entityName}.Fields.RESOURCE_ID;
+   private static final String PATH_TO_TEXT = "$." + ${EntityResource.className()}.Fields.TEXT;
+   private static final String PATH_TO_RESOURCE_ID = "$." + ${EntityResource.className()}.Fields.RESOURCE_ID;
 
    @LocalServerPort
    int port;
@@ -174,16 +183,16 @@ class ${Controller.integrationTestClass()} implements ${RegisterDatabaseProperti
 
     @Test
     void shouldGet${endpoint.entityName}AsStream() {
-        FluxExchangeResult<${endpoint.pojoName}> result
+        FluxExchangeResult<${EntityResource.className()}> result
                 = this.client.get()
-                      .uri(${endpoint.entityName}Routes.${endpoint.routeConstants.stream})
+                      .uri(${Routes.className()}.${endpoint.routeConstants.stream})
                       .accept(MediaType.TEXT_EVENT_STREAM)
                       .exchange()
                       .expectStatus().isOk()
-                      .returnResult(${endpoint.pojoName}.class);
+                      .returnResult(${EntityResource.className()}.class);
 
 
-        Flux<${endpoint.pojoName}> events = result.getResponseBody();
+        Flux<${EntityResource.className()}> events = result.getResponseBody();
 
         StepVerifier.create(events)
                     .expectSubscription()
@@ -205,7 +214,7 @@ class ${Controller.integrationTestClass()} implements ${RegisterDatabaseProperti
             .accept(MediaType.APPLICATION_JSON).exchange();
     }
 
-    WebTestClient.ResponseSpec sendCreate${endpoint.entityName}Request(${endpoint.entityName} pojo) {
+    WebTestClient.ResponseSpec sendCreate${endpoint.entityName}Request(${EntityResource.className()} pojo) {
         ${EntityRequest.className()} request = ${EntityRequest.className()}.fromDomain(pojo);
 
         return this.client.post().uri(${Routes.className()}.${endpoint.routeConstants.create})
@@ -213,7 +222,7 @@ class ${Controller.integrationTestClass()} implements ${RegisterDatabaseProperti
             .body(Mono.just(request), ${EntityRequest.className()}.class).exchange();
     }
 
-    WebTestClient.ResponseSpec sendUpdate${endpoint.entityName}Request(${endpoint.entityName} pojo) {
+    WebTestClient.ResponseSpec sendUpdate${endpoint.entityName}Request(${EntityResource.className()} pojo) {
         ${EntityRequest.className()} request = ${EntityRequest.className()}.fromDomain(pojo);
 
         return this.client.put().uri(${Routes.className()}.${endpoint.routeConstants.update}.replaceAll("\\{id}", pojo.getResourceId()))

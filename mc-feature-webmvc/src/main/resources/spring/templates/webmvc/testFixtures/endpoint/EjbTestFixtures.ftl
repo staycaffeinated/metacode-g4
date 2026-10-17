@@ -19,7 +19,7 @@ public class ${EjbTestFixtures.className()} {
         List<${Entity.className()}> list = new ArrayList<>();
         list.add(oneWithResourceId());
         ${Entity.className()} second = new ${Entity.className()}();
-        second.setResourceId("bcdefghijklmnopqrstuvwxyz2");
+        second.setResourceId("bcdefghijklmnopqrstuvwxyz12");
         second.setText("another text");
         list.add(second);
         return list;

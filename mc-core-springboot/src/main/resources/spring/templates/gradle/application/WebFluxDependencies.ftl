@@ -42,6 +42,7 @@ dependencies {
     testCompileOnly libs.lombok
     testImplementation libs.archunit.junit5
     testImplementation libs.spring.boot.starter.test
+    testImplementation libs.spring.boot.starter.webflux.test
     testImplementation libs.junit.jupiter
     testImplementation libs.reactor.test
     testImplementation libs.datafaker

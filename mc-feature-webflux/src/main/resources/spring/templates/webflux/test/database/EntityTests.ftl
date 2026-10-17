@@ -36,14 +36,14 @@ class ${Entity.testClass()} {
 
         @Test
         void whenMatchingResourceId_thenReturnsTrue() {
-            ${endpoint.ejbName} sample = new ${Entity.className()}();
+            ${Entity.className()} sample = new ${Entity.className()}();
             sample.setResourceId(resourceId);
             assertThat(underTest.equals(sample)).isTrue();
         }
 
         @Test
         void whenSelf_thenReturnsTrue() {
-            ${endpoint.ejbName} sample = underTest;
+            ${Entity.className()} sample = underTest;
             assertThat(underTest.equals(sample)).isTrue();
         }
 
@@ -58,7 +58,7 @@ class ${Entity.testClass()} {
     class TestHashCode {
         @Test
         void whenEqualObjects_thenReturnsSameHashCode() {
-            ${endpoint.ejbName} sample = new ${Entity.className()}();
+            ${Entity.className()} sample = new ${Entity.className()}();
             sample.setResourceId(resourceId);
 
             assertThat(sample.hashCode()).isEqualTo(underTest.hashCode());
@@ -71,13 +71,13 @@ class ${Entity.testClass()} {
     class TestIsNew {
         @Test
         void whenNewObject_thenReturnsTrue() {
-            ${endpoint.ejbName} sample = new ${endpoint.ejbName}();
+            ${Entity.className()} sample = new ${Entity.className()}();
             assertThat(sample.isNew()).isTrue();
         }
 
         @Test
         void whenIdAlreadySet_thenNotNewRow() {
-            ${endpoint.ejbName} sample = new ${endpoint.ejbName}();
+            ${Entity.className()} sample = new ${Entity.className()}();
             sample.setId(2L);
             assertThat(sample.isNew()).isFalse();
         }

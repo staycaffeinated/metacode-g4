@@ -37,8 +37,8 @@ import static org.mockito.Mockito.when;
 @WebFluxTest(controllers = ${endpoint.entityName}Controller.class)
 class ${Controller.testClass()} {
 
-    private static final String PATH_TO_TEXT = "$." + ${endpoint.entityName}.Fields.TEXT;
-    private static final String PATH_TO_RESOURCE_ID = "$." + ${endpoint.entityName}.Fields.RESOURCE_ID;
+    private static final String PATH_TO_TEXT = "$." + ${EntityResource.className()}.Fields.TEXT;
+    private static final String PATH_TO_RESOURCE_ID = "$." + ${EntityResource.className()}.Fields.RESOURCE_ID;
 
     @MockitoBean
     private ${ServiceApi.className()} mock${endpoint.entityName}Service;
@@ -63,7 +63,7 @@ class ${Controller.testClass()} {
         /*
          * Create a mock-up of the service.findByResourceId returning a known instance
          */
-        ${endpoint.pojoName} pojo = ${ModelTestFixtures.className()}.oneWithResourceId();
+        ${EntityResource.className()} pojo = ${ModelTestFixtures.className()}.oneWithResourceId();
 
         /*
          * When a REST call is made to fetch a ${endpoint.entityName} by its ID, expect to get back the mocked instance
@@ -86,7 +86,7 @@ class ${Controller.testClass()} {
         /*
          * Mock the service.findAll returning a known list of instances
          */
-        Flux<${endpoint.pojoName}> flux = ${ModelTestFixtures.className()}.FLUX_ITEMS;
+        Flux<${EntityResource.className()}> flux = ${ModelTestFixtures.className()}.FLUX_ITEMS;
         when(mock${endpoint.entityName}Service.findAll${endpoint.entityName}s()).thenReturn(flux);
 
         /*
@@ -105,13 +105,13 @@ class ${Controller.testClass()} {
     @Test
     void shouldCreate${endpoint.entityName}() {
         /*
-         * Mock the service returning a ${endpoint.pojoName} and returning a predetermined
+         * Mock the service returning a ${EntityResource.className()} and returning a predetermined
          * resourceId (since resourceIds are assigned server-side).
          */
-        ${endpoint.pojoName} pojo = ${ModelTestFixtures.className()}.oneWithoutResourceId();
+        ${EntityResource.className()} pojo = ${ModelTestFixtures.className()}.oneWithoutResourceId();
         String expectedId = randomSeries.nextResourceId();
 
-        when(mock${endpoint.entityName}Service.create${endpoint.entityName}(any(${endpoint.pojoName}.class))).thenReturn(Mono.just(expectedId));
+        when(mock${endpoint.entityName}Service.create${endpoint.entityName}(any(${EntityResource.className()}.class))).thenReturn(Mono.just(expectedId));
 
         // @formatter:off
         sendCreate${endpoint.entityName}Request(pojo)
@@ -122,8 +122,8 @@ class ${Controller.testClass()} {
 
     @Test
     void shouldUpdate${endpoint.entityName}() {
-        ${endpoint.pojoName} pojo = ${ModelTestFixtures.className()}.oneWithResourceId();
-        when(mock${endpoint.entityName}Service.update${endpoint.entityName}(any(${endpoint.pojoName}.class)))
+        ${EntityResource.className()} pojo = ${ModelTestFixtures.className()}.oneWithResourceId();
+        when(mock${endpoint.entityName}Service.update${endpoint.entityName}(any(${EntityResource.className()}.class)))
                 .thenReturn(Mono.just(pojo));
 
         sendUpdate${endpoint.entityName}Request(pojo).expectStatus().isOk();
@@ -132,28 +132,28 @@ class ${Controller.testClass()} {
 	@Test
 	void whenMismatchOfResourceIds_expectUnprocessableEntityException() {
 		/*
-         * Mock an attempt to update a ${endpoint.pojoName}, but the ID in the request body
+         * Mock an attempt to update a ${EntityResource.className()}, but the ID in the request body
          * does not match the ID in the query string.
          */
-		${endpoint.pojoName} pojo = ${ModelTestFixtures.className()}.oneWithResourceId();
+		${EntityResource.className()} pojo = ${ModelTestFixtures.className()}.oneWithResourceId();
         String idInParameter = randomSeries.nextResourceId();
 
         /*
          * Expect: data validation to detect the mismatch between the resourceId in the body and
          * the resourceId in the query string, and return a client error
          */
-		webClient.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, idInParameter).contentType(MediaType.APPLICATION_JSON)
-				.body(Mono.just(pojo), ${endpoint.pojoName}.class).exchange().expectStatus().is4xxClientError();
+		webClient.put().uri(${Routes.className()}.${endpoint.routeConstants.update}, idInParameter).contentType(MediaType.APPLICATION_JSON)
+				.body(Mono.just(pojo), ${EntityResource.className()}.class).exchange().expectStatus().is4xxClientError();
 	}
 
     @Test
     @SuppressWarnings("java:S125") // false positive
     void shouldDelete${endpoint.entityName}() {
         /*
-         * Mock the service finding the ${endpoint.pojoName} to be deleted,
-         * to emulate deleting a ${endpoint.pojoName} that does exist.
+         * Mock the service finding the ${EntityResource.className()} to be deleted,
+         * to emulate deleting a ${EntityResource.className()} that does exist.
          */
-        ${endpoint.pojoName} pojo = ${ModelTestFixtures.className()}.oneWithResourceId();
+        ${EntityResource.className()} pojo = ${ModelTestFixtures.className()}.oneWithResourceId();
         when(mock${endpoint.entityName}Service.findByResourceId(pojo.getResourceId())).thenReturn(Mono.just(pojo));
 
         /*
@@ -168,16 +168,16 @@ class ${Controller.testClass()} {
  	@Test
 	void shouldGet${endpoint.entityName}sAsStream() {
 		// Given
-		Flux<${endpoint.pojoName}> fluxOfResources = ${ModelTestFixtures.className()}.FLUX_ITEMS;
+		Flux<${EntityResource.className()}> fluxOfResources = ${ModelTestFixtures.className()}.FLUX_ITEMS;
 		given(mock${endpoint.entityName}Service.findAll${endpoint.entityName}s()).willReturn(fluxOfResources);
 
 		// When
-		FluxExchangeResult<${endpoint.pojoName}> result = webClient.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.stream})
+		FluxExchangeResult<${EntityResource.className()}> result = webClient.get().uri(${Routes.className()}.${endpoint.routeConstants.stream})
 				.accept(MediaType.TEXT_EVENT_STREAM).exchange().expectStatus().isOk()
-				.returnResult(${endpoint.pojoName}.class);
+				.returnResult(${EntityResource.className()}.class);
 
 		// Then
-		Flux<${endpoint.pojoName}> events = result.getResponseBody();
+		Flux<${EntityResource.className()}> events = result.getResponseBody();
 		StepVerifier.create(events).expectSubscription().consumeNextWith(p -> {
 			assertThat(p.getResourceId()).isNotNull();
 			assertThat(p.getText()).isNotEmpty();
@@ -201,18 +201,16 @@ class ${Controller.testClass()} {
             .accept(MediaType.APPLICATION_JSON).exchange();
     }
 
-    WebTestClient.ResponseSpec sendCreate${endpoint.entityName}Request(${endpoint.entityName} pojo) {
-        ${EntityRequest.className()} request = ${EntityRequest.className()}.fromDomain(pojo);
+    WebTestClient.ResponseSpec sendCreate${endpoint.entityName}Request(${EntityResource.className()} pojo) {
         return webClient.post().uri(${Routes.className()}.${endpoint.routeConstants.create})
             .contentType(MediaType.APPLICATION_JSON)
-            .body(Mono.just(request), ${EntityRequest.className()}.class).exchange();
+            .body(Mono.just(pojo), ${EntityResource.className()}.class).exchange();
     }
 
-    WebTestClient.ResponseSpec sendUpdate${endpoint.entityName}Request(${endpoint.entityName} pojo) {
-        ${EntityRequest.className()} request = ${EntityRequest.className()}.fromDomain(pojo);
+    WebTestClient.ResponseSpec sendUpdate${endpoint.entityName}Request(${EntityResource.className()} pojo) {
         return webClient.put().uri(${Routes.className()}.${endpoint.routeConstants.update}.replaceAll("\\{id}", pojo.getResourceId()))
             .contentType(MediaType.APPLICATION_JSON)
-            .body(Mono.just(request), ${EntityRequest.className()}.class).exchange();
+            .body(Mono.just(pojo), ${EntityResource.className()}.class).exchange();
     }
 
     WebTestClient.ResponseSpec sendDelete${endpoint.entityName}Request(String resourceId) {

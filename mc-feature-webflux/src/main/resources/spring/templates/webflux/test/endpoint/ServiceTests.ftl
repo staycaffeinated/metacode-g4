@@ -40,6 +40,9 @@ class ${ServiceImpl.testClass()} {
     @Mock
     private ${ConcreteDataStoreApi.className()} mockDataStore;
 
+    @Mock
+    private ${ResourceIdSupplier.className()} mockResourceIdSupplier;
+
     @InjectMocks
     private ${ServiceImpl.className()} serviceUnderTest;
 
@@ -47,10 +50,10 @@ class ${ServiceImpl.testClass()} {
 
     @Test
     void shouldFindAll${endpoint.entityName}s() {
-        Flux<${endpoint.pojoName}> itemList = ${ModelTestFixtures.className()}.FLUX_ITEMS;
+        Flux<${EntityResource.className()}> itemList = ${ModelTestFixtures.className()}.FLUX_ITEMS;
         given(mockDataStore.findAll()).willReturn(itemList);
 
-        Flux<${endpoint.pojoName}> stream = serviceUnderTest.findAll${endpoint.entityName}s();
+        Flux<${EntityResource.className()}> stream = serviceUnderTest.findAll${endpoint.entityName}s();
 
         StepVerifier.create(stream).expectSubscription().expectNextCount(${ModelTestFixtures.className()}.ALL_ITEMS.size()).verifyComplete();
     }
@@ -61,16 +64,16 @@ class ${ServiceImpl.testClass()} {
         /*
          * Mock the repository finding a given ${endpoint.ejbName}
          */
-        ${endpoint.pojoName} expectedItem = ${ModelTestFixtures.className()}.oneWithResourceId();
+        ${EntityResource.className()} expectedItem = ${ModelTestFixtures.className()}.oneWithResourceId();
         String expectedId = randomSeries.nextResourceId();
         expectedItem.setResourceId(expectedId);
-        Mono<${endpoint.pojoName}> rs = Mono.just(expectedItem);
+        Mono<${EntityResource.className()}> rs = Mono.just(expectedItem);
         given(mockDataStore.findByResourceId(any(String.class))).willReturn(rs);
 
         /*
          * When: the service is asked to find an instance by its resourceId
          */
-        Mono<${endpoint.pojoName}> publisher = serviceUnderTest.findByResourceId(expectedId);
+        Mono<${EntityResource.className()}> publisher = serviceUnderTest.findByResourceId(expectedId);
 
         /*
          * Expect: the returned stream to only contain the resource requested
@@ -89,13 +92,13 @@ class ${ServiceImpl.testClass()} {
          * in the column being searched.
          */
         final String expectedText = ${ModelTestFixtures.className()}.allItemsWithSameText().get(0).getText();
-        Flux<${endpoint.pojoName}> expectedRows = Flux.fromIterable(${ModelTestFixtures.className()}.allItemsWithSameText());
+        Flux<${EntityResource.className()}> expectedRows = Flux.fromIterable(${ModelTestFixtures.className()}.allItemsWithSameText());
         given(mockDataStore.findAllByText(expectedText)).willReturn(expectedRows);
 
         /*
          * When: the service is asked to find all instances having the same value in a particular column
          */
-        Flux<${endpoint.pojoName}> publisher = serviceUnderTest.findAllByText(expectedText);
+        Flux<${EntityResource.className()}> publisher = serviceUnderTest.findAllByText(expectedText);
 
         /*
          * Expect: the result set to contain the same instances found by the repository
@@ -113,9 +116,10 @@ class ${ServiceImpl.testClass()} {
     void shouldCreate${endpoint.entityName}() {
         // Given
         String expectedResourceId = randomSeries.nextResourceId();
+        given(mockResourceIdSupplier.nextResourceId()).willReturn(expectedResourceId);
         // what the client submits to the service
-        ${endpoint.pojoName} expectedPOJO = ${ModelTestFixtures.className()}.oneWithoutResourceId();
-        given(mockDataStore.create${endpoint.entityName}(any(${endpoint.pojoName}.class))).willReturn(Mono.just(expectedResourceId));
+        ${EntityResource.className()} expectedPOJO = ${ModelTestFixtures.className()}.oneWithoutResourceId();
+        given(mockDataStore.create${endpoint.entityName}(any(${EntityResource.className()}.class))).willReturn(Mono.just(expectedResourceId));
 
         // When
         Mono<String> publisher = serviceUnderTest.create${endpoint.entityName}(expectedPOJO);
@@ -131,19 +135,19 @@ class ${ServiceImpl.testClass()} {
     void shouldUpdate${endpoint.entityName}() {
         // Given
         // what the client submits
-        ${endpoint.pojoName} submittedPOJO = ${ModelTestFixtures.className()}.oneWithResourceId();
-        Mono<${endpoint.pojoName}> reply = Mono.justOrEmpty(submittedPOJO);
-        when(mockDataStore.update${endpoint.entityName}(any(${endpoint.pojoName}.class))).thenReturn(reply);
+        ${EntityResource.className()} submittedPOJO = ${ModelTestFixtures.className()}.oneWithResourceId();
+        Mono<${EntityResource.className()}> reply = Mono.justOrEmpty(submittedPOJO);
+        when(mockDataStore.update${endpoint.entityName}(any(${EntityResource.className()}.class))).thenReturn(reply);
 
         // When
-        Mono<${endpoint.pojoName}> publisher = serviceUnderTest.update${endpoint.entityName}(submittedPOJO);
+        Mono<${EntityResource.className()}> publisher = serviceUnderTest.update${endpoint.entityName}(submittedPOJO);
 
         // Then
    		  StepVerifier.create(publisher).expectSubscription().consumeNextWith(
 				    v -> assertThat(v.getResourceId()).isEqualTo(submittedPOJO.getResourceId())).verifyComplete();
 
 
-        verify(mockDataStore, times(1)).update${endpoint.entityName}(any(${endpoint.pojoName}.class));
+        verify(mockDataStore, times(1)).update${endpoint.entityName}(any(${EntityResource.className()}.class));
     }
 
 
@@ -171,7 +175,7 @@ class ${ServiceImpl.testClass()} {
 	void whenFindNonExistingEntity_expectEmptyResultSet() {
 		given(mockDataStore.findByResourceId(any())).willReturn(Mono.empty());
 
-		Mono<${endpoint.pojoName}> publisher = serviceUnderTest.findByResourceId(randomSeries.nextResourceId());
+		Mono<${EntityResource.className()}> publisher = serviceUnderTest.findByResourceId(randomSeries.nextResourceId());
 
 		StepVerifier.create(publisher).expectSubscription().expectNextCount(0).verifyComplete();
 	}
@@ -197,14 +201,15 @@ class ${ServiceImpl.testClass()} {
 	@Test
 	void whenTheDataStoreSignalsAConversionFailure_expectUnprocessableEntityException() {
         // given
-        given(mockDataStore.create${endpoint.pojoName}(any(${endpoint.pojoName}.class)))
+        given(mockResourceIdSupplier.nextResourceId()).willReturn(randomSeries.nextResourceId());
+        given(mockDataStore.create${endpoint.entityName}(any(${EntityResource.className()}.class)))
                 .willReturn(Mono.error(new UnprocessableEntityException("conversion failed")));
 
-        ${endpoint.pojoName} sample = ${ModelTestFixtures.className()}.oneWithoutResourceId();
+        ${EntityResource.className()} sample = ${ModelTestFixtures.className()}.oneWithoutResourceId();
 
         // when/then
         // @formatter:off
-    	StepVerifier.create(serviceUnderTest.create${endpoint.pojoName}(sample))
+    	StepVerifier.create(serviceUnderTest.create${endpoint.entityName}(sample))
                     .expectSubscription()
 				    .expectError(UnprocessableEntityException.class)
   				    .verify(Duration.ofMillis(1000));

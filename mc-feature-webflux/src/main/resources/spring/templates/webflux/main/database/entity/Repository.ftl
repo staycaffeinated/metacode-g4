@@ -6,7 +6,7 @@ import org.springframework.data.repository.reactive.ReactiveSortingRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface ${Repository.className()} extends ReactiveSortingRepository<${Entity.className()}, Long>, ReactiveCrudRepository<${endpoint.ejbName}, Long> {
+public interface ${Repository.className()} extends ReactiveSortingRepository<${Entity.className()}, Long>, ReactiveCrudRepository<${Entity.className()}, Long> {
 
     // Find by the resource ID known by external applications
     Mono<${Entity.className()}> findByResourceId ( String id );

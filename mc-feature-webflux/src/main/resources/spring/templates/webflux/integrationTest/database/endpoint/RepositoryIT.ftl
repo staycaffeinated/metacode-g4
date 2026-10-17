@@ -7,6 +7,9 @@ import ${ContainerConfiguration.fqcn()};
 import ${PostgresDbContainerTests.fqcn()};
 </#if>
 import ${RegisterDatabaseProperties.fqcn()};
+<#if !endpoint.isWithPostgres()>
+import ${TestTableInitializer.fqcn()};
+</#if>
 import ${EjbTestFixtures.fqcn()};
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +29,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * testing the default repository query methods.
  */
 @SpringBootTest
+<#if !endpoint.isWithPostgres()>
+@ComponentScan(basePackageClasses = {${ContainerConfiguration.className()}.class, ${TestTableInitializer.className()}.class})
+<#else>
 @ComponentScan(basePackageClasses = {${ContainerConfiguration.className()}.class})
+</#if>
 <#if ((endpoint.isWithPostgres()))>
 class ${Repository.integrationTestClass()} extends ${PostgresDbContainerTests.className()} {
 <#else>
@@ -59,7 +66,7 @@ class ${Repository.integrationTestClass()} implements ${RegisterDatabaseProperti
 
     @Test
     void shouldFindFirstRecord() {
-        ${endpoint.ejbName} firstOne = repositoryUnderTest.findAll().blockFirst();
+        ${Entity.className()} firstOne = repositoryUnderTest.findAll().blockFirst();
         assertThat(firstOne).isNotNull();
     }
 }

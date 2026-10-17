@@ -28,8 +28,8 @@ class ${PojoToEntityConverter.testClass()} {
 		final String expectedPublicId = randomSeries.nextResourceId();
 		final String expectedText = "hello world";
 
-		${endpoint.pojoName} pojo = ${endpoint.pojoName}.builder().resourceId(expectedPublicId).text(expectedText).build();
-		${endpoint.ejbName} ejb = converterUnderTest.convert(pojo);
+		${EntityResource.className()} pojo = ${EntityResource.className()}.builder().resourceId(expectedPublicId).text(expectedText).build();
+		${Entity.className()} ejb = converterUnderTest.convert(pojo);
 
 		assertThat(ejb).isNotNull();
 		assertThat(ejb.getResourceId()).isEqualTo(expectedPublicId);
@@ -48,20 +48,20 @@ class ${PojoToEntityConverter.testClass()} {
 		final String itemThree_expectedPublicId = randomSeries.nextResourceId();
 		final String itemThree_expectedText = "sgt pepper";
 
-		${endpoint.pojoName} itemOne = ${endpoint.pojoName}.builder().resourceId(itemOne_expectedPublicId)
+		${EntityResource.className()} itemOne = ${EntityResource.className()}.builder().resourceId(itemOne_expectedPublicId)
 				.text(itemOne_expectedText).build();
-		${endpoint.pojoName} itemTwo = ${endpoint.pojoName}.builder().resourceId(itemTwo_expectedPublicId)
+		${EntityResource.className()} itemTwo = ${EntityResource.className()}.builder().resourceId(itemTwo_expectedPublicId)
 				.text(itemTwo_expectedText).build();
-		${endpoint.pojoName} itemThree = ${endpoint.pojoName}.builder().resourceId(itemThree_expectedPublicId)
+		${EntityResource.className()} itemThree = ${EntityResource.className()}.builder().resourceId(itemThree_expectedPublicId)
 				.text(itemThree_expectedText).build();
 
-		ArrayList<${endpoint.pojoName}> list = new ArrayList<>();
+		ArrayList<${EntityResource.className()}> list = new ArrayList<>();
 		list.add(itemOne);
 		list.add(itemTwo);
 		list.add(itemThree);
 
 		// When
-		List<${endpoint.ejbName}> results = converterUnderTest.convert(list);
+		List<${Entity.className()}> results = converterUnderTest.convert(list);
 
 		// Then expect the fields of the converted items to match the original items
 		assertThat(results).hasSameSizeAs(list);
@@ -73,20 +73,20 @@ class ${PojoToEntityConverter.testClass()} {
 	@Test
 	void whenConvertingNullObject_expectNullPointerException() {
 		assertThrows(NullPointerException.class,
-            () -> converterUnderTest.convert((${endpoint.pojoName}) null));
+            () -> converterUnderTest.convert((${EntityResource.className()}) null));
 	}
 
 	@Test
 	void whenConvertingNullList_expectNullPointerException() {
 		assertThrows(NullPointerException.class,
-			() -> converterUnderTest.convert((List<${endpoint.pojoName}>) null));
+			() -> converterUnderTest.convert((List<${EntityResource.className()}>) null));
 	}
 
     @Test
     void shouldPopulateAllFields() {
-        ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("hello world").build();
+        ${EntityResource.className()} resource = ${EntityResource.className()}.builder().resourceId(randomSeries.nextResourceId()).text("hello world").build();
 
-        ${endpoint.ejbName} bean = converterUnderTest.convert(resource);
+        ${Entity.className()} bean = converterUnderTest.convert(resource);
         assertThat(bean.getResourceId()).isEqualTo(resource.getResourceId());
         assertThat(bean.getText()).isEqualTo(resource.getText());
     }
@@ -127,7 +127,7 @@ class ${PojoToEntityConverter.testClass()} {
 	// ----------------------------------------------------------------------------------------------
 	// Helper methods
 	// ----------------------------------------------------------------------------------------------
-	private boolean fieldsMatch(${endpoint.pojoName} expected, ${endpoint.ejbName} actual) {
+	private boolean fieldsMatch(${EntityResource.className()} expected, ${Entity.className()} actual) {
 		if (!Objects.equals(expected.getResourceId(), actual.getResourceId()))
 			return false;
 		if (!Objects.equals(expected.getText(), actual.getText()))
