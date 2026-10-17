@@ -5,7 +5,6 @@ import java.time.Duration;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 <#if ((project.isWithPostgres()) && (project.isWithTestContainers()))>
-import org.springframework.boot.devtools.restart.RestartScope;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.testcontainers.postgresql.PostgreSQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -17,7 +16,6 @@ public class ContainerConfiguration {
 <#if ((project.isWithPostgres()) && (project.isWithTestContainers()))>
     @Bean
     @ServiceConnection
-    @RestartScope
     public PostgreSQLContainer postgreSQLContainer() {
         return new PostgreSQLContainer("postgres")
             .withReuse(true)
