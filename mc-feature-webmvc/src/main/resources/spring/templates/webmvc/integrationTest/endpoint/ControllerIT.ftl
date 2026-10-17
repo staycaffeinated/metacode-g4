@@ -2,7 +2,7 @@
 
 package ${Controller.packageName()};
 
-<#if endpoint.isWithTestContainers()>
+<#if endpoint.isWithPostgres() && endpoint.isWithTestContainers()>
 import ${AbstractPostgresIntegrationTest.fqcn()};
 import org.springframework.context.annotation.Import;
 import org.testcontainers.junit.jupiter.Testcontainers;
