@@ -1,0 +1,240 @@
+# Self-contained catalog for the 'javaapp' flavor.
+# Every entry carries 'when: flavor: [javaapp]'.
+# Common Gradle scaffold entries re-use templates from mc-core-springboot.
+# Java-specific entries (Application, tests, build files) use new templates.
+
+entries:
+
+  # ─── Application class + tests ───────────────────────────────────────────────
+
+  - scope: project
+    archetype: Application
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/javaapp/main/Application.ftl
+        destination: "{{basePackagePath}}/Application.java"
+      - facet: test
+        sourceTemplate: /spring/templates/javaapp/test/ApplicationTest.ftl
+        destination: "{{testBasePackagePath}}/ApplicationTest.java"
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/javaapp/integrationTest/ApplicationIT.ftl
+        destination: "{{testBasePackagePath}}/ApplicationIT.java"
+
+  - scope: project
+    archetype: AbstractIntegrationTest
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/javaapp/integrationTest/AbstractIntegrationTest.ftl
+        destination: "{{testBasePackagePath}}/common/AbstractIntegrationTest.java"
+
+  # ─── Common project files ─────────────────────────────────────────────────────
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/common/README.ftl
+        destination: "README.adoc"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/common/DotGitIgnore.ftl
+        destination: ".gitignore"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/common/LombokConfig.ftl
+        destination: "lombok.config"
+
+  # ─── Gradle root build files ──────────────────────────────────────────────────
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/SettingsDotGradle.ftl
+        destination: "settings.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/RootBuildDotGradle.ftl
+        destination: "build.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/GradleDotProperties.ftl
+        destination: "gradle.properties"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/DotJavaVersion.ftl
+        destination: ".java-version"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/javaapp/gradle/VersionCatalog.ftl
+        destination: "gradle/libs.versions.toml"
+
+  # ─── App-module build.gradle (no Spring) ─────────────────────────────────────
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/javaapp/gradle/BuildDotGradle.ftl
+        destination: "{{appModule}}/build.gradle"
+
+  # ─── Gradle convention plugins ────────────────────────────────────────────────
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/plugins/PluginsSettingsDotGradle.ftl
+        destination: "gradle/plugins/settings.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/plugins/java-conventions/BuildDotGradle.ftl
+        destination: "gradle/plugins/java-conventions/build.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/plugins/java-conventions/groovy/JavaConventions.ftl
+        destination: "gradle/plugins/java-conventions/src/main/groovy/buildlogic.java-conventions.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/javaapp/gradle/ApplicationConventions.ftl
+        destination: "gradle/plugins/java-conventions/src/main/groovy/buildlogic.application-conventions.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/plugins/java-conventions/groovy/IntegrationTest.ftl
+        destination: "gradle/plugins/java-conventions/src/main/groovy/buildlogic.integration-test.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/plugins/java-conventions/groovy/Testing.ftl
+        destination: "gradle/plugins/java-conventions/src/main/groovy/buildlogic.testing.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/plugins/java-conventions/groovy/Jacoco.ftl
+        destination: "gradle/plugins/java-conventions/src/main/groovy/buildlogic.jacoco.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/plugins/java-conventions/groovy/SonarJacoco.ftl
+        destination: "gradle/plugins/java-conventions/src/main/groovy/buildlogic.sonar-jacoco.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/plugins/java-conventions/groovy/Spotless.ftl
+        destination: "gradle/plugins/java-conventions/src/main/groovy/buildlogic.spotless.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/plugins/java-conventions/groovy/SubprojectConfigurations.ftl
+        destination: "gradle/plugins/java-conventions/src/main/groovy/buildlogic.subproject-configurations.gradle"
+
+  # ─── Gradle settings plugins ──────────────────────────────────────────────────
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/settings/BuildDotGradle.ftl
+        destination: "gradle/settings/build.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/settings/SettingsDotGradle.ftl
+        destination: "gradle/settings/settings.gradle"
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [javaapp]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/gradle/settings/groovy/RepositoriesSettings.ftl
+        destination: "gradle/settings/src/main/groovy/buildlogic.repositories.settings.gradle"
