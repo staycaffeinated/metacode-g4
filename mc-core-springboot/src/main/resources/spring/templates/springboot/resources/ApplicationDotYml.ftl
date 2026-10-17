@@ -74,7 +74,7 @@ spring:
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:secret}
     </#noparse>
-    url: jdbc:postgresql://localhost:5432
+    url: jdbc:postgresql://<#noparse>${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:</#noparse>${project.applicationName}<#noparse>}</#noparse>
 </#if>
 
 <#if (project.isWithKafka())>

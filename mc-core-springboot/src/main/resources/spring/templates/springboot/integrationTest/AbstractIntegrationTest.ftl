@@ -9,17 +9,17 @@ import tools.jackson.databind.json.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-<#if (project.testcontainers)??>
+<#if project.isWithTestContainers() && project.isWithPostgres()>
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-</#if>
-<#if (project.testcontainers)?? &&  (project.postgres)??>
 import org.testcontainers.postgresql.PostgreSQLContainer;
 </#if>
 
-@ActiveProfiles({TEST,INTEGRATION_TEST})
+@ActiveProfiles({TEST, INTEGRATION_TEST})
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-<#if (project.testcontainers)??>
+<#if project.isWithTestContainers() && project.isWithPostgres()>
 @Testcontainers
 @SuppressWarnings({"rawtypes"})
 </#if>
@@ -27,21 +27,21 @@ public abstract class ${AbstractIntegrationTest.className()} {
 
     @Autowired
     protected JsonMapper jsonMapper;
-<#if (project.testcontainers)??>
+<#if project.isWithTestContainers() && project.isWithPostgres()>
 
-    // if possible, initialize these from bootstrap-test.properties
-    private static final String databaseName = "testdb";
-    private static final String username = "postgres";
-    private static final String password = "root";
-</#if>
-<#if (project.testcontainers)?? &&  (project.postgres)??>
-
-    // Task: Set the Postgres version to what your application will use
     @Container
-    final static PostgreSQLContainer postgresqlContainer =
-                new PostgreSQLContainer("postgres:latest")
-                        .withDatabaseName( databaseName )
-                        .withUsername( username )
-                        .withPassword( password );
+    static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:17-alpine");
+
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+<#if project.isWithFlyway()>
+        registry.add("spring.flyway.url", postgres::getJdbcUrl);
+        registry.add("spring.flyway.username", postgres::getUsername);
+        registry.add("spring.flyway.password", postgres::getPassword);
+</#if>
+    }
 </#if>
 }
