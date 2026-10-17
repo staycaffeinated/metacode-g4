@@ -17,6 +17,10 @@ dependencies {
     implementation libs.swagger.annotations
     implementation libs.openapi.starter.webflux.ui
 </#if>
+<#if project.isWithKafka()>
+    implementation libs.spring.boot.starter.kafka
+    implementation libs.spring.kafka
+</#if>
 <#if project.isWithLiquibase()>
     implementation libs.liquibase.core
     implementation libs.spring.boot.starter.liquibase

@@ -31,7 +31,8 @@ public abstract class AbstractCreateProject implements Runnable {
 
     @CommandLine.Option(
             names = {"--add"},
-            description = "Features: postgres, liquibase, flyway, openapi, testcontainers",
+            description = "Features: postgres, liquibase, flyway, openapi, testcontainers, kafka",
+            arity = "1..*",
             split = ",")
     protected String[] features = new String[0];
 
