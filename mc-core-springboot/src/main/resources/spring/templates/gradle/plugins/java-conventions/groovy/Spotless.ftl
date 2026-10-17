@@ -11,7 +11,7 @@ subprojects {
 spotless {
     java {
         target fileTree(projectDir) { include 'src/**/*.java' }
-        palantirJavaFormat()
+        palantirJavaFormat('2.102.0')
         removeUnusedImports()
         importOrder()
         leadingTabsToSpaces(4)
