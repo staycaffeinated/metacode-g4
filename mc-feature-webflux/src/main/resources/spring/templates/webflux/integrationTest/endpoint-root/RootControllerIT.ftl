@@ -11,8 +11,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.context.TestPropertySource;
 </#if>
 <#if project.isWithPostgres() && project.isWithTestContainers()>
-import ${AbstractPostgresIntegrationTest.fqcn()};
-import org.testcontainers.junit.jupiter.Testcontainers;
+import ${PostgresDbContainerTests.fqcn()};
 <#elseif project.isWithPostgres()>
 import ${RegisterDatabaseProperties.fqcn()};
 </#if>
@@ -24,8 +23,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @TestPropertySource(properties = "spring.kafka.streams.auto-startup=false")
 </#if>
 <#if project.isWithPostgres() && project.isWithTestContainers()>
-@Testcontainers
-class ${RootController.integrationTestClass()} extends ${AbstractPostgresIntegrationTest.className()} {
+class ${RootController.integrationTestClass()} extends ${PostgresDbContainerTests.className()} {
 <#elseif project.isWithPostgres()>
 class ${RootController.integrationTestClass()} implements ${RegisterDatabaseProperties.className()} {
 <#else>

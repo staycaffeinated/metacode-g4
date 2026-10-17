@@ -14,8 +14,6 @@ import ${EntityRequest.fqcn()};
 import ${ModelTestFixtures.fqcn()};
 <#if !endpoint.isWithPostgres()>
 import ${TestTableInitializer.fqcn()};
-<#else>
-import ${ContainerConfiguration.fqcn()};
 </#if>
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,8 +39,6 @@ import reactor.test.StepVerifier;
  */
 <#if !endpoint.isWithPostgres()>
 @ComponentScan(basePackageClasses = { ${TestTableInitializer.className()}.class })
-<#else>
-@ComponentScan(basePackageClasses = { ${ContainerConfiguration.className()}.class })
 </#if>
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j

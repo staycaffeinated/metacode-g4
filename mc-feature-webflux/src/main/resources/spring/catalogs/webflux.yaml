@@ -253,6 +253,15 @@ entries:
         sourceTemplate: /spring/templates/webflux/integrationTest/common/AbstractPostgresIntegrationTest.ftl
 
   - scope: project
+    archetype: PostgresDbContainerTests
+    when:
+      flavor: [webflux]
+      features: [postgres, testcontainers]
+    facets:
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/webflux/integrationTest/common/PostgresContainerTest.ftl
+
+  - scope: project
     archetype: RegisterDatabaseProperties
     when:
       flavor: [webflux]
@@ -478,6 +487,16 @@ entries:
       - facet: integrationTest
         sourceTemplate: /spring/templates/webflux/integrationTest/resources/H2CreateSchemaDotSql.ftl
         destination: "{{appModule}}/src/integrationTest/resources/database/{{lowerCaseEntityName}}-schema.sql"
+
+  - scope: endpoint
+    archetype: Text
+    when:
+      flavor: [webflux]
+      features: [postgres, testcontainers]
+    facets:
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/webflux/integrationTest/resources/PostgresCreateTableSql.ftl
+        destination: "{{appModule}}/src/integrationTest/resources/create-schema.sql"
 
   - scope: endpoint
     archetype: Text

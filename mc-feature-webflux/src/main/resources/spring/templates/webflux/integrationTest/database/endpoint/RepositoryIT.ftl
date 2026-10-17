@@ -2,7 +2,6 @@
 package ${Repository.packageName()};
 
 
-import ${ContainerConfiguration.fqcn()};
 <#if endpoint.isWithPostgres() && endpoint.isWithTestContainers()>
 import ${PostgresDbContainerTests.fqcn()};
 </#if>
@@ -30,9 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest
 <#if !endpoint.isWithPostgres()>
-@ComponentScan(basePackageClasses = {${ContainerConfiguration.className()}.class, ${TestTableInitializer.className()}.class})
-<#else>
-@ComponentScan(basePackageClasses = {${ContainerConfiguration.className()}.class})
+@ComponentScan(basePackageClasses = {${TestTableInitializer.className()}.class})
 </#if>
 <#if ((endpoint.isWithPostgres()))>
 class ${Repository.integrationTestClass()} extends ${PostgresDbContainerTests.className()} {
