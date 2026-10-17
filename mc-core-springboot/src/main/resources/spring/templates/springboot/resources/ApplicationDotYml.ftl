@@ -77,6 +77,11 @@ spring:
     url: jdbc:postgresql://<#noparse>${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:</#noparse>${project.applicationName}<#noparse>}</#noparse>
 </#if>
 
+<#if (project.isWithFlyway())>
+  flyway:
+    baseline-on-migrate: true
+</#if>
+
 <#if (project.isWithKafka())>
   # -------------------------------------------------------------------------------------------
   # Kafka
