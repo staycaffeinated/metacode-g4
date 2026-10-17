@@ -46,7 +46,7 @@ public abstract class AbstractIntegrationTest {
         registry.add("spring.datasource.password", postgres::getPassword);
 <#if project.isWithFlyway()>
         registry.add("spring.flyway.url", postgres::getJdbcUrl);
-        registry.add("spring.flyway.username", postgres::getUsername);
+        registry.add("spring.flyway.user", postgres::getUsername);
         registry.add("spring.flyway.password", postgres::getPassword);
 </#if>
     }
