@@ -4,3 +4,13 @@ spring:
   main:
     web-application-type: none
     banner-mode: off
+
+logging:
+  level:
+    root: ERROR
+    org.springframework: ERROR
+    mmm.coffee: WARN
+  pattern:
+    console: "%logger{36} - %msg%n"
+    file: "%logger{36} - %msg%n"
+
