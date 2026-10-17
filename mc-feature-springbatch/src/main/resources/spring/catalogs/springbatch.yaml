@@ -1,0 +1,60 @@
+# Spring Batch feature catalog.
+# All entries carry 'when: flavor: [springbatch]'.
+# Entries that share a destination with springboot-base entries intentionally
+# overwrite them (last-write-wins in CodeGenerationEngine).
+
+entries:
+
+  # ─── Override: batch-specific Application.java (replaces springboot-base version) ─
+
+  - scope: project
+    archetype: Application
+    when:
+      flavor: [springbatch]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/springbatch/main/Application.ftl
+        destination: "{{basePackagePath}}/Application.java"
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/springbatch/integrationTest/ApplicationIT.ftl
+        destination: "{{testBasePackagePath}}/ApplicationIT.java"
+
+  # ─── Override: batch-specific AbstractIntegrationTest (no @SpringBootTest) ────────
+
+  - scope: project
+    archetype: AbstractIntegrationTest
+    when:
+      flavor: [springbatch]
+    facets:
+      - facet: integrationTest
+        sourceTemplate: /spring/templates/springbatch/integrationTest/AbstractIntegrationTest.ftl
+        destination: "{{testBasePackagePath}}/common/AbstractIntegrationTest.java"
+
+  # ─── Override: batch-specific application.yml ────────────────────────────────────
+
+  - scope: project
+    archetype: Text
+    when:
+      flavor: [springbatch]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/springbatch/main/resources/ApplicationDotYaml.ftl
+        destination: "{{appModule}}/src/main/resources/application.yml"
+
+  # ─── New: Spring Batch configuration classes ─────────────────────────────────────
+
+  - scope: project
+    archetype: BatchConfiguration
+    when:
+      flavor: [springbatch]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/springbatch/main/config/BatchConfiguration.ftl
+
+  - scope: project
+    archetype: JobCompletionNotificationListener
+    when:
+      flavor: [springbatch]
+    facets:
+      - facet: main
+        sourceTemplate: /spring/templates/springbatch/main/config/JobCompletionNotificationListener.ftl

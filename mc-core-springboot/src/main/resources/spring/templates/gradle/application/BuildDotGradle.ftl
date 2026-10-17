@@ -10,10 +10,28 @@ plugins {
 
 version = '0.0.1'
 
+<#if project.isSpringBatch()>
+/*
+ * Until integration tests are written, a build will fail because no integration
+ * tests are discovered. The code generator cannot generate integration tests because
+ * it has no idea what ItemReaders/ItemProcessors/ItemWriters will be implemented,
+ * nor what order the Steps will be in.  On the other hand, we want the directory
+ * structure and a placeholder test to be available as a starting point. To have the
+ * placeholder while also avoiding a build failure, the `failOnNoDiscoveredTests`
+ * flag is set to `false`.  Once integration tests are written, `failOnNoDiscoveredTests`
+ * should be set to `true`, or just remove this block.
+ */
+integrationTest {
+    failOnNoDiscoveredTests = false
+}
+
+</#if>
 <#if project.isWebFlux()>
 <#include "WebFluxDependencies.ftl">
 <#elseif project.isWebMvc()>
 <#include "WebMvcDependencies.ftl">
+<#elseif project.isSpringBatch()>
+<#include "SpringBatchDependencies.ftl">
 <#else>
 <#include "SpringBootDependencies.ftl">
 </#if>

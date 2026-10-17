@@ -10,6 +10,7 @@ import picocli.CommandLine;
             SubcommandCreateWebMvcProject.class,
             SubcommandCreateWebFluxProject.class,
             SubcommandCreateSpringBootProject.class,
+            SubcommandCreateSpringBatchProject.class,
             CommandLine.HelpCommand.class
         },
         mixinStandardHelpOptions = true,

@@ -148,3 +148,11 @@ archetypes:
   ModelTestFixtures:
     subPackage: fixtures
     className: ModelTestFixtures
+
+  # infrastructure.batch
+  BatchConfiguration:
+    subPackage: infrastructure.batch
+    className: BatchConfiguration
+  JobCompletionNotificationListener:
+    subPackage: infrastructure.batch
+    className: JobCompletionNotificationListener

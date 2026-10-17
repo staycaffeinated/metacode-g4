@@ -15,6 +15,7 @@ dependencies {
     implementation project(':mc-core-springboot')
     implementation project(':mc-feature-webmvc')
     implementation project(':mc-feature-webflux')
+    implementation project(':mc-feature-springbatch')
     implementation libs.commonsIo
     implementation libs.picocli.spring.boot.starter
 
