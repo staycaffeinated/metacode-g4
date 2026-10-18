@@ -6,6 +6,7 @@ import java.util.Map;
 import mmm.coffee.metacode.core.catalog.CatalogEntry;
 import mmm.coffee.metacode.core.catalog.TemplateFacet;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
+import mmm.coffee.metacode.core.exceptions.MetacodeException;
 import mmm.coffee.metacode.core.generator.ICodeGenerator;
 import mmm.coffee.metacode.core.renderer.MustacheExpressionResolver;
 import mmm.coffee.metacode.core.renderer.TemplateRenderer;
@@ -47,7 +48,7 @@ public class EndpointCodeGenerationEngine implements ICodeGenerator<EndpointDesc
                 try {
                     writer.write(descriptor.getBaseDirectory(), path, content);
                 } catch (IOException e) {
-                    throw new RuntimeException("Failed to write: " + path, e);
+                    throw new MetacodeException("Failed to write: " + path, e);
                 }
             }
         }

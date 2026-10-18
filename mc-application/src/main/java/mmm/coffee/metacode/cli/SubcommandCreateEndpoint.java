@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
+import mmm.coffee.metacode.core.exceptions.MetacodeException;
 import mmm.coffee.metacode.engine.EndpointCodeGenerationEngine;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine;
 
@@ -38,8 +38,11 @@ public class SubcommandCreateEndpoint implements Runnable {
             defaultValue = ".")
     private String directory;
 
-    @Autowired
-    private EndpointCodeGenerationEngine codeGenerator;
+    private final EndpointCodeGenerationEngine codeGenerator;
+
+    public SubcommandCreateEndpoint(EndpointCodeGenerationEngine codeGenerator) {
+        this.codeGenerator = codeGenerator;
+    }
 
     @Override
     public void run() {
@@ -79,7 +82,7 @@ public class SubcommandCreateEndpoint implements Runnable {
         try (FileReader fr = new FileReader(file)) {
             props.load(fr);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to read metacode.properties: " + e.getMessage(), e);
+            throw new MetacodeException("Failed to read metacode.properties: " + e.getMessage(), e);
         }
         return props;
     }

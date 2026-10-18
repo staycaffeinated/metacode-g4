@@ -27,6 +27,7 @@ class JavaAppCatalogTest {
     void allEntriesHaveJavaAppFlavorGuard() {
         List<CatalogEntry> entries = reader.read("/spring/catalogs/javaapp.yaml");
         assertThat(entries)
+                .isNotEmpty()
                 .allMatch(
                         e -> e.getWhen() != null
                                 && e.getWhen().getFlavor() != null

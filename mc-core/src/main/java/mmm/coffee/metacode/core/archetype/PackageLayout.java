@@ -61,10 +61,13 @@ public class PackageLayout {
 
     // Jackson deserialization types
 
+    @SuppressWarnings("java:S1104") // need this to be non-final for jackson to work
     public static class LayoutFile {
         public Map<String, ArchetypeEntry> archetypes;
     }
 
+    @SuppressWarnings("java:S1104") // need this to be non-final for jackson to work
+    // Need to look at this and see if it can be improved.
     public static class ArchetypeEntry {
         public String subPackage = "";
         public String className;

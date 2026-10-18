@@ -1,7 +1,6 @@
 package mmm.coffee.metacode;
 
 import mmm.coffee.metacode.cli.MetaCodeCommand;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
@@ -13,11 +12,14 @@ public class Application implements CommandLineRunner, ExitCodeGenerator {
 
     private int exitCode;
 
-    @Autowired
-    private MetaCodeCommand metaCodeCommand;
+    private final MetaCodeCommand metaCodeCommand;
 
-    @Autowired
-    private CommandLine.IFactory factory;
+    private final CommandLine.IFactory factory;
+
+    public Application(MetaCodeCommand metaCodeCommand, CommandLine.IFactory factory) {
+        this.metaCodeCommand = metaCodeCommand;
+        this.factory = factory;
+    }
 
     @Override
     public void run(String... args) {

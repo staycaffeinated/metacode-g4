@@ -9,6 +9,8 @@ import picocli.CommandLine;
         subcommands = {SubcommandCreateProject.class, SubcommandCreateEndpoint.class, CommandLine.HelpCommand.class},
         mixinStandardHelpOptions = true,
         description = "Create a new project")
+@SuppressWarnings({"java:S106" // we want output to go to System.out
+})
 public class CreateCommand implements Runnable {
 
     @Override

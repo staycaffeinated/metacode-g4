@@ -2,7 +2,6 @@ package mmm.coffee.metacode.cli;
 
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import mmm.coffee.metacode.core.generator.ICodeGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine;
 
@@ -13,8 +12,11 @@ import picocli.CommandLine;
         mixinStandardHelpOptions = true)
 public class SubcommandCreateJavaAppProject extends AbstractCreateProject {
 
-    @Autowired
-    private ICodeGenerator<ProjectDescriptor> codeGenerator;
+    private final ICodeGenerator<ProjectDescriptor> codeGenerator;
+
+    public SubcommandCreateJavaAppProject(ICodeGenerator<ProjectDescriptor> codeGenerator) {
+        this.codeGenerator = codeGenerator;
+    }
 
     @Override
     public void run() {

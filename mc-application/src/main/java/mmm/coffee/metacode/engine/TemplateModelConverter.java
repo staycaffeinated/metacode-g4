@@ -1,6 +1,7 @@
 package mmm.coffee.metacode.engine;
 
 import java.time.Year;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 import mmm.coffee.metacode.core.archetype.ArchetypeModel;
@@ -10,6 +11,8 @@ import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import org.springframework.stereotype.Component;
 
 @Component
+@SuppressWarnings({"java:S1192" // allow duplicate string constants
+})
 public class TemplateModelConverter {
 
     private final PackageLayout packageLayout;
@@ -27,7 +30,7 @@ public class TemplateModelConverter {
         model.put("flavor", d.getFlavor());
         model.put("features", d.getFeatures());
         model.put("javaVersion", d.getJavaVersion());
-        model.put("YEAR", Year.now().getValue());
+        model.put("YEAR", Year.now(ZoneId.systemDefault()).getValue());
         model.put("project", new ProjectModel(d));
 
         Map<String, ArchetypeModel> archetypes = packageLayout.buildArchetypeModels(d.getBasePackage());
@@ -61,7 +64,7 @@ public class TemplateModelConverter {
         model.put("flavor", d.getFlavor());
         model.put("features", d.getFeatures());
         model.put("javaVersion", d.getJavaVersion());
-        model.put("YEAR", Year.now().getValue());
+        model.put("YEAR", Year.now(ZoneId.systemDefault()).getValue());
         model.put("endpoint", new EndpointModel(d));
 
         // Static archetypes from package-layout.yaml

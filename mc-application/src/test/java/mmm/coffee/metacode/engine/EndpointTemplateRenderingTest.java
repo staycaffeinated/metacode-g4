@@ -3,7 +3,6 @@ package mmm.coffee.metacode.engine;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import mmm.coffee.metacode.core.archetype.PackageLayout;
@@ -29,7 +28,7 @@ class EndpointTemplateRenderingTest {
     EndpointCodeGenerationEngine engineUnderTest;
 
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() {
         CatalogReader catalogReader = new CatalogReader();
         List<CatalogContributor> contributors = List.of(
                 new SpringBootCatalogContributor(), new WebMvcCatalogContributor(), new WebFluxCatalogContributor());

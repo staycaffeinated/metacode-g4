@@ -16,6 +16,8 @@ import picocli.CommandLine;
         },
         mixinStandardHelpOptions = true,
         description = "Create a new project")
+@SuppressWarnings({"java:S106" // send output to stdout
+})
 public class SubcommandCreateProject implements Runnable {
 
     @Override

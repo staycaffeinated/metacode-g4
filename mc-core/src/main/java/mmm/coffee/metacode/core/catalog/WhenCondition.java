@@ -24,9 +24,6 @@ public class WhenCondition {
         if (!flavor.isEmpty() && !flavor.contains(selectedFlavor)) {
             return false;
         }
-        if (!features.isEmpty() && !activeFeatures.containsAll(features)) {
-            return false;
-        }
-        return true;
+        return features.isEmpty() || activeFeatures.containsAll(features);
     }
 }
