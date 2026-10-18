@@ -11,6 +11,7 @@ import picocli.CommandLine;
             SubcommandCreateWebFluxProject.class,
             SubcommandCreateSpringBootProject.class,
             SubcommandCreateSpringBatchProject.class,
+            SubcommandCreateJavaAppProject.class,
             CommandLine.HelpCommand.class
         },
         mixinStandardHelpOptions = true,

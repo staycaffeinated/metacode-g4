@@ -5,6 +5,7 @@ import mmm.coffee.metacode.core.catalog.CatalogReader;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
 import mmm.coffee.metacode.core.renderer.FreemarkerTemplateRenderer;
 import mmm.coffee.metacode.core.renderer.TemplateRenderer;
+import mmm.coffee.metacode.javaapp.JavaAppCatalogContributor;
 import mmm.coffee.metacode.springbatch.SpringBatchCatalogContributor;
 import mmm.coffee.metacode.springboot.SpringBootCatalogContributor;
 import mmm.coffee.metacode.webflux.WebFluxCatalogContributor;
@@ -43,6 +44,11 @@ public class AppConfiguration {
     @Bean
     CatalogContributor springBatchCatalogContributor() {
         return new SpringBatchCatalogContributor();
+    }
+
+    @Bean
+    CatalogContributor javaAppCatalogContributor() {
+        return new JavaAppCatalogContributor();
     }
 
     @Bean
