@@ -24,13 +24,13 @@ public class CodeGenerationEngine implements ICodeGenerator<ProjectDescriptor> {
     private final CatalogRegistry registry;
     private final TemplateRenderer renderer;
     private final TemplateModelConverter converter;
-    private final ContentToFileWriter writer;
+    private final ContentWriter writer;
 
     public CodeGenerationEngine(
             CatalogRegistry registry,
             TemplateRenderer renderer,
             TemplateModelConverter converter,
-            ContentToFileWriter writer) {
+            ContentWriter writer) {
         this.registry = registry;
         this.renderer = renderer;
         this.converter = converter;

@@ -68,6 +68,8 @@ jib {
     }
 }
 
+
+
 sonar {
     properties {
         property "sonar.projectName", "metacode"

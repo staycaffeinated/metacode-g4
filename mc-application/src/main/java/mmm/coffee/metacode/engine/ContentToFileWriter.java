@@ -7,7 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ContentToFileWriter {
+public class ContentToFileWriter implements ContentWriter {
 
     public void write(String baseDirectory, String relativePath, String content) throws IOException {
         File target = new File(baseDirectory, relativePath);
