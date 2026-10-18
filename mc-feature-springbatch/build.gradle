@@ -10,6 +10,7 @@ dependencies {
     testImplementation libs.mockito
     testRuntimeOnly libs.junit.platform.launcher
 }
+
 sonar {
     properties {
         property "sonar.tests", "src/test/java"

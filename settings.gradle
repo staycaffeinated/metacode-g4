@@ -7,7 +7,7 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
-rootProject.name = 'metacode'
+rootProject.name = 'metacode-g4'
 
 include "mc-core"
 include "mc-core-springboot"
