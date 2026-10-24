@@ -210,6 +210,8 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/validation/ResourceIdValidator.ftl
+      - facet: test
+        sourceTemplate: /spring/templates/webmvc/test/adapter/in/web/validation/ResourceIdValidatorTest.ftl
 
   - scope: project
     archetype: SearchTextAnnotation
@@ -226,6 +228,8 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/validation/SearchTextValidator.ftl
+      - facet: test
+        sourceTemplate: /spring/templates/webmvc/test/adapter/in/web/validation/SearchTextValidatorTest.ftl
 
   - scope: project
     archetype: OnCreateAnnotation
