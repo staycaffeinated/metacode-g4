@@ -18,8 +18,15 @@ dependencies {
     testRuntimeOnly libs.junit.platform.launcher
 }
 
+def ignoredClasses =
+        "**/*Exception.java"            +
+       ",**/CatalogContributor.java"    +
+       ",**/ICodeGenerator.java"        +
+       ",**/TemplateRenderer.java"
+
 sonar {
     properties {
         property "sonar.tests", "src/test/java"
+        property "sonar.coverage.exclusions", ignoredClasses
     }
 }

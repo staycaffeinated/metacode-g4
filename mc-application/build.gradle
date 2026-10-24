@@ -69,11 +69,17 @@ jib {
 }
 
 
+def ignoredClasses =
+            "**/*Exception.java"        +
+            ",**/*Configuration.java"   +
+            ",**/cli/**.java"           +
+            ",**/Application.java"
 
 sonar {
     properties {
         property "sonar.projectName", "metacode"
         property "sonar.projectKey", "metacode"
         property "sonar.gradle.skipCompile", "true"
+        property "sonar.coverage.exclusions", ignoredClasses
     }
 }

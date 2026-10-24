@@ -1,9 +1,13 @@
+package mmm.coffee.metacode.core.archetype;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mmm.coffee.metacode.core.archetype.ArchetypeModel;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 
-public class ArchetypeModelTest {
+class ArchetypeModelTest {
 
     private final ArchetypeModel model = new ArchetypeModel("org.acme.tools", "HelloWorld");
 
@@ -32,8 +36,19 @@ public class ArchetypeModelTest {
         assertThat(model.integrationTestClass()).isEqualTo("HelloWorldIT");
     }
 
-    @Test
-    void shouldReturnVarName() {
-        assertThat(model.varName()).isEqualTo("helloWorld");
+    @Nested
+    class VarNameUseCases {
+
+        @Test
+        void shouldReturnVarName() {
+            assertThat(model.varName()).isEqualTo("helloWorld");
+        }
+
+        @ParameterizedTest
+        @NullAndEmptySource
+        void shouldReturnDefaultVarNameForEmptyClassName(String className) {
+            ArchetypeModel archetypeModel = new ArchetypeModel("org.acme.tools", className);
+            assertThat(archetypeModel.varName()).isEqualTo("obj");
+        }
     }
 }

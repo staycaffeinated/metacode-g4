@@ -2,6 +2,7 @@ package mmm.coffee.metacode.engine;
 
 import java.util.Set;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Exposes feature-presence checks to FreeMarker templates via the "project" variable.
@@ -16,13 +17,17 @@ public class ProjectModel {
     private final String schema;
     private final String flavor;
 
-    public ProjectModel(ProjectDescriptor d) {
-        this.features = d.getFeatures();
+    public ProjectModel(@NonNull ProjectDescriptor d) {
+        this.features = d.getFeatures() == null ? Set.of() : d.getFeatures();
         this.applicationName = d.getApplicationName();
         this.basePackage = d.getBasePackage();
         this.basePath = d.getBasePath() != null ? d.getBasePath() : "/";
         this.schema = "public";
         this.flavor = d.getFlavor() != null ? d.getFlavor() : "";
+    }
+
+    Set<String> safeCopy(Set<String> features) {
+        return features == null ? Set.of() : features;
     }
 
     public String getApplicationName() {

@@ -1,0 +1,10 @@
+archetypes:
+  Application:
+    subPackage: ""
+    className: Application
+  Controller:
+    subPackage: adapter.inbound.web
+    className: Controller
+  Service:
+    subPackage: application.service
+    className: Service
