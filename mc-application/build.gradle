@@ -1,5 +1,6 @@
 plugins {
     id 'buildlogic.application-conventions'
+    id 'buildlogic.integration-test'
     id 'jacoco-report-aggregation'
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.dependency.management)
