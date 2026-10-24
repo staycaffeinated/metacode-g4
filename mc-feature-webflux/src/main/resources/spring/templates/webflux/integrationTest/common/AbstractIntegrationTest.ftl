@@ -1,4 +1,5 @@
 <#include "/common/Copyright.ftl">
+
 package ${AbstractIntegrationTest.packageName()};
 
 import static ${SpringProfiles.packageName()}.SpringProfiles.INTEGRATION_TEST;

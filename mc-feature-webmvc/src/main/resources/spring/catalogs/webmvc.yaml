@@ -192,6 +192,8 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webmvc/main/adapter/in/web/validation/AlphabeticValidator.ftl
+      - facet: test
+        sourceTemplate: /spring/templates/webmvc/test/adapter/in/web/validation/AlphabeticValidatorTest.ftl
 
   - scope: project
     archetype: ResourceIdAnnotation

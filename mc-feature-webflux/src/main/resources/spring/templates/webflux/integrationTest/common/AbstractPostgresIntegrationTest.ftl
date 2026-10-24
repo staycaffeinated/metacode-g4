@@ -1,4 +1,5 @@
 <#include "/common/Copyright.ftl">
+
 package ${AbstractPostgresIntegrationTest.packageName()};
 
 import lombok.NonNull;
