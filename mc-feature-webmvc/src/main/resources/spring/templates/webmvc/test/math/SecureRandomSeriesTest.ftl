@@ -2,6 +2,7 @@
 package ${SecureRandomSeries.packageName()};
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -63,5 +64,10 @@ class ${SecureRandomSeries.testClass()} {
     void constructorWithInvalidAlgorithm_fallsBackToDefaultSecureRandom() {
         ${SecureRandomSeries.className()} generator = new ${SecureRandomSeries.className()}("BOGUS_ALGORITHM_XYZ");
         assertThat(generator.nextResourceId()).hasSize(${SecureRandomSeries.className()}.ENTROPY_STRING_LENGTH);
+    }
+
+    @Test
+    void whenAlgorithmIsNull_shouldThrowNPE() {
+        assertThrows(NullPointerException.class, () -> new ${SecureRandomSeries.className()}(null));
     }
 }
