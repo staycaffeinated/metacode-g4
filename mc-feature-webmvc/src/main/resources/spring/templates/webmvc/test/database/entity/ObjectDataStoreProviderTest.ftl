@@ -56,7 +56,6 @@ class ${ConcreteDataStoreImpl.testClass()} {
     // supertype, so Mockito cannot reliably distinguish them by generic type at runtime.
     private ${ConcreteDataStoreImpl.className()} dataStoreUnderTest;
 
-    private List<${EntityResource.className()}> pojoList;
     private List<${Entity.className()}> ejbList;
 
     @BeforeEach
@@ -66,7 +65,7 @@ class ${ConcreteDataStoreImpl.testClass()} {
                 mockEjbConverter,
                 mockPojoConverter,
                 mockResourceIdSupplier);
-        pojoList = ${ModelTestFixtures.className()}.allItems();
+
         ejbList = ${EjbTestFixtures.className()}.allItems();
     }
 
@@ -127,8 +126,9 @@ class ${ConcreteDataStoreImpl.testClass()} {
 
         @Test
         void whenNullAttributeValue_expectNullPointerException() {
+            var pages = PageRequest.of(0, 10);
             assertThrows(NullPointerException.class,
-                    () -> dataStoreUnderTest.findByAttribute(null, PageRequest.of(0, 10)));
+                    () -> dataStoreUnderTest.findByAttribute(null, pages));
         }
     }
 
@@ -179,8 +179,9 @@ class ${ConcreteDataStoreImpl.testClass()} {
 
         @Test
         void whenNullSearchQuery_expectNullPointerException() {
+            Pageable pages = PageRequest.of(0, 10);
             assertThrows(NullPointerException.class,
-                    () -> dataStoreUnderTest.search(null, PageRequest.of(0, 10)));
+                    () -> dataStoreUnderTest.search(null, pages));
         }
     }
 

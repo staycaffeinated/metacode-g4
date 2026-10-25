@@ -292,7 +292,9 @@ class ${ServiceImpl.testClass()} {
 
         @Test
         void shouldThrowExceptionIfQueryIsNull() {
-            assertThrows(NullPointerException.class, () -> serviceUnderTest.search(null, Pageable.unpaged()));
+            var pages = Pageable.unpaged();
+            assertThat(pages).isNotNull();
+            assertThrows(NullPointerException.class, () -> serviceUnderTest.search(null, pages));
         }
     }
 }
