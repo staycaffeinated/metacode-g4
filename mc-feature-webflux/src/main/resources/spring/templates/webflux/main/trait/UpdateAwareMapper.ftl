@@ -1,8 +1,6 @@
 <#include "/common/Copyright.ftl">
 package ${UpdateAwareConverter.packageName()};
 
-import org.springframework.core.convert.converter.Converter;
-
 /**
  * Implement this interface to copy updated fields from a DTO to an existing EJB.
  * A new EJB instance is not created; the presumption is that updated values
@@ -10,6 +8,7 @@ import org.springframework.core.convert.converter.Converter;
  * of an entity can be updated. To have a consistent style of applying updates
  * to the EJBs, this interface is introduced.
  */
-public interface ${UpdateAwareConverter.className()}<S,T> extends Converter<S,T> {
+public interface ${UpdateAwareConverter.className()}<S,T> {
+    T convert(S source);
     T copyUpdates(S source, T target);
 }
