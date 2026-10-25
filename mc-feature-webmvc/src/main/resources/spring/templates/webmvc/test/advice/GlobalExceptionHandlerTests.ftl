@@ -1,4 +1,5 @@
 <#include "/common/Copyright.ftl">
+
 package ${GlobalExceptionHandler.packageName()};
 
 import static org.assertj.core.api.Assertions.assertThat;

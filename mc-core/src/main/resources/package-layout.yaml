@@ -84,7 +84,7 @@ archetypes:
   # adapter.shared.outbound
   UpdateAwareConverter:
     subPackage: adapter.shared.outbound
-    className: UpdateAwareConverter
+    className: UpdateAwareMapper
 
   # adapter.inbound.web.validation
   AlphabeticAnnotation:

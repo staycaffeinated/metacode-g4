@@ -104,6 +104,8 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webflux/main/math/SecureRandomSeries.ftl
+      - facet: test
+        sourceTemplate: /spring/templates/webmvc/test/math/SecureRandomSeriesTest.ftl
 
   - scope: project
     archetype: ResourceIdFormat
@@ -127,7 +129,7 @@ entries:
       flavor: [webflux]
     facets:
       - facet: main
-        sourceTemplate: /spring/templates/webflux/main/trait/UpdateAwareConverter.ftl
+        sourceTemplate: /spring/templates/webflux/main/trait/UpdateAwareMapper.ftl
 
   - scope: project
     archetype: UnprocessableEntityException
@@ -354,10 +356,10 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webflux/main/endpoint/RestServiceProvider.ftl
-        destination: "{{basePackagePath}}/application/service/{{entityName}}ServiceProvider.java"
+        destination: "{{basePackagePath}}/application/service/{{entityName}}Service.java"
       - facet: test
         sourceTemplate: /spring/templates/webflux/test/endpoint/ServiceTests.ftl
-        destination: "{{testBasePackagePath}}/application/service/{{entityName}}ServiceTests.java"
+        destination: "{{testBasePackagePath}}/application/service/{{entityName}}ServiceTest.java"
 
   - scope: endpoint
     archetype: Entity
@@ -409,6 +411,9 @@ entries:
       - facet: main
         sourceTemplate: /spring/templates/webflux/main/database/entity/ReactiveDataStoreProvider.ftl
         destination: "{{basePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}DataStoreProvider.java"
+      - facet: test
+        sourceTemplate: /spring/templates/webflux/test/database/entity/ReactiveDataStoreProviderTest.ftl
+        destination: "{{testBasePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}DataStoreProviderTest.java"
 
   - scope: endpoint
     archetype: EntityRequest

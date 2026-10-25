@@ -6,7 +6,6 @@ import ${EntityResource.fqcn()};
 import ${Entity.fqcn()};
 import ${UpdateAwareConverter.fqcn()};
 import lombok.NonNull;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

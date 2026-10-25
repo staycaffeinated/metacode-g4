@@ -2,6 +2,7 @@
 package ${ConcreteDataStoreImpl.packageName()};
 
 import ${EntitySpecification.fqcn()};
+import ${EntityToPojoConverter.fqcn()};
 import ${UpdateAwareConverter.fqcn()};
 import ${ResourceIdSupplier.fqcn()};
 import ${ConcreteDataStoreApi.fqcn()};
@@ -12,7 +13,6 @@ import ${Repository.fqcn()};
 import cz.jirutka.rsql.parser.RSQLParserException;
 import io.github.perplexhub.rsql.RSQLJPASupport;
 import lombok.NonNull;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -33,14 +33,14 @@ public class ${ConcreteDataStoreImpl.className()} implements ${ConcreteDataStore
     private static final int DEFAULT_ROW_LIMIT = 20;
 
     private final ${Repository.className()} repository;
-    private final Converter<${Entity.className()}, ${EntityResource.className()}> mapEjbToPojo;
-    private final UpdateAwareConverter<${EntityResource.className()}, ${Entity.className()}> mapPojoToEjb;
+    private final ${EntityToPojoConverter.className()} mapEjbToPojo;
+    private final ${UpdateAwareConverter.className()}<${EntityResource.className()}, ${Entity.className()}> mapPojoToEjb;
     private final ResourceIdSupplier resourceIdSupplier;
 
     public ${ConcreteDataStoreImpl.className()}(
             ${Repository.className()} repository,
-            Converter<${Entity.className()}, ${EntityResource.className()}> ejbToPojoConverter,
-            UpdateAwareConverter<${EntityResource.className()}, ${Entity.className()}> pojoToEntityConverter,
+            ${EntityToPojoConverter.className()} ejbToPojoConverter,
+            ${UpdateAwareConverter.className()}<${EntityResource.className()}, ${Entity.className()}> pojoToEntityConverter,
             ResourceIdSupplier resourceIdSupplier) {
         this.repository = repository;
         this.mapEjbToPojo = ejbToPojoConverter;
