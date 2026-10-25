@@ -17,7 +17,7 @@ entries:
         destination: "{{basePackagePath}}/Application.java"
       - facet: integrationTest
         sourceTemplate: /spring/templates/springbatch/integrationTest/ApplicationIT.ftl
-        destination: "{{testBasePackagePath}}/ApplicationIT.java"
+        destination: "{{integrationTestBasePackagePath}}/ApplicationIT.java"
 
   # ─── Override: batch-specific AbstractIntegrationTest (no @SpringBootTest) ────────
 

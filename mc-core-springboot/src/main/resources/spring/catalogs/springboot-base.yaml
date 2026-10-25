@@ -7,7 +7,7 @@ entries:
   - scope: project
     archetype: Application
     when:
-      flavor: [webmvc, webflux, springbatch, springboot]
+      flavor: [webmvc, webflux, springboot]
     facets:
       - facet: main
         sourceTemplate: /spring/templates/springboot/main/Application.ftl
@@ -17,7 +17,16 @@ entries:
         destination: "{{testBasePackagePath}}/ApplicationTest.java"
       - facet: integrationTest
         sourceTemplate: /spring/templates/springboot/integrationTest/ApplicationIT.ftl
-        destination: "{{testBasePackagePath}}/ApplicationIT.java"
+        destination: "{{integrationTestBasePackagePath}}/ApplicationIT.java"
+
+  - scope: project
+    archetype: Application
+    when:
+      flavor: [springbatch]
+    facets:
+      - facet: test
+        sourceTemplate: /spring/templates/springboot/test/ApplicationTest.ftl
+        destination: "{{testBasePackagePath}}/ApplicationTest.java"
 
   - scope: project
     archetype: SpringProfiles
@@ -30,7 +39,7 @@ entries:
   - scope: project
     archetype: AbstractIntegrationTest
     when:
-      flavor: [webmvc, webflux, springbatch, springboot]
+      flavor: [webmvc, webflux, springboot]
     facets:
       - facet: integrationTest
         sourceTemplate: /spring/templates/springboot/integrationTest/AbstractIntegrationTest.ftl

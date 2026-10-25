@@ -1,7 +1,6 @@
 <#include "/common/Copyright.ftl">
 package ${Application.packageName()};
 
-import ${AbstractIntegrationTest.fqcn()};
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 
 import java.util.Collection;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /*
  * See https://docs.spring.io/spring-batch/reference/testing.html
@@ -31,11 +30,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBatchTest
 @SpringBootTest
+@SuppressWarnings({
+    "java:S1607" // Until Job instances are implemented, tests can't run.
+})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @TestPropertySource(properties = {
     "spring.batch.job.enabled=true"})
-class ${Application.integrationTestClass()} extends ${AbstractIntegrationTest.className()} {
+class ${Application.integrationTestClass()} {
 
     @Autowired
     private JobOperatorTestUtils jobOperatorTestUtils;
@@ -48,7 +50,7 @@ class ${Application.integrationTestClass()} extends ${AbstractIntegrationTest.cl
         jobRepositoryTestUtils.removeJobExecutions();
     }
 
-    @Disabled
+    @Disabled("Will not work until the Job is implemented.")
     void contextLoads() {
         // The context won't load until the batch job configuration is defined.
         // NEXT STEPS:
@@ -73,7 +75,7 @@ class ${Application.integrationTestClass()} extends ${AbstractIntegrationTest.cl
      * Jobs are commonly configured in the BatchConfiguration class.
      * This is only a hypothetical test meant only to illustrate techniques.
      */
-    @Disabled
+    @Disabled("Will not work until the Job is implemented.")
     public void whenJobExecutes_expectCompleted() throws Exception {
         var jobExecution = jobOperatorTestUtils.startJob();
         var actualJobInstance = jobExecution.getJobInstance();
@@ -88,13 +90,13 @@ class ${Application.integrationTestClass()} extends ${AbstractIntegrationTest.cl
      * Steps are commonly implemented in the BatchConfiguration class.
      * This is only a hypothetical test meant only to illustrate techniques.
      */
-    @Disabled
+    @Disabled("Will not work until the Step is implemented.")
     public void whenStepExecution_expectCompleted() throws Exception {
         var jobExecution = jobOperatorTestUtils.startStep("step1");
         Collection<StepExecution> actualStepExecutions = jobExecution.getStepExecutions();
         ExitStatus actualJobExitStatus = jobExecution.getExitStatus();
 
-        assertThat(actualStepExecutions.size()).isEqualTo(1);
+        assertThat(actualStepExecutions).hasSize(1);
         assertThat(actualJobExitStatus.getExitCode()).isEqualTo("COMPLETED");
 
         actualStepExecutions.forEach(stepExecution -> {
@@ -107,7 +109,7 @@ class ${Application.integrationTestClass()} extends ${AbstractIntegrationTest.cl
      * Steps are commonly implemented in the BatchConfiguration class.
      * This test illustrates how to test a Bean that's in StepScope.
      */
-    @Disabled
+    @Disabled("Will not work until the Step is implemented.")
     public void givenMockedStep_whenWriterCalled_thenSuccess() throws Exception {
         StepExecution stepExecution = MetaDataInstanceFactory.createStepExecution();
 
