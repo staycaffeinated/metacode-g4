@@ -38,7 +38,7 @@ import static org.mockito.Mockito.verify;
 * Unit tests of {@link ${ServiceImpl.className()} }
 */
 @ExtendWith(MockitoExtension.class)
-@SuppressWarnings({"all"})
+@SuppressWarnings("unchecked")
 class ${ServiceImpl.testClass()} {
 
     @InjectMocks

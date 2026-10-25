@@ -204,7 +204,7 @@ class TemplateModelConverterTest {
         var model = converter.toEndpointFtlModel(endpointDescriptor("Pet"));
         assertThat(model).containsKey("ServiceImpl");
         ArchetypeModel svc = (ArchetypeModel) model.get("ServiceImpl");
-        assertThat(svc.className()).isEqualTo("PetServiceProvider");
+        assertThat(svc.className()).isEqualTo("PetService");
     }
 
     @Test

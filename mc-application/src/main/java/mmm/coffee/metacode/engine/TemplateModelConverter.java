@@ -91,7 +91,7 @@ public class TemplateModelConverter {
         // application.port.outbound
         model.put("ConcreteDataStoreApi", new ArchetypeModel(outboundPkg, d.getEntityName() + "DataStore"));
         // application.service
-        model.put("ServiceImpl", new ArchetypeModel(svcPkg, d.getEntityName() + "ServiceProvider"));
+        model.put("ServiceImpl", new ArchetypeModel(svcPkg, d.getEntityName() + "Service"));
         // adapter.outbound.persistence
         model.put("Entity", new ArchetypeModel(persistPkg, d.getEntityName()));
         model.put("Repository", new ArchetypeModel(persistPkg, d.getEntityName() + "Repository"));
