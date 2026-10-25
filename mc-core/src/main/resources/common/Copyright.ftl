@@ -1,3 +1,3 @@
 /*
-* Copyright ${YEAR} [CopyrightOwner]
-*/
+ * Copyright ${YEAR}.
+ */
