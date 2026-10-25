@@ -211,8 +211,16 @@ class TemplateModelConverterTest {
     void toEndpointFtlModel_buildsEntityArchetype() {
         var model = converter.toEndpointFtlModel(endpointDescriptor("Pet"));
         ArchetypeModel entity = (ArchetypeModel) model.get("Entity");
-        assertThat(entity.className()).isEqualTo("Pet");
+        assertThat(entity.className()).isEqualTo("PetEntity");
         assertThat(entity.packageName()).contains("persistence");
+    }
+
+    @Test
+    void toEndpointFtlModel_buildsEntityResourceArchetype() {
+        var model = converter.toEndpointFtlModel(endpointDescriptor("Pet"));
+        ArchetypeModel entityResource = (ArchetypeModel) model.get("EntityResource");
+        assertThat(entityResource.className()).isEqualTo("Pet");
+        assertThat(entityResource.packageName()).contains("domain");
     }
 
     @Test

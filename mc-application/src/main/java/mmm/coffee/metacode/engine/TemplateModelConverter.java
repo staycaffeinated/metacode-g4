@@ -83,7 +83,7 @@ public class TemplateModelConverter {
         model.put("EntityRequest", new ArchetypeModel(webPkg, d.getEntityName() + "Request"));
         model.put("EntityResponse", new ArchetypeModel(webPkg, d.getEntityName() + "Response"));
         // domain
-        model.put("EntityResource", new ArchetypeModel(base + ".domain", d.getEntityName() + "Resource"));
+        model.put("EntityResource", new ArchetypeModel(base + ".domain", d.getEntityName()));
         // application.port.inbound
         model.put("EntityCommandUseCase", new ArchetypeModel(inboundPkg, d.getEntityName() + "CommandUseCase"));
         model.put("EntityQueryUseCase", new ArchetypeModel(inboundPkg, d.getEntityName() + "QueryUseCase"));
@@ -93,7 +93,7 @@ public class TemplateModelConverter {
         // application.service
         model.put("ServiceImpl", new ArchetypeModel(svcPkg, d.getEntityName() + "Service"));
         // adapter.outbound.persistence
-        model.put("Entity", new ArchetypeModel(persistPkg, d.getEntityName()));
+        model.put("Entity", new ArchetypeModel(persistPkg, d.getEntityName() + "Entity"));
         model.put("Repository", new ArchetypeModel(persistPkg, d.getEntityName() + "Repository"));
         model.put(
                 "EntitySpecification",

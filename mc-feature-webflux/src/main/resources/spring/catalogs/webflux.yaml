@@ -368,10 +368,10 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webflux/main/database/entity/Entity.ftl
-        destination: "{{basePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}.java"
+        destination: "{{basePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}Entity.java"
       - facet: test
         sourceTemplate: /spring/templates/webflux/test/database/EntityTests.ftl
-        destination: "{{testBasePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}Tests.java"
+        destination: "{{testBasePackagePath}}/adapter/outbound/persistence/{{lowerCaseEntityName}}/{{entityName}}EntityTests.java"
 
   - scope: endpoint
     archetype: Repository
@@ -392,7 +392,7 @@ entries:
     facets:
       - facet: main
         sourceTemplate: /spring/templates/webflux/main/domain/EntityResource.ftl
-        destination: "{{basePackagePath}}/domain/{{entityName}}Resource.java"
+        destination: "{{basePackagePath}}/domain/{{entityName}}.java"
 
   - scope: endpoint
     archetype: ConcreteDataStoreApi
