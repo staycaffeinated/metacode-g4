@@ -43,7 +43,7 @@ entries:
     facets:
       - facet: integrationTest
         sourceTemplate: /spring/templates/springboot/integrationTest/AbstractIntegrationTest.ftl
-        destination: "{{testBasePackagePath}}/infrastructure/common/AbstractIntegrationTest.java"
+        destination: "{{integrationTestBasePackagePath}}/infrastructure/common/AbstractIntegrationTest.java"
 
   - scope: project
     archetype: Text
