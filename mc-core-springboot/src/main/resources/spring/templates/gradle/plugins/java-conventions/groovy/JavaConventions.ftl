@@ -23,7 +23,10 @@ java {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.compilerArgs += ["-Xlint:unchecked"]
+    options.compilerArgs << '-Xlint:unchecked'
+    options.compilerArgs << '-Xlint:-processing'
+    options.compilerArgs << '-Xlint:-serial'
+    options.compilerArgs << '-Werror'
 }
 
 configurations.create("transitiveSourcesElements") {
