@@ -19,4 +19,4 @@ mockito = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 [plugins]
 lombok-plugin = { id = "io.freefair.lombok", version.ref = "lombokPlugin" }
 sonar = { id = "org.sonarqube", version.ref = "sonar" }
-versions = { id = "com.github.ben-manes.versions", version.ref = "benManesPlugin" }
+versions = { id = "io.github.ben-manes.versions", version.ref = "benManesPlugin" }

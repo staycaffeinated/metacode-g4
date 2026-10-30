@@ -153,4 +153,4 @@ lombok-plugin = { id = "io.freefair.lombok", version.ref = "lombokPlugin" }
 nebula-lint = { id = "nebula.lint", version.ref = "nebulaLint" }
 sonar = { id = "org.sonarqube", version.ref = "sonar" }
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
-versions = { id = "com.github.ben-manes.versions", version.ref = "benManesPlugin" }
+versions = { id = "io.github.ben-manes.versions", version.ref = "benManesPlugin" }
