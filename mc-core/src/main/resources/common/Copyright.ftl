@@ -1,3 +1,3 @@
 /*
- * Copyright ${YEAR}.
+ * Copyright ${YEAR} by code authors.
  */
