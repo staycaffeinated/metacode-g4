@@ -29,6 +29,7 @@ public class SubcommandCreateWebFluxProject extends AbstractCreateProject {
                 .flavor(Flavor.WEBFLUX)
                 .features(activeFeatures())
                 .javaVersion(javaVersion)
+                .schema(schema)
                 .build();
 
         codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);

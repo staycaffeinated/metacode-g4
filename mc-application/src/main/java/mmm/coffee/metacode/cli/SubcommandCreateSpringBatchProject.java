@@ -29,6 +29,7 @@ public class SubcommandCreateSpringBatchProject extends AbstractCreateProject {
                 .flavor(Flavor.SPRING_BATCH)
                 .features(activeFeatures())
                 .javaVersion(javaVersion)
+                .schema(schema)
                 .build();
 
         codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);

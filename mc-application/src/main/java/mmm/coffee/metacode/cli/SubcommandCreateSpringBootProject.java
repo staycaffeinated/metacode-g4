@@ -29,6 +29,7 @@ public class SubcommandCreateSpringBootProject extends AbstractCreateProject {
                 .flavor(Flavor.SPRING_BOOT)
                 .features(activeFeatures())
                 .javaVersion(javaVersion)
+                .schema(schema)
                 .build();
 
         codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);

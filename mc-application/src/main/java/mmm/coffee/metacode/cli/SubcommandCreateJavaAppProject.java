@@ -29,6 +29,7 @@ public class SubcommandCreateJavaAppProject extends AbstractCreateProject {
                 .flavor(Flavor.JAVA_APP)
                 .features(activeFeatures())
                 .javaVersion(javaVersion)
+                .schema(schema)
                 .build();
 
         codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);

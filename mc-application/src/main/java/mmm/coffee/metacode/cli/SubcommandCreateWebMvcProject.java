@@ -29,6 +29,7 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateProject {
                 .flavor(Flavor.WEBMVC)
                 .features(activeFeatures())
                 .javaVersion(javaVersion)
+                .schema(schema)
                 .build();
 
         codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);

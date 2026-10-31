@@ -33,6 +33,12 @@ public abstract class AbstractCreateProject implements Runnable {
     protected String basePath;
 
     @CommandLine.Option(
+            names = {"--schema"},
+            description = "PostgreSQL schema name (default: public)",
+            defaultValue = "public")
+    protected String schema;
+
+    @CommandLine.Option(
             names = {"--add"},
             description = "Features: postgres, liquibase, flyway, openapi, testcontainers, mongodb, kafka",
             arity = "1..*",
