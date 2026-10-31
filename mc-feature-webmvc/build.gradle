@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     implementation project(':mc-core')
+    compileOnly libs.spring.context
 
     testImplementation platform(libs.junit.bom)
     testImplementation libs.assertJ

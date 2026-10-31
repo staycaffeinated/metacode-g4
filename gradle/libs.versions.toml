@@ -152,6 +152,7 @@ spring-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
 spring-integration-kafka = { module = "org.springframework.integration:spring-integration-kafka" }
 spring-kafka = { module = "org.springframework.kafka:spring-kafka" }
 spring-kafka-test = { module = "org.springframework.kafka:spring-kafka-test" }
+spring-context = { module = "org.springframework:spring-context", version.ref="springOrm" }
 spring-orm = { module = "org.springframework:spring-orm", version.ref="springOrm" }
 
 swagger-annotations = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swaggerAnnotations" }

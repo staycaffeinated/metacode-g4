@@ -2,14 +2,8 @@ package mmm.coffee.metacode.engine;
 
 import mmm.coffee.metacode.core.archetype.PackageLayout;
 import mmm.coffee.metacode.core.catalog.CatalogReader;
-import mmm.coffee.metacode.core.contributor.CatalogContributor;
 import mmm.coffee.metacode.core.renderer.FreemarkerTemplateRenderer;
 import mmm.coffee.metacode.core.renderer.TemplateRenderer;
-import mmm.coffee.metacode.javaapp.JavaAppCatalogContributor;
-import mmm.coffee.metacode.springbatch.SpringBatchCatalogContributor;
-import mmm.coffee.metacode.springboot.SpringBootCatalogContributor;
-import mmm.coffee.metacode.webflux.WebFluxCatalogContributor;
-import mmm.coffee.metacode.webmvc.WebMvcCatalogContributor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,31 +18,6 @@ public class AppConfiguration {
     @Bean
     TemplateRenderer templateRenderer() {
         return new FreemarkerTemplateRenderer();
-    }
-
-    @Bean
-    CatalogContributor springBootCatalogContributor() {
-        return new SpringBootCatalogContributor();
-    }
-
-    @Bean
-    CatalogContributor webMvcCatalogContributor() {
-        return new WebMvcCatalogContributor();
-    }
-
-    @Bean
-    CatalogContributor webFluxCatalogContributor() {
-        return new WebFluxCatalogContributor();
-    }
-
-    @Bean
-    CatalogContributor springBatchCatalogContributor() {
-        return new SpringBatchCatalogContributor();
-    }
-
-    @Bean
-    CatalogContributor javaAppCatalogContributor() {
-        return new JavaAppCatalogContributor();
     }
 
     @Bean

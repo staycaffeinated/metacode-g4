@@ -1,6 +1,7 @@
 package mmm.coffee.metacode.webflux;
 
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
+import org.springframework.stereotype.Component;
 
 /**
  * Registers the webflux catalog.
@@ -8,6 +9,7 @@ import mmm.coffee.metacode.core.contributor.CatalogContributor;
  * when the user selected the webflux flavor.
  * Feature-gated entries (postgres, liquibase, etc.) add {@code features:} conditions.
  */
+@Component
 public class WebFluxCatalogContributor implements CatalogContributor {
 
     static final String CATALOG_RESOURCE = "/spring/catalogs/webflux.yaml";
