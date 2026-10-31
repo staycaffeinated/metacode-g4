@@ -27,10 +27,6 @@ public class ProjectModel {
         this.flavor = d.getFlavor();
     }
 
-    Set<String> safeCopy(Set<String> features) {
-        return features == null ? Set.of() : features;
-    }
-
     public String getApplicationName() {
         return applicationName;
     }
