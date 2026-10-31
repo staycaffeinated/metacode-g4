@@ -24,13 +24,4 @@ public class AppConfiguration {
     PackageLayout packageLayout() {
         return PackageLayout.loadDefault();
     }
-
-    @Bean
-    EndpointCodeGenerationEngine endpointCodeGenerationEngine(
-            CatalogRegistry registry,
-            TemplateRenderer renderer,
-            TemplateModelConverter converter,
-            ContentToFileWriter writer) {
-        return new EndpointCodeGenerationEngine(registry, renderer, converter, writer);
-    }
 }

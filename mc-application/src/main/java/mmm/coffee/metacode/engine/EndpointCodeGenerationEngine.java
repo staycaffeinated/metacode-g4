@@ -10,7 +10,9 @@ import mmm.coffee.metacode.core.exceptions.MetacodeException;
 import mmm.coffee.metacode.core.generator.ICodeGenerator;
 import mmm.coffee.metacode.core.renderer.MustacheExpressionResolver;
 import mmm.coffee.metacode.core.renderer.TemplateRenderer;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EndpointCodeGenerationEngine implements ICodeGenerator<EndpointDescriptor> {
 
     private final CatalogRegistry registry;
