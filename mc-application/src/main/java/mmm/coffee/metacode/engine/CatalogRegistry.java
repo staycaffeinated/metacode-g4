@@ -3,6 +3,7 @@ package mmm.coffee.metacode.engine;
 import java.util.List;
 import mmm.coffee.metacode.core.catalog.CatalogEntry;
 import mmm.coffee.metacode.core.catalog.CatalogReader;
+import mmm.coffee.metacode.core.catalog.Scope;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
@@ -28,7 +29,7 @@ public class CatalogRegistry {
 
     public List<CatalogEntry> projectEntriesFor(ProjectDescriptor descriptor) {
         return entriesFor(descriptor).stream()
-                .filter(e -> "project".equals(e.getScope()))
+                .filter(e -> Scope.PROJECT == e.getScope())
                 .toList();
     }
 
@@ -36,7 +37,7 @@ public class CatalogRegistry {
         return contributors.stream()
                 .flatMap(c -> reader.read(c.getCatalogResource()).stream())
                 .filter(e -> e.matches(descriptor.getFlavor(), descriptor.getFeatures()))
-                .filter(e -> "endpoint".equals(e.getScope()))
+                .filter(e -> Scope.ENDPOINT == e.getScope())
                 .toList();
     }
 }

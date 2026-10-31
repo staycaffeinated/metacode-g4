@@ -33,7 +33,7 @@ class CatalogReaderTest {
 
         assertThat(entries)
                 .extracting(CatalogEntry::getScope)
-                .containsExactly("project", "project", "project", "endpoint");
+                .containsExactly(Scope.PROJECT, Scope.PROJECT, Scope.PROJECT, Scope.ENDPOINT);
     }
 
     @Test

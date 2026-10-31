@@ -13,8 +13,7 @@ import mmm.coffee.metacode.core.descriptor.Flavor;
 @JsonPropertyOrder({"scope", "archetype", "when", "facets"})
 public class CatalogEntry {
 
-    /** "project" or "endpoint" */
-    private String scope;
+    private Scope scope;
 
     /** Identifies the meta-class (Controller, Service, Repository, etc.) */
     private String archetype;

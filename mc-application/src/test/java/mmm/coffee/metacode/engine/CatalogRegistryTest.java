@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import mmm.coffee.metacode.core.catalog.CatalogEntry;
 import mmm.coffee.metacode.core.catalog.CatalogReader;
+import mmm.coffee.metacode.core.catalog.Scope;
 import mmm.coffee.metacode.core.catalog.WhenCondition;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
@@ -157,7 +158,7 @@ class CatalogRegistryTest {
 
     private CatalogEntry projectEntry(String flavor) {
         CatalogEntry e = new CatalogEntry();
-        e.setScope("project");
+        e.setScope(Scope.PROJECT);
         e.setArchetype("Controller");
         e.setWhen(whenFlavor(flavor));
         return e;
@@ -165,7 +166,7 @@ class CatalogRegistryTest {
 
     private CatalogEntry endpointEntry(String flavor) {
         CatalogEntry e = new CatalogEntry();
-        e.setScope("endpoint");
+        e.setScope(Scope.ENDPOINT);
         e.setArchetype("Controller");
         e.setWhen(whenFlavor(flavor));
         return e;
@@ -173,7 +174,7 @@ class CatalogRegistryTest {
 
     private CatalogEntry unconditionalProjectEntry() {
         CatalogEntry e = new CatalogEntry();
-        e.setScope("project");
+        e.setScope(Scope.PROJECT);
         e.setArchetype("Application");
         // when == null → always matches
         return e;
