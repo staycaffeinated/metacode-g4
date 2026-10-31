@@ -19,11 +19,11 @@ import mmm.coffee.metacode.core.descriptor.Flavor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WhenCondition {
 
-    private List<String> flavor = new ArrayList<>();
+    private List<Flavor> flavor = new ArrayList<>();
     private List<Feature> features = new ArrayList<>();
 
     public boolean matches(Flavor selectedFlavor, Set<Feature> activeFeatures) {
-        if (!flavor.isEmpty() && (selectedFlavor == null || !flavor.contains(selectedFlavor.id()))) {
+        if (!flavor.isEmpty() && (selectedFlavor == null || !flavor.contains(selectedFlavor))) {
             return false;
         }
         return features.isEmpty() || activeFeatures.containsAll(features);

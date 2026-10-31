@@ -72,7 +72,7 @@ class CatalogReaderTest {
 
         CatalogEntry webMvcConfig = entries.get(1);
         assertThat(webMvcConfig.getWhen()).isNotNull();
-        assertThat(webMvcConfig.getWhen().getFlavor()).containsExactly("webmvc");
+        assertThat(webMvcConfig.getWhen().getFlavor()).containsExactly(Flavor.WEBMVC);
         assertThat(webMvcConfig.getWhen().getFeatures()).isEmpty();
     }
 
@@ -91,7 +91,7 @@ class CatalogReaderTest {
 
         CatalogEntry dbConfig = entries.get(2);
         assertThat(dbConfig.getWhen()).isNotNull();
-        assertThat(dbConfig.getWhen().getFlavor()).containsExactly("webmvc");
+        assertThat(dbConfig.getWhen().getFlavor()).containsExactly(Flavor.WEBMVC);
         assertThat(dbConfig.getWhen().getFeatures()).containsExactly(Feature.POSTGRES);
     }
 

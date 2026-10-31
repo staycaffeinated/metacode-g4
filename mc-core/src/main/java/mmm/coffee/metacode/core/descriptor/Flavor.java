@@ -1,5 +1,7 @@
 package mmm.coffee.metacode.core.descriptor;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * The project flavor selected by the user on the CLI.
  * The {@link #id()} value is used in catalog YAML {@code when.flavor} lists
@@ -22,6 +24,7 @@ public enum Flavor {
         return id;
     }
 
+    @JsonCreator
     public static Flavor fromId(String id) {
         if (id == null || id.isBlank()) return null;
         for (Flavor f : values()) {

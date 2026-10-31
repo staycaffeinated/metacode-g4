@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import mmm.coffee.metacode.core.catalog.CatalogEntry;
 import mmm.coffee.metacode.core.catalog.CatalogReader;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ class JavaAppCatalogTest {
                 .allMatch(
                         e -> e.getWhen() != null
                                 && e.getWhen().getFlavor() != null
-                                && e.getWhen().getFlavor().contains("javaapp"),
+                                && e.getWhen().getFlavor().contains(Flavor.JAVA_APP),
                         "every entry must have when.flavor containing 'javaapp'");
     }
 

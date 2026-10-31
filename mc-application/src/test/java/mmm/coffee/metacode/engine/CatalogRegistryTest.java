@@ -47,7 +47,7 @@ class CatalogRegistryTest {
 
     @Test
     void entriesFor_shouldReturnMatchingEntries() {
-        CatalogEntry entry = projectEntry("webmvc");
+        CatalogEntry entry = projectEntry(Flavor.WEBMVC);
         when(reader.read(CATALOG_PATH)).thenReturn(List.of(entry));
 
         List<CatalogEntry> result = registry.entriesFor(webMvcDescriptor());
@@ -57,7 +57,7 @@ class CatalogRegistryTest {
 
     @Test
     void entriesFor_shouldExcludeEntriesWithNonMatchingFlavor() {
-        CatalogEntry webfluxEntry = projectEntry("webflux");
+        CatalogEntry webfluxEntry = projectEntry(Flavor.WEBFLUX);
         when(reader.read(CATALOG_PATH)).thenReturn(List.of(webfluxEntry));
 
         List<CatalogEntry> result = registry.entriesFor(webMvcDescriptor());
@@ -81,8 +81,8 @@ class CatalogRegistryTest {
         String secondPath = "/catalogs/second.yaml";
         when(secondContributor.getCatalogResource()).thenReturn(secondPath);
 
-        CatalogEntry first = projectEntry("webmvc");
-        CatalogEntry second = projectEntry("webmvc");
+        CatalogEntry first = projectEntry(Flavor.WEBMVC);
+        CatalogEntry second = projectEntry(Flavor.WEBMVC);
         when(reader.read(CATALOG_PATH)).thenReturn(List.of(first));
         when(reader.read(secondPath)).thenReturn(List.of(second));
 
@@ -108,8 +108,8 @@ class CatalogRegistryTest {
 
     @Test
     void projectEntriesFor_shouldReturnOnlyProjectScopedEntries() {
-        CatalogEntry project = projectEntry("webmvc");
-        CatalogEntry endpoint = endpointEntry("webmvc");
+        CatalogEntry project = projectEntry(Flavor.WEBMVC);
+        CatalogEntry endpoint = endpointEntry(Flavor.WEBMVC);
         when(reader.read(CATALOG_PATH)).thenReturn(List.of(project, endpoint));
 
         List<CatalogEntry> result = registry.projectEntriesFor(webMvcDescriptor());
@@ -119,7 +119,7 @@ class CatalogRegistryTest {
 
     @Test
     void projectEntriesFor_shouldExcludeEndpointScopedEntries() {
-        CatalogEntry endpoint = endpointEntry("webmvc");
+        CatalogEntry endpoint = endpointEntry(Flavor.WEBMVC);
         when(reader.read(CATALOG_PATH)).thenReturn(List.of(endpoint));
 
         List<CatalogEntry> result = registry.projectEntriesFor(webMvcDescriptor());
@@ -133,8 +133,8 @@ class CatalogRegistryTest {
 
     @Test
     void endpointEntriesFor_shouldReturnOnlyEndpointScopedEntries() {
-        CatalogEntry project = projectEntry("webmvc");
-        CatalogEntry endpoint = endpointEntry("webmvc");
+        CatalogEntry project = projectEntry(Flavor.WEBMVC);
+        CatalogEntry endpoint = endpointEntry(Flavor.WEBMVC);
         when(reader.read(CATALOG_PATH)).thenReturn(List.of(project, endpoint));
 
         List<CatalogEntry> result = registry.endpointEntriesFor(webMvcEndpointDescriptor());
@@ -144,7 +144,7 @@ class CatalogRegistryTest {
 
     @Test
     void endpointEntriesFor_shouldExcludeNonMatchingFlavor() {
-        CatalogEntry endpoint = endpointEntry("webflux");
+        CatalogEntry endpoint = endpointEntry(Flavor.WEBFLUX);
         when(reader.read(CATALOG_PATH)).thenReturn(List.of(endpoint));
 
         List<CatalogEntry> result = registry.endpointEntriesFor(webMvcEndpointDescriptor());
@@ -156,7 +156,7 @@ class CatalogRegistryTest {
     // Factories
     // -----------------------------------------------------------------------
 
-    private CatalogEntry projectEntry(String flavor) {
+    private CatalogEntry projectEntry(Flavor flavor) {
         CatalogEntry e = new CatalogEntry();
         e.setScope(Scope.PROJECT);
         e.setArchetype("Controller");
@@ -164,7 +164,7 @@ class CatalogRegistryTest {
         return e;
     }
 
-    private CatalogEntry endpointEntry(String flavor) {
+    private CatalogEntry endpointEntry(Flavor flavor) {
         CatalogEntry e = new CatalogEntry();
         e.setScope(Scope.ENDPOINT);
         e.setArchetype("Controller");
@@ -180,7 +180,7 @@ class CatalogRegistryTest {
         return e;
     }
 
-    private WhenCondition whenFlavor(String flavor) {
+    private WhenCondition whenFlavor(Flavor flavor) {
         WhenCondition when = new WhenCondition();
         when.setFlavor(List.of(flavor));
         return when;

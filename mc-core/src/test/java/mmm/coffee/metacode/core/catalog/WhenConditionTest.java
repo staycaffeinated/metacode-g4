@@ -25,7 +25,7 @@ class WhenConditionTest {
     @Test
     void flavorList_matchesWhenFlavorPresent() {
         var when = new WhenCondition();
-        when.setFlavor(List.of("webmvc"));
+        when.setFlavor(List.of(Flavor.WEBMVC));
 
         assertThat(when.matches(Flavor.WEBMVC, Set.of())).isTrue();
     }
@@ -33,7 +33,7 @@ class WhenConditionTest {
     @Test
     void flavorList_noMatchWhenFlavorAbsent() {
         var when = new WhenCondition();
-        when.setFlavor(List.of("webmvc"));
+        when.setFlavor(List.of(Flavor.WEBMVC));
 
         assertThat(when.matches(Flavor.WEBFLUX, Set.of())).isFalse();
         assertThat(when.matches(Flavor.SPRING_BATCH, Set.of())).isFalse();
@@ -43,7 +43,7 @@ class WhenConditionTest {
     @Test
     void multipleFlavorList_matchesAnyListed() {
         var when = new WhenCondition();
-        when.setFlavor(List.of("webmvc", "webflux"));
+        when.setFlavor(List.of(Flavor.WEBMVC, Flavor.WEBFLUX));
 
         assertThat(when.matches(Flavor.WEBMVC, Set.of())).isTrue();
         assertThat(when.matches(Flavor.WEBFLUX, Set.of())).isTrue();
@@ -88,7 +88,7 @@ class WhenConditionTest {
     @Test
     void flavorAndFeatures_bothMustMatch() {
         var when = new WhenCondition();
-        when.setFlavor(List.of("webmvc"));
+        when.setFlavor(List.of(Flavor.WEBMVC));
         when.setFeatures(List.of(Feature.POSTGRES));
 
         assertThat(when.matches(Flavor.WEBMVC, Set.of(Feature.POSTGRES))).isTrue();
@@ -97,7 +97,7 @@ class WhenConditionTest {
     @Test
     void flavorMatches_butFeaturesMissing_noMatch() {
         var when = new WhenCondition();
-        when.setFlavor(List.of("webmvc"));
+        when.setFlavor(List.of(Flavor.WEBMVC));
         when.setFeatures(List.of(Feature.POSTGRES));
 
         assertThat(when.matches(Flavor.WEBMVC, Set.of())).isFalse();
@@ -106,7 +106,7 @@ class WhenConditionTest {
     @Test
     void featuresMatch_butFlavorWrong_noMatch() {
         var when = new WhenCondition();
-        when.setFlavor(List.of("webmvc"));
+        when.setFlavor(List.of(Flavor.WEBMVC));
         when.setFeatures(List.of(Feature.POSTGRES));
 
         assertThat(when.matches(Flavor.WEBFLUX, Set.of(Feature.POSTGRES))).isFalse();
