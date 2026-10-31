@@ -25,6 +25,8 @@ dependencies {
 
     implementation project(':mc-core')
     implementation project(':mc-core-springboot')
+    implementation libs.freemarker
+    implementation libs.jmustache
     implementation project(':mc-feature-webmvc')
     implementation project(':mc-feature-webflux')
     implementation project(':mc-feature-springbatch')

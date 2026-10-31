@@ -1,4 +1,4 @@
-package mmm.coffee.metacode.core.renderer;
+package mmm.coffee.metacode.engine.renderer;
 
 public class TemplateRenderException extends RuntimeException {
 

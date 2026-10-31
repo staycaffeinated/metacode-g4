@@ -10,7 +10,7 @@ import mmm.coffee.metacode.core.catalog.CatalogReader;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
 import mmm.coffee.metacode.core.descriptor.Flavor;
-import mmm.coffee.metacode.core.renderer.FreemarkerTemplateRenderer;
+import mmm.coffee.metacode.engine.renderer.FreemarkerTemplateRenderer;
 import mmm.coffee.metacode.springboot.SpringBootCatalogContributor;
 import mmm.coffee.metacode.webflux.WebFluxCatalogContributor;
 import mmm.coffee.metacode.webmvc.WebMvcCatalogContributor;

@@ -6,9 +6,7 @@ plugins {
 dependencies {
     implementation libs.commonsIo
     implementation libs.commonsLang3
-    implementation libs.freemarker
     implementation libs.jacksonYaml
-    implementation libs.jmustache
     implementation libs.slf4jApi
 
     testImplementation platform(libs.junit.bom)

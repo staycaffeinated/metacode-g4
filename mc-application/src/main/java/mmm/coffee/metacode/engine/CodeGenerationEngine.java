@@ -12,8 +12,8 @@ import mmm.coffee.metacode.core.catalog.TemplateFacet;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import mmm.coffee.metacode.core.exceptions.MetacodeException;
 import mmm.coffee.metacode.core.generator.ICodeGenerator;
-import mmm.coffee.metacode.core.renderer.MustacheExpressionResolver;
 import mmm.coffee.metacode.core.renderer.TemplateRenderer;
+import mmm.coffee.metacode.engine.renderer.MustacheExpressionResolver;
 import org.springframework.stereotype.Component;
 
 @Component

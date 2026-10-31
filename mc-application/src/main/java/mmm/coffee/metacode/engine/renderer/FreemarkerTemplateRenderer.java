@@ -1,4 +1,4 @@
-package mmm.coffee.metacode.core.renderer;
+package mmm.coffee.metacode.engine.renderer;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import mmm.coffee.metacode.core.renderer.TemplateRenderer;
 
 @Slf4j
 public class FreemarkerTemplateRenderer implements TemplateRenderer {

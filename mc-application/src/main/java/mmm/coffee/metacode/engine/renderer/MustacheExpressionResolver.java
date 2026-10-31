@@ -1,4 +1,4 @@
-package mmm.coffee.metacode.core.renderer;
+package mmm.coffee.metacode.engine.renderer;
 
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.MustacheException;
@@ -19,11 +19,6 @@ public class MustacheExpressionResolver {
 
     private MustacheExpressionResolver() {}
 
-    /**
-     * Resolves {@code expression} against {@code values}.
-     * Example: {@code resolve("{{basePackagePath}}/api", Map.of("basePackagePath", "org/example"))}
-     * returns {@code "org/example/api"}.
-     */
     public static String resolve(@NonNull String expression, Map<String, String> values) {
         try {
             Template template = CACHE.computeIfAbsent(

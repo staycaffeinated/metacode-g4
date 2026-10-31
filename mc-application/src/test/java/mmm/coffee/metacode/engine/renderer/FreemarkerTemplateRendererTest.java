@@ -1,4 +1,4 @@
-package mmm.coffee.metacode.core.renderer;
+package mmm.coffee.metacode.engine.renderer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -36,31 +36,21 @@ class FreemarkerTemplateRendererTest {
     @Test
     void render_shouldSubstituteModelVariables() throws IOException {
         writeTemplate("greeting.ftl", "Hello, ${name}!");
-
         String result = renderer.render("greeting.ftl", Map.of("name", "World"));
-
         assertThat(result).isEqualTo("Hello, World!");
     }
 
     @Test
     void render_shouldHandleMultipleVariables() throws IOException {
         writeTemplate("class.ftl", "package ${packageName};\n\npublic class ${className} {}");
-
-        String result = renderer.render(
-                "class.ftl",
-                Map.of(
-                        "packageName", "com.example",
-                        "className", "MyService"));
-
+        String result = renderer.render("class.ftl", Map.of("packageName", "com.example", "className", "MyService"));
         assertThat(result).isEqualTo("package com.example;\n\npublic class MyService {}");
     }
 
     @Test
     void render_shouldHandleStaticTemplateWithNoVariables() throws IOException {
         writeTemplate("static.ftl", "// generated file");
-
         String result = renderer.render("static.ftl", Map.of());
-
         assertThat(result).isEqualTo("// generated file");
     }
 
@@ -70,9 +60,7 @@ class FreemarkerTemplateRendererTest {
         Files.createDirectories(subDir);
         Files.writeString(
                 subDir.resolve("bean.ftl"), "@Component\npublic class ${className} {}", StandardCharsets.UTF_8);
-
         String result = renderer.render("spring/templates/bean.ftl", Map.of("className", "FooBean"));
-
         assertThat(result).isEqualTo("@Component\npublic class FooBean {}");
     }
 
@@ -86,7 +74,6 @@ class FreemarkerTemplateRendererTest {
     @Test
     void render_shouldThrowTemplateRenderException_whenModelVariableMissing() throws IOException {
         writeTemplate("missing-var.ftl", "${undeclaredVariable}");
-
         assertThatThrownBy(() -> renderer.render("missing-var.ftl", Map.of()))
                 .isInstanceOf(TemplateRenderException.class);
     }
