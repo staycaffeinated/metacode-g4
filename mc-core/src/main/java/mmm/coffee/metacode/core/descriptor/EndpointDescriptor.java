@@ -3,13 +3,13 @@ package mmm.coffee.metacode.core.descriptor;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 
 /**
  * Captures the user's choices for 'create endpoint': entity name, route,
  * and project settings read back from metacode.properties.
  */
-@Data
+@Value
 @Builder
 public class EndpointDescriptor {
 

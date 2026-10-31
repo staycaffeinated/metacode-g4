@@ -3,13 +3,13 @@ package mmm.coffee.metacode.core.descriptor;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 
 /**
  * Captures the user's choices from the CLI: target flavor, active features,
  * and project coordinates. Passed through the generation pipeline.
  */
-@Data
+@Value
 @Builder
 public class ProjectDescriptor {
 
