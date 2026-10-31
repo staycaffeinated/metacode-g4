@@ -32,7 +32,7 @@ class CodeGenerationEngineTest {
     TemplateRenderer renderer;
 
     @Mock
-    TemplateModelConverter converter;
+    ProjectTemplateModelConverter converter;
 
     @Mock
     ContentWriter writer;

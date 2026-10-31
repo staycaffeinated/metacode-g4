@@ -36,7 +36,7 @@ class EndpointTemplateRenderingTest {
         CatalogRegistry registry = new CatalogRegistry(contributors, catalogReader);
         FreemarkerTemplateRenderer renderer = new FreemarkerTemplateRenderer();
         PackageLayout packageLayout = PackageLayout.loadDefault();
-        TemplateModelConverter converter = new TemplateModelConverter(packageLayout);
+        EndpointTemplateModelConverter converter = new EndpointTemplateModelConverter(packageLayout);
 
         // No-op writer: renders templates but discards output
         ContentToFileWriter nullWriter = new ContentToFileWriter() {

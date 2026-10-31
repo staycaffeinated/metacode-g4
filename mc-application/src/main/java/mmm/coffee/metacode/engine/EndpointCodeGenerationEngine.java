@@ -17,13 +17,13 @@ public class EndpointCodeGenerationEngine implements ICodeGenerator<EndpointDesc
 
     private final CatalogRegistry registry;
     private final TemplateRenderer renderer;
-    private final TemplateModelConverter converter;
+    private final EndpointTemplateModelConverter converter;
     private final ContentToFileWriter writer;
 
     public EndpointCodeGenerationEngine(
             CatalogRegistry registry,
             TemplateRenderer renderer,
-            TemplateModelConverter converter,
+            EndpointTemplateModelConverter converter,
             ContentToFileWriter writer) {
         this.registry = registry;
         this.renderer = renderer;
@@ -39,8 +39,8 @@ public class EndpointCodeGenerationEngine implements ICodeGenerator<EndpointDesc
     @Override
     public int generateCode(EndpointDescriptor descriptor) {
         List<CatalogEntry> entries = registry.endpointEntriesFor(descriptor);
-        Map<String, Object> ftlModel = converter.toEndpointFtlModel(descriptor);
-        Map<String, String> tokens = converter.toEndpointMustacheTokens(descriptor);
+        Map<String, Object> ftlModel = converter.toFtlModel(descriptor);
+        Map<String, String> tokens = converter.toMustacheTokens(descriptor);
 
         for (CatalogEntry entry : entries) {
             for (TemplateFacet facet : entry.getFacets()) {
