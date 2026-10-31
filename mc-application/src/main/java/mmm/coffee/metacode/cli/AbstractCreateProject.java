@@ -1,6 +1,9 @@
 package mmm.coffee.metacode.cli;
 
+import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Collectors;
+import mmm.coffee.metacode.core.descriptor.Feature;
 import picocli.CommandLine;
 
 public abstract class AbstractCreateProject implements Runnable {
@@ -31,7 +34,7 @@ public abstract class AbstractCreateProject implements Runnable {
 
     @CommandLine.Option(
             names = {"--add"},
-            description = "Features: postgres, liquibase, flyway, openapi, testcontainers, kafka",
+            description = "Features: postgres, liquibase, flyway, openapi, testcontainers, mongodb, kafka",
             arity = "1..*",
             split = ",")
     protected String[] features = new String[0];
@@ -42,7 +45,8 @@ public abstract class AbstractCreateProject implements Runnable {
             defaultValue = "21")
     protected String javaVersion;
 
-    protected Set<String> activeFeatures() {
-        return features == null || features.length == 0 ? Set.of() : Set.of(features);
+    protected Set<Feature> activeFeatures() {
+        if (features == null || features.length == 0) return Set.of();
+        return Arrays.stream(features).map(Feature::fromId).collect(Collectors.toUnmodifiableSet());
     }
 }

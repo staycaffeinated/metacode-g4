@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 import mmm.coffee.metacode.core.archetype.ArchetypeModel;
 import mmm.coffee.metacode.core.catalog.CatalogEntry;
 import mmm.coffee.metacode.core.catalog.TemplateFacet;
+import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import mmm.coffee.metacode.core.exceptions.MetacodeException;
 import mmm.coffee.metacode.core.generator.ICodeGenerator;
@@ -50,7 +52,11 @@ public class CodeGenerationEngine implements ICodeGenerator<ProjectDescriptor> {
         props.setProperty("basePath", d.getBasePath() != null ? d.getBasePath() : "/");
         props.setProperty("appModule", d.getAppModule() != null ? d.getAppModule() : "application");
         props.setProperty("javaVersion", d.getJavaVersion() != null ? d.getJavaVersion() : "21");
-        props.setProperty("features", d.getFeatures() != null ? String.join(",", d.getFeatures()) : "");
+        props.setProperty(
+                "features",
+                d.getFeatures() != null
+                        ? d.getFeatures().stream().map(Feature::id).collect(Collectors.joining(","))
+                        : "");
 
         String dir = d.getBaseDirectory() != null ? d.getBaseDirectory() : ".";
         File file = new File(dir, "metacode.properties");

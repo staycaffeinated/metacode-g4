@@ -25,11 +25,10 @@ public class ProjectDescriptor {
     private Flavor flavor;
 
     /**
-     * Active integrations: e.g. "postgres", "mongodb", "liquibase", "flyway",
-     * "testcontainers", "openapi". Matched against {@code when.features} in catalog entries.
+     * Active integrations matched against {@code when.features} in catalog entries.
      */
     @Builder.Default
-    private Set<String> features = new HashSet<>();
+    private Set<Feature> features = new HashSet<>();
 
     private String javaVersion;
 

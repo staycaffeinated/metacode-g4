@@ -9,6 +9,7 @@ import mmm.coffee.metacode.core.archetype.PackageLayout;
 import mmm.coffee.metacode.core.catalog.CatalogReader;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
+import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.engine.renderer.FreemarkerTemplateRenderer;
 import mmm.coffee.metacode.springboot.SpringBootCatalogContributor;
@@ -78,7 +79,7 @@ class EndpointTemplateRenderingTest {
                 .baseDirectory("/tmp")
                 .appModule("application")
                 .javaVersion("21")
-                .features(Set.of("postgres", "openapi", "testcontainers"))
+                .features(Set.of(Feature.POSTGRES, Feature.OPENAPI, Feature.TESTCONTAINERS))
                 .build();
 
         assertThatNoException().isThrownBy(() -> {

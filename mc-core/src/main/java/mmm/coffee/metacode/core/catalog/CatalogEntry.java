@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
+import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
 
 @Data
@@ -23,7 +24,7 @@ public class CatalogEntry {
 
     private List<TemplateFacet> facets = new ArrayList<>();
 
-    public boolean matches(Flavor selectedFlavor, Set<String> activeFeatures) {
+    public boolean matches(Flavor selectedFlavor, Set<Feature> activeFeatures) {
         if (when == null) return true;
         return when.matches(selectedFlavor, activeFeatures);
     }

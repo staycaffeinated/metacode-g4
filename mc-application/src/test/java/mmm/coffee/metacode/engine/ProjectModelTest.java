@@ -2,9 +2,8 @@ package mmm.coffee.metacode.engine;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
+import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import org.junit.jupiter.api.Test;
@@ -261,7 +260,7 @@ class ProjectModelTest {
                 .applicationName("my-web-mvc-app")
                 .basePackage("com.example")
                 .basePath("/api/v1")
-                .features(listToSet(List.of("openapi")))
+                .features(Set.of(Feature.OPENAPI))
                 .build();
     }
 
@@ -271,7 +270,7 @@ class ProjectModelTest {
                 .applicationName("my-web-mvc-app")
                 .basePackage("com.example")
                 .basePath("/api/v1")
-                .features(listToSet(List.of("postgres", "testcontainers")))
+                .features(Set.of(Feature.POSTGRES, Feature.TESTCONTAINERS))
                 .build();
     }
 
@@ -281,7 +280,7 @@ class ProjectModelTest {
                 .applicationName("my-web-mvc-app")
                 .basePackage("com.example")
                 .basePath("/api/v1")
-                .features(listToSet(List.of("postgres", "flyway", "testcontainers")))
+                .features(Set.of(Feature.POSTGRES, Feature.FLYWAY, Feature.TESTCONTAINERS))
                 .build();
     }
 
@@ -291,7 +290,7 @@ class ProjectModelTest {
                 .applicationName("webmvc-postgres-tc-liquibase")
                 .basePath("/api/v1")
                 .basePackage("com.example")
-                .features(listToSet(List.of("postgres", "liquibase", "testcontainers")))
+                .features(Set.of(Feature.POSTGRES, Feature.LIQUIBASE, Feature.TESTCONTAINERS))
                 .build();
     }
 
@@ -301,7 +300,7 @@ class ProjectModelTest {
                 .applicationName("webmvc-postgres-kafka")
                 .basePath("/api/v1")
                 .basePackage("com.example")
-                .features(listToSet(List.of("postgres", "kafka", "testcontainers")))
+                .features(Set.of(Feature.POSTGRES, Feature.KAFKA, Feature.TESTCONTAINERS))
                 .build();
     }
 
@@ -311,7 +310,7 @@ class ProjectModelTest {
                 .applicationName("webmvc-mongodb")
                 .basePath("/api/v1")
                 .basePackage("com.example")
-                .features(listToSet(List.of("mongodb", "testcontainers")))
+                .features(Set.of(Feature.MONGODB, Feature.TESTCONTAINERS))
                 .build();
     }
 
@@ -321,7 +320,7 @@ class ProjectModelTest {
                 .applicationName("webflux-h2-openapi")
                 .basePath("/api/v1")
                 .basePackage("com.example")
-                .features(listToSet(List.of("openapi")))
+                .features(Set.of(Feature.OPENAPI))
                 .build();
     }
 
@@ -331,7 +330,7 @@ class ProjectModelTest {
                 .applicationName("webflux-postgres-testcontainers")
                 .basePath("/api/v1")
                 .basePackage("com.example")
-                .features(listToSet(List.of("postgres", "testcontainers", "flyway", "openapi")))
+                .features(Set.of(Feature.POSTGRES, Feature.TESTCONTAINERS, Feature.FLYWAY, Feature.OPENAPI))
                 .build();
     }
 
@@ -341,11 +340,8 @@ class ProjectModelTest {
                 .applicationName("webflux-postgres-tc-kafka")
                 .basePath("/api/v1")
                 .basePackage("com.example")
-                .features(listToSet(List.of("postgres", "testcontainers", "flyway", "openapi", "kafka")))
+                .features(Set.of(
+                        Feature.POSTGRES, Feature.TESTCONTAINERS, Feature.FLYWAY, Feature.OPENAPI, Feature.KAFKA))
                 .build();
-    }
-
-    Set<String> listToSet(List<String> items) {
-        return new TreeSet<>(items);
     }
 }

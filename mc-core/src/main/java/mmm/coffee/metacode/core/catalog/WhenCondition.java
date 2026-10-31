@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
+import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
 
 /**
@@ -19,9 +20,9 @@ import mmm.coffee.metacode.core.descriptor.Flavor;
 public class WhenCondition {
 
     private List<String> flavor = new ArrayList<>();
-    private List<String> features = new ArrayList<>();
+    private List<Feature> features = new ArrayList<>();
 
-    public boolean matches(Flavor selectedFlavor, Set<String> activeFeatures) {
+    public boolean matches(Flavor selectedFlavor, Set<Feature> activeFeatures) {
         if (!flavor.isEmpty() && (selectedFlavor == null || !flavor.contains(selectedFlavor.id()))) {
             return false;
         }

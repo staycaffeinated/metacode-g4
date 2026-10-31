@@ -9,6 +9,7 @@ import java.util.Set;
 import mmm.coffee.metacode.core.archetype.ArchetypeModel;
 import mmm.coffee.metacode.core.archetype.PackageLayout;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
+import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -159,7 +160,7 @@ class EndpointTemplateModelConverterTest {
                 .flavor(Flavor.WEBMVC)
                 .appModule(APP_MODULE)
                 .javaVersion("21")
-                .features(Set.of("postgres"))
+                .features(Set.of(Feature.POSTGRES))
                 .build();
     }
 }

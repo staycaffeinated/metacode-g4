@@ -1,6 +1,7 @@
 package mmm.coffee.metacode.engine;
 
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
+import mmm.coffee.metacode.core.descriptor.Feature;
 
 /**
  * Exposes endpoint-specific checks and names to FreeMarker templates via
@@ -30,9 +31,9 @@ public class EndpointModel {
         this.ejbName = d.getEntityName() + "Entity";
         this.tableName = d.getEntityName().toLowerCase();
         this.route = d.getRoute();
-        this.withOpenApi = d.getFeatures().contains("openapi");
-        this.withPostgres = d.getFeatures().contains("postgres");
-        this.withTestContainers = d.getFeatures().contains("testcontainers");
+        this.withOpenApi = d.getFeatures().contains(Feature.OPENAPI);
+        this.withPostgres = d.getFeatures().contains(Feature.POSTGRES);
+        this.withTestContainers = d.getFeatures().contains(Feature.TESTCONTAINERS);
         this.routeConstants = new RouteConstants();
     }
 

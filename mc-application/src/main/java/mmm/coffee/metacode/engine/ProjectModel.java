@@ -1,6 +1,7 @@
 package mmm.coffee.metacode.engine;
 
 import java.util.Set;
+import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import org.jspecify.annotations.NonNull;
@@ -11,7 +12,7 @@ import org.jspecify.annotations.NonNull;
  */
 public class ProjectModel {
 
-    private final Set<String> features;
+    private final Set<Feature> features;
     private final String applicationName;
     private final String basePackage;
     private final String basePath;
@@ -44,31 +45,31 @@ public class ProjectModel {
     }
 
     public boolean isWithPostgres() {
-        return features.contains("postgres");
+        return features.contains(Feature.POSTGRES);
     }
 
     public boolean isWithTestContainers() {
-        return features.contains("testcontainers");
+        return features.contains(Feature.TESTCONTAINERS);
     }
 
     public boolean isWithLiquibase() {
-        return features.contains("liquibase");
+        return features.contains(Feature.LIQUIBASE);
     }
 
     public boolean isWithFlyway() {
-        return features.contains("flyway");
+        return features.contains(Feature.FLYWAY);
     }
 
     public boolean isWithOpenApi() {
-        return features.contains("openapi");
+        return features.contains(Feature.OPENAPI);
     }
 
     public boolean isWithMongoDb() {
-        return features.contains("mongodb");
+        return features.contains(Feature.MONGODB);
     }
 
     public boolean isWithKafka() {
-        return features.contains("kafka");
+        return features.contains(Feature.KAFKA);
     }
 
     public boolean isWebMvc() {

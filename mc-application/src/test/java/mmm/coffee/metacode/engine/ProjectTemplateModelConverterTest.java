@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import mmm.coffee.metacode.core.archetype.ArchetypeModel;
 import mmm.coffee.metacode.core.archetype.PackageLayout;
+import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import org.junit.jupiter.api.BeforeEach;
@@ -67,8 +68,8 @@ class ProjectTemplateModelConverterTest {
         var model = converter.toFtlModel(projectDescriptor());
         assertThat(model).containsKey("features");
         @SuppressWarnings("unchecked")
-        Set<String> features = (Set<String>) model.get("features");
-        assertThat(features).containsExactlyInAnyOrder("postgres", "openapi");
+        Set<Feature> features = (Set<Feature>) model.get("features");
+        assertThat(features).containsExactlyInAnyOrder(Feature.POSTGRES, Feature.OPENAPI);
     }
 
     @Test
@@ -167,7 +168,7 @@ class ProjectTemplateModelConverterTest {
                 .flavor(Flavor.WEBMVC)
                 .appModule(APP_MODULE)
                 .javaVersion("21")
-                .features(Set.of("postgres", "openapi"))
+                .features(Set.of(Feature.POSTGRES, Feature.OPENAPI))
                 .build();
     }
 }

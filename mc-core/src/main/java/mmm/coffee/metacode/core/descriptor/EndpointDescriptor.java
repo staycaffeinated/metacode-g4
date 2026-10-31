@@ -27,5 +27,5 @@ public class EndpointDescriptor {
     private String appModule = "application";
 
     @Builder.Default
-    private Set<String> features = new HashSet<>();
+    private Set<Feature> features = new HashSet<>();
 }

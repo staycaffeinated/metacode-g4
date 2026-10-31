@@ -4,10 +4,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
+import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.exceptions.MetacodeException;
 import mmm.coffee.metacode.core.generator.ICodeGenerator;
@@ -54,7 +55,7 @@ public class SubcommandCreateEndpoint implements Runnable {
         String basePath = props.getProperty("basePath", "/");
         String appModule = props.getProperty("appModule", "application");
         String java = props.getProperty("javaVersion", "21");
-        Set<String> features = parseFeatures(props.getProperty("features", ""));
+        Set<Feature> features = parseFeatures(props.getProperty("features", ""));
 
         EndpointDescriptor descriptor = EndpointDescriptor.builder()
                 .entityName(capitalize(resource))
@@ -88,15 +89,13 @@ public class SubcommandCreateEndpoint implements Runnable {
         return props;
     }
 
-    private Set<String> parseFeatures(String csv) {
-        Set<String> result = new HashSet<>();
-        if (csv != null && !csv.isBlank()) {
-            Arrays.stream(csv.split(","))
-                    .map(String::trim)
-                    .filter(s -> !s.isEmpty())
-                    .forEach(result::add);
-        }
-        return result;
+    private Set<Feature> parseFeatures(String csv) {
+        if (csv == null || csv.isBlank()) return Set.of();
+        return Arrays.stream(csv.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(Feature::fromId)
+                .collect(Collectors.toSet());
     }
 
     private String capitalize(String s) {
