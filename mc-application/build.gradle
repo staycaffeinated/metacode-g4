@@ -1,12 +1,23 @@
 plugins {
     id 'buildlogic.application-conventions'
     id 'buildlogic.integration-test'
+    id 'java-test-fixtures'
     id 'jacoco-report-aggregation'
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.dependency.management)
     alias(libs.plugins.versions)
     alias(libs.plugins.lombok.plugin)
 
+}
+
+testing {
+    suites {
+        integrationTest {
+            dependencies {
+                implementation testFixtures(project())
+            }
+        }
+    }
 }
 
 dependencies {
@@ -20,6 +31,8 @@ dependencies {
     implementation project(':mc-feature-javaapp')
     implementation libs.commonsIo
     implementation libs.picocli.spring.boot.starter
+
+    testFixturesCompileOnly libs.spring.context
 
     testImplementation libs.spring.boot.starter.test
     testImplementation libs.junit.jupiter

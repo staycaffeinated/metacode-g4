@@ -37,16 +37,8 @@ class EndpointTemplateRenderingTest {
         FreemarkerTemplateRenderer renderer = new FreemarkerTemplateRenderer();
         PackageLayout packageLayout = PackageLayout.loadDefault();
         EndpointTemplateModelConverter converter = new EndpointTemplateModelConverter(packageLayout);
-
-        // No-op writer: renders templates but discards output
-        ContentToFileWriter nullWriter = new ContentToFileWriter() {
-            @Override
-            public void write(String baseDir, String path, String content) {
-                /* discard */
-            }
-        };
-
-        engineUnderTest = new EndpointCodeGenerationEngine(registry, renderer, converter, nullWriter);
+        engineUnderTest =
+                new EndpointCodeGenerationEngine(registry, renderer, converter, new NoOpContentToFileWriter());
     }
 
     @ParameterizedTest(name = "flavor={0}, all templates render")
