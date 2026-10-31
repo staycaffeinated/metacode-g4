@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 
 /**
  * Declarative condition block in a catalog entry.
@@ -20,8 +21,8 @@ public class WhenCondition {
     private List<String> flavor = new ArrayList<>();
     private List<String> features = new ArrayList<>();
 
-    public boolean matches(String selectedFlavor, Set<String> activeFeatures) {
-        if (!flavor.isEmpty() && !flavor.contains(selectedFlavor)) {
+    public boolean matches(Flavor selectedFlavor, Set<String> activeFeatures) {
+        if (!flavor.isEmpty() && (selectedFlavor == null || !flavor.contains(selectedFlavor.id()))) {
             return false;
         }
         return features.isEmpty() || activeFeatures.containsAll(features);

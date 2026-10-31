@@ -45,7 +45,7 @@ public class CodeGenerationEngine implements ICodeGenerator<ProjectDescriptor> {
 
     private void writeMetaProperties(ProjectDescriptor d) {
         Properties props = new Properties();
-        props.setProperty("framework", d.getFlavor() != null ? d.getFlavor() : "");
+        props.setProperty("framework", d.getFlavor() != null ? d.getFlavor().id() : "");
         props.setProperty("basePackage", d.getBasePackage() != null ? d.getBasePackage() : "");
         props.setProperty("basePath", d.getBasePath() != null ? d.getBasePath() : "/");
         props.setProperty("appModule", d.getAppModule() != null ? d.getAppModule() : "application");

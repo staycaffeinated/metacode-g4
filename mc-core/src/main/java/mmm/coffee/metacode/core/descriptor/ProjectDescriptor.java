@@ -19,10 +19,10 @@ public class ProjectDescriptor {
     private String basePath;
 
     /**
-     * The project flavor: "webmvc", "webflux", "springbatch", or "springboot".
-     * Matched against {@code when.flavor} in catalog entries.
+     * The project flavor selected by the user.
+     * Matched against {@code when.flavor} in catalog entries via {@link Flavor#id()}.
      */
-    private String flavor;
+    private Flavor flavor;
 
     /**
      * Active integrations: e.g. "postgres", "mongodb", "liquibase", "flyway",

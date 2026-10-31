@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.Set;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import org.junit.jupiter.api.Test;
 
 class WhenConditionTest {
@@ -13,8 +14,9 @@ class WhenConditionTest {
     @Test
     void emptyCondition_matchesAnyFlavorAndFeatures() {
         var when = new WhenCondition();
-        assertThat(when.matches("webmvc", Set.of())).isTrue();
-        assertThat(when.matches("webflux", Set.of("postgres", "liquibase"))).isTrue();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of())).isTrue();
+        assertThat(when.matches(Flavor.WEBFLUX, Set.of("postgres", "liquibase")))
+                .isTrue();
     }
 
     // ── flavor only ───────────────────────────────────────────────────────────
@@ -24,7 +26,7 @@ class WhenConditionTest {
         var when = new WhenCondition();
         when.setFlavor(List.of("webmvc"));
 
-        assertThat(when.matches("webmvc", Set.of())).isTrue();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of())).isTrue();
     }
 
     @Test
@@ -32,9 +34,9 @@ class WhenConditionTest {
         var when = new WhenCondition();
         when.setFlavor(List.of("webmvc"));
 
-        assertThat(when.matches("webflux", Set.of())).isFalse();
-        assertThat(when.matches("springbatch", Set.of())).isFalse();
-        assertThat(when.matches("springboot", Set.of())).isFalse();
+        assertThat(when.matches(Flavor.WEBFLUX, Set.of())).isFalse();
+        assertThat(when.matches(Flavor.SPRING_BATCH, Set.of())).isFalse();
+        assertThat(when.matches(Flavor.SPRING_BOOT, Set.of())).isFalse();
     }
 
     @Test
@@ -42,9 +44,9 @@ class WhenConditionTest {
         var when = new WhenCondition();
         when.setFlavor(List.of("webmvc", "webflux"));
 
-        assertThat(when.matches("webmvc", Set.of())).isTrue();
-        assertThat(when.matches("webflux", Set.of())).isTrue();
-        assertThat(when.matches("springbatch", Set.of())).isFalse();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of())).isTrue();
+        assertThat(when.matches(Flavor.WEBFLUX, Set.of())).isTrue();
+        assertThat(when.matches(Flavor.SPRING_BATCH, Set.of())).isFalse();
     }
 
     // ── features only ─────────────────────────────────────────────────────────
@@ -54,8 +56,8 @@ class WhenConditionTest {
         var when = new WhenCondition();
         when.setFeatures(List.of("postgres"));
 
-        assertThat(when.matches("webmvc", Set.of("postgres"))).isTrue();
-        assertThat(when.matches("webmvc", Set.of("postgres", "liquibase"))).isTrue();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of("postgres"))).isTrue();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of("postgres", "liquibase"))).isTrue();
     }
 
     @Test
@@ -63,8 +65,8 @@ class WhenConditionTest {
         var when = new WhenCondition();
         when.setFeatures(List.of("postgres"));
 
-        assertThat(when.matches("webmvc", Set.of())).isFalse();
-        assertThat(when.matches("webmvc", Set.of("mongodb"))).isFalse();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of())).isFalse();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of("mongodb"))).isFalse();
     }
 
     @Test
@@ -72,10 +74,10 @@ class WhenConditionTest {
         var when = new WhenCondition();
         when.setFeatures(List.of("postgres", "liquibase"));
 
-        assertThat(when.matches("webmvc", Set.of("postgres", "liquibase"))).isTrue();
-        assertThat(when.matches("webmvc", Set.of("postgres"))).isFalse();
-        assertThat(when.matches("webmvc", Set.of("liquibase"))).isFalse();
-        assertThat(when.matches("webmvc", Set.of())).isFalse();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of("postgres", "liquibase"))).isTrue();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of("postgres"))).isFalse();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of("liquibase"))).isFalse();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of())).isFalse();
     }
 
     // ── flavor + features (AND logic) ─────────────────────────────────────────
@@ -86,7 +88,7 @@ class WhenConditionTest {
         when.setFlavor(List.of("webmvc"));
         when.setFeatures(List.of("postgres"));
 
-        assertThat(when.matches("webmvc", Set.of("postgres"))).isTrue();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of("postgres"))).isTrue();
     }
 
     @Test
@@ -95,7 +97,7 @@ class WhenConditionTest {
         when.setFlavor(List.of("webmvc"));
         when.setFeatures(List.of("postgres"));
 
-        assertThat(when.matches("webmvc", Set.of())).isFalse();
+        assertThat(when.matches(Flavor.WEBMVC, Set.of())).isFalse();
     }
 
     @Test
@@ -104,6 +106,6 @@ class WhenConditionTest {
         when.setFlavor(List.of("webmvc"));
         when.setFeatures(List.of("postgres"));
 
-        assertThat(when.matches("webflux", Set.of("postgres"))).isFalse();
+        assertThat(when.matches(Flavor.WEBFLUX, Set.of("postgres"))).isFalse();
     }
 }

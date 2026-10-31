@@ -11,6 +11,7 @@ import java.util.Map;
 import mmm.coffee.metacode.core.archetype.ArchetypeModel;
 import mmm.coffee.metacode.core.catalog.CatalogEntry;
 import mmm.coffee.metacode.core.catalog.TemplateFacet;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import mmm.coffee.metacode.core.exceptions.MetacodeException;
 import mmm.coffee.metacode.core.renderer.TemplateRenderer;
@@ -251,7 +252,7 @@ class CodeGenerationEngineTest {
                 .basePackage("com.example")
                 .baseDirectory(baseDir.toString())
                 .basePath("/api")
-                .flavor("webmvc")
+                .flavor(Flavor.WEBMVC)
                 .appModule("application")
                 .javaVersion("21")
                 .build();

@@ -5,17 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import org.junit.jupiter.api.Test;
 
 class ProjectModelTest {
-
-    static class Flavor {
-        static final String SPRING_WEBMVC = "webmvc";
-        static final String SPRING_WEBFLUX = "webflux";
-        static final String SPRING_BOOT = "springboot";
-        static final String SPRING_BATCH = "springbatch";
-    }
 
     // -----------------------------------------------------------------------
     // Flavor detection
@@ -196,7 +190,7 @@ class ProjectModelTest {
     @Test
     void shouldDefaultBasePathToSlash_whenDescriptorBasePathIsNull() {
         var descriptor = ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBMVC)
+                .flavor(Flavor.WEBMVC)
                 .applicationName("app")
                 .basePackage("com.example")
                 .basePath(null)
@@ -211,7 +205,7 @@ class ProjectModelTest {
     @Test
     void shouldTreatNullFeaturesAsEmpty() {
         var descriptor = ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBMVC)
+                .flavor(Flavor.WEBMVC)
                 .applicationName("app")
                 .basePackage("com.example")
                 .basePath("/api/v1")
@@ -249,7 +243,7 @@ class ProjectModelTest {
 
     ProjectDescriptor aWebMvcProjectWithH2AndOpenApi() {
         return ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBMVC)
+                .flavor(Flavor.WEBMVC)
                 .applicationName("my-web-mvc-app")
                 .basePackage("com.example")
                 .basePath("/api/v1")
@@ -259,7 +253,7 @@ class ProjectModelTest {
 
     ProjectDescriptor aWebMvcWithPostgresAndTestContainers() {
         return ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBMVC)
+                .flavor(Flavor.WEBMVC)
                 .applicationName("my-web-mvc-app")
                 .basePackage("com.example")
                 .basePath("/api/v1")
@@ -269,7 +263,7 @@ class ProjectModelTest {
 
     ProjectDescriptor aWebMvcWithPostgresTestContainersFlyway() {
         return ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBMVC)
+                .flavor(Flavor.WEBMVC)
                 .applicationName("my-web-mvc-app")
                 .basePackage("com.example")
                 .basePath("/api/v1")
@@ -279,7 +273,7 @@ class ProjectModelTest {
 
     ProjectDescriptor aWebMvcWithPostgresTestContainersLiquibase() {
         return ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBMVC)
+                .flavor(Flavor.WEBMVC)
                 .applicationName("webmvc-postgres-tc-liquibase")
                 .basePath("/api/v1")
                 .basePackage("com.example")
@@ -289,7 +283,7 @@ class ProjectModelTest {
 
     ProjectDescriptor aWebMvcWithPostgresAndKafka() {
         return ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBMVC)
+                .flavor(Flavor.WEBMVC)
                 .applicationName("webmvc-postgres-kafka")
                 .basePath("/api/v1")
                 .basePackage("com.example")
@@ -299,7 +293,7 @@ class ProjectModelTest {
 
     ProjectDescriptor aWebMvcWithMongoDb() {
         return ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBMVC)
+                .flavor(Flavor.WEBMVC)
                 .applicationName("webmvc-mongodb")
                 .basePath("/api/v1")
                 .basePackage("com.example")
@@ -309,7 +303,7 @@ class ProjectModelTest {
 
     ProjectDescriptor aBasicWebFluxProject() {
         return ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBFLUX)
+                .flavor(Flavor.WEBFLUX)
                 .applicationName("webflux-h2-openapi")
                 .basePath("/api/v1")
                 .basePackage("com.example")
@@ -319,7 +313,7 @@ class ProjectModelTest {
 
     ProjectDescriptor aBasicWebFluxProjectWithPostgresAndTestContainers() {
         return ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBFLUX)
+                .flavor(Flavor.WEBFLUX)
                 .applicationName("webflux-postgres-testcontainers")
                 .basePath("/api/v1")
                 .basePackage("com.example")
@@ -329,7 +323,7 @@ class ProjectModelTest {
 
     ProjectDescriptor aBasicWebFluxWithPostgresAndTestContainersAndKafka() {
         return ProjectDescriptor.builder()
-                .flavor(Flavor.SPRING_WEBFLUX)
+                .flavor(Flavor.WEBFLUX)
                 .applicationName("webflux-postgres-tc-kafka")
                 .basePath("/api/v1")
                 .basePackage("com.example")

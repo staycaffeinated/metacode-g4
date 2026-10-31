@@ -1,6 +1,7 @@
 package mmm.coffee.metacode.engine;
 
 import java.util.Set;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import org.jspecify.annotations.NonNull;
 
@@ -15,7 +16,7 @@ public class ProjectModel {
     private final String basePackage;
     private final String basePath;
     private final String schema;
-    private final String flavor;
+    private final Flavor flavor;
 
     public ProjectModel(@NonNull ProjectDescriptor d) {
         this.features = d.getFeatures() == null ? Set.of() : d.getFeatures();
@@ -23,7 +24,7 @@ public class ProjectModel {
         this.basePackage = d.getBasePackage();
         this.basePath = d.getBasePath() != null ? d.getBasePath() : "/";
         this.schema = "public";
-        this.flavor = d.getFlavor() != null ? d.getFlavor() : "";
+        this.flavor = d.getFlavor();
     }
 
     Set<String> safeCopy(Set<String> features) {
@@ -75,18 +76,18 @@ public class ProjectModel {
     }
 
     public boolean isWebMvc() {
-        return "webmvc".equalsIgnoreCase(flavor);
+        return Flavor.WEBMVC == flavor;
     }
 
     public boolean isWebFlux() {
-        return "webflux".equalsIgnoreCase(flavor);
+        return Flavor.WEBFLUX == flavor;
     }
 
     public boolean isSpringBoot() {
-        return "springboot".equalsIgnoreCase(flavor);
+        return Flavor.SPRING_BOOT == flavor;
     }
 
     public boolean isSpringBatch() {
-        return "springbatch".equalsIgnoreCase(flavor);
+        return Flavor.SPRING_BATCH == flavor;
     }
 }

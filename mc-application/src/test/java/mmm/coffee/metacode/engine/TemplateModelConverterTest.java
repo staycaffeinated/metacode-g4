@@ -9,6 +9,7 @@ import java.util.Set;
 import mmm.coffee.metacode.core.archetype.ArchetypeModel;
 import mmm.coffee.metacode.core.archetype.PackageLayout;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -283,7 +284,7 @@ class TemplateModelConverterTest {
                 .basePackage(BASE_PACKAGE)
                 .baseDirectory("/tmp/my-app")
                 .basePath("/api")
-                .flavor("webmvc")
+                .flavor(Flavor.WEBMVC)
                 .appModule(APP_MODULE)
                 .javaVersion("21")
                 .features(Set.of("postgres", "openapi"))
@@ -296,7 +297,7 @@ class TemplateModelConverterTest {
                 .route("/" + entityName.toLowerCase())
                 .basePackage(BASE_PACKAGE)
                 .baseDirectory("/tmp/my-app")
-                .flavor("webmvc")
+                .flavor(Flavor.WEBMVC)
                 .appModule(APP_MODULE)
                 .javaVersion("21")
                 .features(Set.of("postgres"))

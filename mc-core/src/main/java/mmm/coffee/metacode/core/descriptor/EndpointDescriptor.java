@@ -16,8 +16,8 @@ public class EndpointDescriptor {
     private String entityName;
     private String route;
 
-    // Read from metacode.properties
-    private String flavor;
+    // Read from metacode.properties via Flavor.fromId()
+    private Flavor flavor;
     private String basePackage;
     private String basePath;
     private String baseDirectory;

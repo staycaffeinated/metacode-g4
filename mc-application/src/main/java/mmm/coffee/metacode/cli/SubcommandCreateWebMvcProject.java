@@ -1,5 +1,6 @@
 package mmm.coffee.metacode.cli;
 
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import mmm.coffee.metacode.core.generator.ICodeGenerator;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateProject {
                 .basePackage(basePackage)
                 .baseDirectory(baseDirectory)
                 .basePath(basePath)
-                .flavor("webmvc")
+                .flavor(Flavor.WEBMVC)
                 .features(activeFeatures())
                 .javaVersion(javaVersion)
                 .build();

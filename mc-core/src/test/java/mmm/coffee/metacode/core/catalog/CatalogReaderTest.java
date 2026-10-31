@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import java.util.Set;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,8 +60,8 @@ class CatalogReaderTest {
         List<CatalogEntry> entries = reader.read("/catalogs/simple.yaml");
 
         CatalogEntry application = entries.get(0);
-        assertThat(application.matches("webmvc", Set.of())).isTrue();
-        assertThat(application.matches("webflux", Set.of("postgres"))).isTrue();
+        assertThat(application.matches(Flavor.WEBMVC, Set.of())).isTrue();
+        assertThat(application.matches(Flavor.WEBFLUX, Set.of("postgres"))).isTrue();
     }
 
     @Test
@@ -78,8 +79,8 @@ class CatalogReaderTest {
         List<CatalogEntry> entries = reader.read("/catalogs/simple.yaml");
 
         CatalogEntry webMvcConfig = entries.get(1);
-        assertThat(webMvcConfig.matches("webmvc", Set.of())).isTrue();
-        assertThat(webMvcConfig.matches("webflux", Set.of())).isFalse();
+        assertThat(webMvcConfig.matches(Flavor.WEBMVC, Set.of())).isTrue();
+        assertThat(webMvcConfig.matches(Flavor.WEBFLUX, Set.of())).isFalse();
     }
 
     @Test
@@ -97,9 +98,9 @@ class CatalogReaderTest {
         List<CatalogEntry> entries = reader.read("/catalogs/simple.yaml");
 
         CatalogEntry dbConfig = entries.get(2);
-        assertThat(dbConfig.matches("webmvc", Set.of("postgres"))).isTrue();
-        assertThat(dbConfig.matches("webmvc", Set.of())).isFalse();
-        assertThat(dbConfig.matches("webflux", Set.of("postgres"))).isFalse();
+        assertThat(dbConfig.matches(Flavor.WEBMVC, Set.of("postgres"))).isTrue();
+        assertThat(dbConfig.matches(Flavor.WEBMVC, Set.of())).isFalse();
+        assertThat(dbConfig.matches(Flavor.WEBFLUX, Set.of("postgres"))).isFalse();
     }
 
     // ── facets ────────────────────────────────────────────────────────────────

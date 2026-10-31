@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.exceptions.MetacodeException;
 import mmm.coffee.metacode.core.generator.ICodeGenerator;
 import org.springframework.stereotype.Component;
@@ -48,7 +49,7 @@ public class SubcommandCreateEndpoint implements Runnable {
     public void run() {
         Properties props = readMetaProperties(directory);
 
-        String flavor = props.getProperty("framework", "");
+        Flavor flavor = Flavor.fromId(props.getProperty("framework", ""));
         String pkg = props.getProperty("basePackage", "");
         String basePath = props.getProperty("basePath", "/");
         String appModule = props.getProperty("appModule", "application");

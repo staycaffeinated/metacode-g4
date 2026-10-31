@@ -9,13 +9,14 @@ import mmm.coffee.metacode.core.archetype.PackageLayout;
 import mmm.coffee.metacode.core.catalog.CatalogReader;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.renderer.FreemarkerTemplateRenderer;
 import mmm.coffee.metacode.springboot.SpringBootCatalogContributor;
 import mmm.coffee.metacode.webflux.WebFluxCatalogContributor;
 import mmm.coffee.metacode.webmvc.WebMvcCatalogContributor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.EnumSource;
 
 /**
  * Verifies that every endpoint template renders without FreeMarker errors,
@@ -49,8 +50,10 @@ class EndpointTemplateRenderingTest {
     }
 
     @ParameterizedTest(name = "flavor={0}, all templates render")
-    @ValueSource(strings = {"webmvc", "webflux"})
-    void shouldRenderAllEndpointTemplatesWithoutError(String flavor) {
+    @EnumSource(
+            value = Flavor.class,
+            names = {"WEBMVC", "WEBFLUX"})
+    void shouldRenderAllEndpointTemplatesWithoutError(Flavor flavor) {
         EndpointDescriptor descriptor = EndpointDescriptor.builder()
                 .entityName("Pet")
                 .route("/pets")
@@ -70,8 +73,10 @@ class EndpointTemplateRenderingTest {
     }
 
     @ParameterizedTest(name = "flavor={0} with postgres+openapi+testcontainers, all templates render")
-    @ValueSource(strings = {"webmvc", "webflux"})
-    void shouldRenderAllEndpointTemplatesWithFeaturesEnabled(String flavor) {
+    @EnumSource(
+            value = Flavor.class,
+            names = {"WEBMVC", "WEBFLUX"})
+    void shouldRenderAllEndpointTemplatesWithFeaturesEnabled(Flavor flavor) {
         EndpointDescriptor descriptor = EndpointDescriptor.builder()
                 .entityName("Pet")
                 .route("/pets")

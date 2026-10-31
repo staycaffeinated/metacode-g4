@@ -27,7 +27,7 @@ public class TemplateModelConverter {
         model.put("basePackage", d.getBasePackage());
         model.put("basePackagePath", d.getBasePackage().replace('.', '/'));
         model.put("appModule", d.getAppModule());
-        model.put("flavor", d.getFlavor());
+        model.put("flavor", d.getFlavor() != null ? d.getFlavor().id() : "");
         model.put("features", d.getFeatures());
         model.put("javaVersion", d.getJavaVersion());
         model.put("YEAR", Year.now(ZoneId.systemDefault()).getValue());
@@ -61,7 +61,7 @@ public class TemplateModelConverter {
         model.put("basePackage", base);
         model.put("basePackagePath", base.replace('.', '/'));
         model.put("appModule", d.getAppModule());
-        model.put("flavor", d.getFlavor());
+        model.put("flavor", d.getFlavor() != null ? d.getFlavor().id() : "");
         model.put("features", d.getFeatures());
         model.put("javaVersion", d.getJavaVersion());
         model.put("YEAR", Year.now(ZoneId.systemDefault()).getValue());

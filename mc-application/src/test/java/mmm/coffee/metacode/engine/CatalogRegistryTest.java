@@ -11,6 +11,7 @@ import mmm.coffee.metacode.core.catalog.CatalogReader;
 import mmm.coffee.metacode.core.catalog.WhenCondition;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
+import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -186,7 +187,7 @@ class CatalogRegistryTest {
 
     private ProjectDescriptor webMvcDescriptor() {
         return ProjectDescriptor.builder()
-                .flavor("webmvc")
+                .flavor(Flavor.WEBMVC)
                 .applicationName("test-app")
                 .basePackage("com.example")
                 .features(Set.of())
@@ -195,7 +196,7 @@ class CatalogRegistryTest {
 
     private EndpointDescriptor webMvcEndpointDescriptor() {
         return EndpointDescriptor.builder()
-                .flavor("webmvc")
+                .flavor(Flavor.WEBMVC)
                 .entityName("Widget")
                 .route("/widgets")
                 .features(Set.of())
