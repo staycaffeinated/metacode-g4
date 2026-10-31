@@ -8,6 +8,9 @@ import picocli.CommandLine;
 
 public abstract class AbstractCreateProject implements Runnable {
 
+    @CommandLine.Spec
+    CommandLine.Model.CommandSpec spec;
+
     @CommandLine.Option(
             names = {"-p", "--package"},
             required = true,
@@ -53,6 +56,12 @@ public abstract class AbstractCreateProject implements Runnable {
 
     protected Set<Feature> activeFeatures() {
         if (features == null || features.length == 0) return Set.of();
-        return Arrays.stream(features).map(Feature::fromId).collect(Collectors.toUnmodifiableSet());
+        Set<Feature> result = Arrays.stream(features).map(Feature::fromId).collect(Collectors.toUnmodifiableSet());
+        if (result.contains(Feature.LIQUIBASE) && result.contains(Feature.FLYWAY)) {
+            throw new CommandLine.ParameterException(
+                    spec.commandLine(),
+                    "liquibase and flyway are mutually exclusive — both manage schema migrations, pick one");
+        }
+        return result;
     }
 }

@@ -89,6 +89,13 @@ class SubcommandCreateWebMvcProjectTest {
     }
 
     @Test
+    void run_rejectsLiquibaseAndFlywayTogether() {
+        int exitCode = new CommandLine(subcommand)
+                .execute("--application-name", "MyApp", "--package", "com.example", "--add", "liquibase,flyway");
+        assertThat(exitCode).isNotZero();
+    }
+
+    @Test
     void run_callsDoPreprocessingThenGenerateCode() {
         execute("--application-name", "MyApp", "--package", "com.example");
 
