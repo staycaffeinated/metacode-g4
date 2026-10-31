@@ -9,7 +9,7 @@ import java.util.Properties;
 import java.util.Set;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
 import mmm.coffee.metacode.core.exceptions.MetacodeException;
-import mmm.coffee.metacode.engine.EndpointCodeGenerationEngine;
+import mmm.coffee.metacode.core.generator.ICodeGenerator;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine;
 
@@ -38,9 +38,9 @@ public class SubcommandCreateEndpoint implements Runnable {
             defaultValue = ".")
     private String directory;
 
-    private final EndpointCodeGenerationEngine codeGenerator;
+    private final ICodeGenerator<EndpointDescriptor> codeGenerator;
 
-    public SubcommandCreateEndpoint(EndpointCodeGenerationEngine codeGenerator) {
+    public SubcommandCreateEndpoint(ICodeGenerator<EndpointDescriptor> codeGenerator) {
         this.codeGenerator = codeGenerator;
     }
 
