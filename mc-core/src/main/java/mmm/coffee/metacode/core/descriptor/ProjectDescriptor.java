@@ -39,4 +39,8 @@ public class ProjectDescriptor {
      */
     @Builder.Default
     private String appModule = "application";
+
+    /** PostgreSQL schema name. Defaults to "public". */
+    @Builder.Default
+    private String schema = "public";
 }

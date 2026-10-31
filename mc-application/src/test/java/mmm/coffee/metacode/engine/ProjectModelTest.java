@@ -183,6 +183,20 @@ class ProjectModelTest {
         assertThat(model.getSchema()).isEqualTo("public");
     }
 
+    @Test
+    void shouldExposeCustomSchema() {
+        var descriptor = ProjectDescriptor.builder()
+                .flavor(Flavor.WEBMVC)
+                .applicationName("app")
+                .basePackage("com.example")
+                .basePath("/api/v1")
+                .schema("myschema")
+                .features(Set.of())
+                .build();
+        var model = new ProjectModel(descriptor);
+        assertThat(model.getSchema()).isEqualTo("myschema");
+    }
+
     // -----------------------------------------------------------------------
     // Edge cases
     // -----------------------------------------------------------------------

@@ -23,7 +23,7 @@ public class ProjectModel {
         this.applicationName = d.getApplicationName();
         this.basePackage = d.getBasePackage();
         this.basePath = d.getBasePath() != null ? d.getBasePath() : "/";
-        this.schema = "public";
+        this.schema = d.getSchema() != null ? d.getSchema() : "public";
         this.flavor = d.getFlavor();
     }
 
