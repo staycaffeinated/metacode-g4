@@ -17,11 +17,87 @@ import org.springframework.web.bind.annotation.RestController;
 @AnalyzeClasses(packages = "${project.basePackage}", importOptions = {ImportOption.DoNotIncludeTests.class})
 class ${Architecture.testClass()} {
 
+<#if architecture == "clean">
     // ──────────────────────────────────────────────────────────────────────
-    // Layer dependency rules
-    //      domain → nothing
-    //      application → domain only
-    //      adapter → no infrastructure, can use domain and application
+    // Layer dependency rules (Clean Architecture)
+    //      domain       → nothing
+    //      application  → domain only
+    //      interfaces   → no infrastructure
+    //      infrastructure → no interfaces
+    // ──────────────────────────────────────────────────────────────────────
+
+    @ArchTest
+    static final ArchRule domain_must_not_depend_on_other_layers =
+        noClasses()
+            .that()
+            .resideInAPackage("${project.basePackage}.domain..")
+            .should()
+            .dependOnClassesThat()
+            .resideInAnyPackage(
+                "${project.basePackage}.application..",
+                "${project.basePackage}.interfaces..",
+                "${project.basePackage}.infrastructure..");
+
+    @ArchTest
+    static final ArchRule application_must_not_depend_on_outer_layers =
+        noClasses()
+            .that()
+            .resideInAPackage("${project.basePackage}.application..")
+            .should()
+            .dependOnClassesThat()
+            .resideInAnyPackage(
+                "${project.basePackage}.interfaces..",
+                "${project.basePackage}.infrastructure..");
+
+    @ArchTest
+    static final ArchRule interfaces_must_not_depend_on_infrastructure =
+        noClasses()
+            .that()
+            .resideInAPackage("${project.basePackage}.interfaces..")
+            .should()
+            .dependOnClassesThat()
+            .resideInAPackage("${project.basePackage}.infrastructure..");
+
+    @ArchTest
+    static final ArchRule infrastructure_must_not_depend_on_interfaces =
+        noClasses()
+            .that()
+            .resideInAPackage("${project.basePackage}.infrastructure..")
+            .should()
+            .dependOnClassesThat()
+            .resideInAPackage("${project.basePackage}.interfaces..");
+
+    // ──────────────────────────────────────────────────────────────────────
+    // Naming and placement conventions (Clean Architecture)
+    // ──────────────────────────────────────────────────────────────────────
+
+    @ArchTest
+    static final ArchRule rest_controllers_must_be_suffixed_controller =
+        classes().that()
+            .areAnnotatedWith(RestController.class)
+            .should()
+            .haveSimpleNameEndingWith("Controller");
+
+    @ArchTest
+    static final ArchRule rest_controllers_must_reside_in_interfaces_rest =
+        classes().that()
+            .areAnnotatedWith(RestController.class)
+            .should()
+            .resideInAPackage("${project.basePackage}.interfaces.rest..");
+
+    @ArchTest
+    static final ArchRule controller_advice_must_reside_in_infrastructure_handlers =
+        classes().that()
+            .areAnnotatedWith(ControllerAdvice.class)
+            .should()
+            .resideInAPackage("${project.basePackage}.infrastructure.handlers..");
+
+<#else>
+    // ──────────────────────────────────────────────────────────────────────
+    // Layer dependency rules (Hexagonal Architecture)
+    //      domain       → nothing
+    //      application  → domain only
+    //      adapter      → no infrastructure
     //      infrastructure → no adapter
     // ──────────────────────────────────────────────────────────────────────
 
@@ -37,7 +113,6 @@ class ${Architecture.testClass()} {
                 "${project.basePackage}.adapter..",
                 "${project.basePackage}.infrastructure..");
 
-
     @ArchTest
     static final ArchRule application_must_not_depend_on_outer_layers =
         noClasses()
@@ -46,9 +121,8 @@ class ${Architecture.testClass()} {
             .should()
             .dependOnClassesThat()
             .resideInAnyPackage(
-                    "${project.basePackage}.adapter..",
-                    "${project.basePackage}.infrastructure..");
-
+                "${project.basePackage}.adapter..",
+                "${project.basePackage}.infrastructure..");
 
     @ArchTest
     static final ArchRule adapters_must_not_depend_on_infrastructure =
@@ -69,7 +143,7 @@ class ${Architecture.testClass()} {
             .resideInAPackage("${project.basePackage}.adapter..");
 
     // ──────────────────────────────────────────────────────────────────────
-    // Naming conventions
+    // Naming and placement conventions (Hexagonal Architecture)
     // ──────────────────────────────────────────────────────────────────────
 
     @ArchTest
@@ -78,7 +152,6 @@ class ${Architecture.testClass()} {
             .areAnnotatedWith(RestController.class)
             .should()
             .haveSimpleNameEndingWith("Controller");
-
 
     @ArchTest
     static final ArchRule rest_controllers_must_reside_in_adapter_inbound =
@@ -94,6 +167,10 @@ class ${Architecture.testClass()} {
             .should()
             .resideInAPackage("${project.basePackage}.infrastructure.advice..");
 
+</#if>
+    // ──────────────────────────────────────────────────────────────────────
+    // Common rules (both architectures)
+    // ──────────────────────────────────────────────────────────────────────
 
     @ArchTest
     static final ArchRule configuration_classes_must_be_suffixed_configuration =
@@ -115,10 +192,6 @@ class ${Architecture.testClass()} {
             .should()
             .haveSimpleNameEndingWith("Exception");
 
-    // ──────────────────────────────────────────────────────────────────────
-    // Spring best practices
-    // ──────────────────────────────────────────────────────────────────────
-
     @ArchTest
     static final ArchRule no_field_injection =
         noFields()
@@ -127,10 +200,6 @@ class ${Architecture.testClass()} {
             .resideInAPackage("${project.basePackage}..")
             .should()
             .beAnnotatedWith(Autowired.class);
-
-    // ──────────────────────────────────────────────────────────────────────
-    // Domain purity
-    // ──────────────────────────────────────────────────────────────────────
 
     @ArchTest
     static final ArchRule domain_must_not_depend_on_springframework =

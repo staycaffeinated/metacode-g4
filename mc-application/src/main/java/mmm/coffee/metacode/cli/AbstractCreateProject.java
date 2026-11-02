@@ -3,6 +3,7 @@ package mmm.coffee.metacode.cli;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+import mmm.coffee.metacode.core.descriptor.Architecture;
 import mmm.coffee.metacode.core.descriptor.Feature;
 import picocli.CommandLine;
 
@@ -53,6 +54,16 @@ public abstract class AbstractCreateProject implements Runnable {
             description = "Java version (default: 21)",
             defaultValue = "21")
     protected String javaVersion;
+
+    @CommandLine.Option(
+            names = {"--architecture"},
+            description = "Package layout architecture: hexagonal (default), clean",
+            defaultValue = "hexagonal")
+    protected String architecture;
+
+    protected Architecture selectedArchitecture() {
+        return Architecture.fromId(architecture);
+    }
 
     protected Set<Feature> activeFeatures() {
         if (features == null || features.length == 0) return Set.of();

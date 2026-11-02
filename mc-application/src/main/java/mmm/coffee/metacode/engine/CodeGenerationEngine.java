@@ -57,6 +57,9 @@ public class CodeGenerationEngine implements ICodeGenerator<ProjectDescriptor> {
                 d.getFeatures() != null
                         ? d.getFeatures().stream().map(Feature::id).collect(Collectors.joining(","))
                         : "");
+        props.setProperty(
+                "architecture",
+                d.getArchitecture() != null ? d.getArchitecture().id() : "hexagonal");
 
         String dir = d.getBaseDirectory() != null ? d.getBaseDirectory() : ".";
         File file = new File(dir, "metacode.properties");

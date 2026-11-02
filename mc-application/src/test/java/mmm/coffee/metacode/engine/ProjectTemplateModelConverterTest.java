@@ -7,7 +7,6 @@ import java.time.ZoneId;
 import java.util.Map;
 import java.util.Set;
 import mmm.coffee.metacode.core.archetype.ArchetypeModel;
-import mmm.coffee.metacode.core.archetype.PackageLayout;
 import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
 import mmm.coffee.metacode.core.descriptor.ProjectDescriptor;
@@ -26,7 +25,7 @@ class ProjectTemplateModelConverterTest {
 
     @BeforeEach
     void setUp() {
-        converter = new ProjectTemplateModelConverter(PackageLayout.loadDefault());
+        converter = new ProjectTemplateModelConverter();
     }
 
     // -------------------------------------------------------------------------

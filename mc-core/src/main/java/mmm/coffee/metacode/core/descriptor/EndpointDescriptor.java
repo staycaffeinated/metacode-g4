@@ -28,4 +28,7 @@ public class EndpointDescriptor {
 
     @Builder.Default
     private Set<Feature> features = new HashSet<>();
+
+    @Builder.Default
+    private Architecture architecture = Architecture.HEXAGONAL;
 }

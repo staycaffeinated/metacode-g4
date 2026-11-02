@@ -30,6 +30,7 @@ public class SubcommandCreateSpringBootProject extends AbstractCreateProject {
                 .features(activeFeatures())
                 .javaVersion(javaVersion)
                 .schema(schema)
+                .architecture(selectedArchitecture())
                 .build();
 
         codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);

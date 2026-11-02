@@ -7,7 +7,6 @@ import java.time.ZoneId;
 import java.util.Map;
 import java.util.Set;
 import mmm.coffee.metacode.core.archetype.ArchetypeModel;
-import mmm.coffee.metacode.core.archetype.PackageLayout;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
 import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
@@ -26,7 +25,7 @@ class EndpointTemplateModelConverterTest {
 
     @BeforeEach
     void setUp() {
-        converter = new EndpointTemplateModelConverter(PackageLayout.loadDefault());
+        converter = new EndpointTemplateModelConverter();
     }
 
     // -------------------------------------------------------------------------

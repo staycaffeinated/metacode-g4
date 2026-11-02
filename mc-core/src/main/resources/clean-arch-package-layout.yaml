@@ -1,0 +1,158 @@
+archetypes:
+  # Root package
+  Application:
+    subPackage: ""
+    className: Application
+  Architecture:
+    subPackage: ""
+    className: Architecture
+
+  # infrastructure.config
+  ApplicationConfiguration:
+    subPackage: infrastructure.config
+    className: ResourceIdSupplierConfiguration
+  DateTimeFormatConfiguration:
+    subPackage: infrastructure.config
+    className: DateTimeFormatConfiguration
+  ProblemConfiguration:
+    subPackage: infrastructure.config
+    className: ProblemConfiguration
+  LocalDateConverter:
+    subPackage: infrastructure.config
+    className: LocalDateConverter
+  WebMvcConfiguration:
+    subPackage: infrastructure.config
+    className: WebMvcConfiguration
+  WebFluxConfiguration:
+    subPackage: infrastructure.config
+    className: WebFluxConfiguration
+  ContainerConfiguration:
+    subPackage: infrastructure.config
+    className: ContainerConfiguration
+  ObjectMapperConfiguration:
+    subPackage: infrastructure.config
+    className: JacksonConfiguration
+
+  # infrastructure.handlers
+  GlobalExceptionHandler:
+    subPackage: infrastructure.handlers
+    className: GlobalExceptionHandler
+
+  # application.exceptions
+  Exception:
+    subPackage: application.exceptions
+    className: Exception
+  BadRequestException:
+    subPackage: application.exceptions
+    className: BadRequestException
+  ResourceNotFoundException:
+    subPackage: application.exceptions
+    className: ResourceNotFoundException
+  UnprocessableEntityException:
+    subPackage: application.exceptions
+    className: UnprocessableEntityException
+
+  # interfaces.rest (web controllers — clean arch: interface layer)
+  RootController:
+    subPackage: interfaces.rest
+    className: RootController
+  RootService:
+    subPackage: application.service
+    className: RootService
+
+  # infrastructure.profiles
+  SpringProfiles:
+    subPackage: infrastructure.profiles
+    className: SpringProfiles
+
+  # infrastructure.utils
+  SecureRandomSeries:
+    subPackage: infrastructure.utils
+    className: ResourceIdGenerator
+
+  # domain.stereotypes (shared domain traits — clean arch: domain layer)
+  ResourceIdFormat:
+    subPackage: domain.stereotypes
+    className: ResourceIdFormat
+  ResourceIdTrait:
+    subPackage: domain.stereotypes
+    className: ResourceIdAware
+
+  # domain.model (domain value objects — clean arch: domain layer)
+  PagedResult:
+    subPackage: domain.model
+    className: PagedResult
+  PageQuery:
+    subPackage: domain.model
+    className: PageQuery
+
+  # infrastructure.persistence (outbound adapters — clean arch: infrastructure layer)
+  UpdateAwareConverter:
+    subPackage: infrastructure.persistence
+    className: UpdateAwareMapper
+
+  # interfaces.validation (input validation — clean arch: interface layer)
+  AlphabeticAnnotation:
+    subPackage: interfaces.validation
+    className: Alphabetic
+  AlphabeticValidator:
+    subPackage: interfaces.validation
+    className: AlphabeticValidator
+  ResourceIdAnnotation:
+    subPackage: interfaces.validation
+    className: ResourceId
+  ResourceIdValidator:
+    subPackage: interfaces.validation
+    className: ResourceIdValidator
+  SearchTextAnnotation:
+    subPackage: interfaces.validation
+    className: SearchText
+  SearchTextValidator:
+    subPackage: interfaces.validation
+    className: SearchTextValidator
+  OnCreateAnnotation:
+    subPackage: interfaces.validation
+    className: OnCreate
+  OnUpdateAnnotation:
+    subPackage: interfaces.validation
+    className: OnUpdate
+
+  # infrastructure.common
+  AbstractIntegrationTest:
+    subPackage: infrastructure.common
+    className: AbstractIntegrationTest
+
+  # common.persistence
+  RegisterDatabaseProperties:
+    subPackage: common.persistence
+    className: RegisterDatabaseProperties
+  AbstractPostgresIntegrationTest:
+    subPackage: common.persistence
+    className: AbstractPostgresIntegrationTest
+  PostgresDbContainerTests:
+    subPackage: common.persistence
+    className: PostgresContainerTest
+
+  # application.gateway (ports — clean arch: application layer)
+  ResourceIdSupplier:
+    subPackage: application.gateway
+    className: ResourceIdSupplier
+  AbstractDataStoreApi:
+    subPackage: application.gateway
+    className: Gateway
+
+  # test fixtures
+  EjbTestFixtures:
+    subPackage: infrastructure.persistence
+    className: EjbTestFixtures
+  ModelTestFixtures:
+    subPackage: interfaces.rest
+    className: ModelTestFixtures
+
+  # infrastructure.batch
+  BatchConfiguration:
+    subPackage: infrastructure.batch
+    className: BatchConfiguration
+  JobCompletionNotificationListener:
+    subPackage: infrastructure.batch
+    className: JobCompletionNotificationListener

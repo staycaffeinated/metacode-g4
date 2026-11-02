@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
+import mmm.coffee.metacode.core.descriptor.Architecture;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
 import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
@@ -56,6 +57,7 @@ public class SubcommandCreateEndpoint implements Runnable {
         String appModule = props.getProperty("appModule", "application");
         String java = props.getProperty("javaVersion", "21");
         Set<Feature> features = parseFeatures(props.getProperty("features", ""));
+        Architecture architecture = Architecture.fromId(props.getProperty("architecture", "hexagonal"));
 
         EndpointDescriptor descriptor = EndpointDescriptor.builder()
                 .entityName(capitalize(resource))
@@ -67,6 +69,7 @@ public class SubcommandCreateEndpoint implements Runnable {
                 .appModule(appModule)
                 .javaVersion(java)
                 .features(features)
+                .architecture(architecture)
                 .build();
 
         codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);

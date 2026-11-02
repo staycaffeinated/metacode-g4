@@ -13,12 +13,6 @@ import org.springframework.stereotype.Component;
 })
 public class ProjectTemplateModelConverter {
 
-    private final PackageLayout packageLayout;
-
-    public ProjectTemplateModelConverter(PackageLayout packageLayout) {
-        this.packageLayout = packageLayout;
-    }
-
     public Map<String, Object> toFtlModel(ProjectDescriptor d) {
         var model = new HashMap<String, Object>();
         model.put("applicationName", d.getApplicationName());
@@ -26,12 +20,16 @@ public class ProjectTemplateModelConverter {
         model.put("basePackagePath", d.getBasePackage().replace('.', '/'));
         model.put("appModule", d.getAppModule());
         model.put("flavor", d.getFlavor() != null ? d.getFlavor().id() : "");
+        model.put(
+                "architecture",
+                d.getArchitecture() != null ? d.getArchitecture().id() : "hexagonal");
         model.put("features", d.getFeatures());
         model.put("javaVersion", d.getJavaVersion());
         model.put("YEAR", Year.now(ZoneId.systemDefault()).getValue());
         model.put("project", new ProjectModel(d));
 
-        model.putAll(packageLayout.buildArchetypeModels(d.getBasePackage()));
+        PackageLayout layout = PackageLayout.load(d.getArchitecture().layoutResource());
+        model.putAll(layout.buildArchetypeModels(d.getBasePackage()));
 
         return model;
     }

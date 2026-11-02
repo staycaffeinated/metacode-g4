@@ -42,4 +42,8 @@ public class ProjectDescriptor {
     /** PostgreSQL schema name. Defaults to "public". */
     @Builder.Default
     private String schema = "public";
+
+    /** Package layout architecture. Defaults to hexagonal. */
+    @Builder.Default
+    private Architecture architecture = Architecture.HEXAGONAL;
 }

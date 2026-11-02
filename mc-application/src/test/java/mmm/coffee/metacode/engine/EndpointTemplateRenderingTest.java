@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThatNoException;
 
 import java.util.List;
 import java.util.Set;
-import mmm.coffee.metacode.core.archetype.PackageLayout;
 import mmm.coffee.metacode.core.catalog.CatalogReader;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
@@ -36,8 +35,7 @@ class EndpointTemplateRenderingTest {
                 new SpringBootCatalogContributor(), new WebMvcCatalogContributor(), new WebFluxCatalogContributor());
         CatalogRegistry registry = new CatalogRegistry(contributors, catalogReader);
         FreemarkerTemplateRenderer renderer = new FreemarkerTemplateRenderer();
-        PackageLayout packageLayout = PackageLayout.loadDefault();
-        EndpointTemplateModelConverter converter = new EndpointTemplateModelConverter(packageLayout);
+        EndpointTemplateModelConverter converter = new EndpointTemplateModelConverter();
         engineUnderTest =
                 new EndpointCodeGenerationEngine(registry, renderer, converter, new NoOpContentToFileWriter());
     }
