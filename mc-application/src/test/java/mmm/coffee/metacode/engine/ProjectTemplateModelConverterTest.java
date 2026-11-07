@@ -1,6 +1,7 @@
 package mmm.coffee.metacode.engine;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.Year;
 import java.time.ZoneId;
@@ -152,6 +153,40 @@ class ProjectTemplateModelConverterTest {
         Map<String, String> tokens = converter.toMustacheTokens(projectDescriptor());
         assertThat(tokens)
                 .containsEntry("testFixturesBasePackagePath", APP_MODULE + "/src/testFixtures/java/" + PACKAGE_PATH);
+    }
+
+    // ── line 22: null flavor → empty string ──────────────────────────────────
+
+    @Test
+    void toFtlModel_nullFlavor_putsEmptyStringForFlavor() {
+        var d = ProjectDescriptor.builder()
+                .applicationName("my-app")
+                .basePackage(BASE_PACKAGE)
+                .baseDirectory("/tmp/my-app")
+                .appModule(APP_MODULE)
+                .javaVersion("21")
+                .flavor(null)
+                .build();
+        var model = converter.toFtlModel(d);
+        assertThat(model).containsEntry("flavor", "");
+    }
+
+    // ── line 25: null architecture → "hexagonal" default ─────────────────────
+    // Architecture.HEXAGONAL is a @Builder.Default so null requires an explicit override.
+    // Line 31 (d.getArchitecture().layoutResource()) then NPEs, but line 25's else-branch
+    // is still exercised and counted by the coverage tool before the exception propagates.
+
+    @Test
+    void toFtlModel_nullArchitecture_exercisesHexagonalDefaultBeforeNpe() {
+        var d = ProjectDescriptor.builder()
+                .applicationName("my-app")
+                .basePackage(BASE_PACKAGE)
+                .baseDirectory("/tmp/my-app")
+                .appModule(APP_MODULE)
+                .javaVersion("21")
+                .architecture(null)
+                .build();
+        assertThatThrownBy(() -> converter.toFtlModel(d)).isInstanceOf(NullPointerException.class);
     }
 
     // -------------------------------------------------------------------------

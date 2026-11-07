@@ -1,0 +1,2 @@
+# Intentionally has no 'archetypes' key — exercises the null-archetypes branch in PackageLayout.load()
+{}

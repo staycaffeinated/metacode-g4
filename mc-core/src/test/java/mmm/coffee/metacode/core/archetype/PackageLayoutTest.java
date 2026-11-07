@@ -86,4 +86,26 @@ class PackageLayoutTest {
         assertThat(models1.get("Controller").packageName()).isEqualTo("org.acme.adapter.inbound.web");
         assertThat(models2.get("Controller").packageName()).isEqualTo("io.example.adapter.inbound.web");
     }
+
+    // ── line 35: file.archetypes == null → empty map ──────────────────────────
+
+    @Test
+    void load_noArchetypesKey_returnsLayoutWithEmptyModels() {
+        PackageLayout layout = PackageLayout.load("/no-archetypes-layout.yaml");
+        assertThat(layout).isNotNull();
+        assertThat(layout.buildArchetypeModels(BASE_PACKAGE)).isEmpty();
+    }
+
+    // ── line 56: subPackage == null → returns basePackage ─────────────────────
+
+    @Test
+    void buildArchetypeModels_nullSubPackage_usesBasePackage() {
+        PackageLayout layout = PackageLayout.load("/null-subpackage-layout.yaml");
+        Map<String, ArchetypeModel> models = layout.buildArchetypeModels(BASE_PACKAGE);
+
+        ArchetypeModel model = models.get("NoSubPackage");
+        assertThat(model).isNotNull();
+        assertThat(model.packageName()).isEqualTo(BASE_PACKAGE);
+        assertThat(model.className()).isEqualTo("Foo");
+    }
 }

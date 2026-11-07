@@ -1,0 +1,5 @@
+# subPackage explicitly null — exercises the null branch in resolvePackage()
+archetypes:
+  NoSubPackage:
+    subPackage: ~
+    className: Foo

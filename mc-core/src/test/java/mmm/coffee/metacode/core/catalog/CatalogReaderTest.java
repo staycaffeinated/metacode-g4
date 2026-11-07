@@ -159,4 +159,11 @@ class CatalogReaderTest {
                 .isInstanceOf(CatalogNotFoundException.class)
                 .hasMessageContaining("does-not-exist.yaml");
     }
+
+    @Test
+    void read_nullArgument_throwsNullPointerException() {
+        assertThatThrownBy(() -> reader.read(null))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessageContaining("catalogResource");
+    }
 }

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 })
 public class EndpointTemplateModelConverter {
 
+    @SuppressWarnings({"java:S1659" // allow multiple string variable names to be declared on one line
+    })
     public Map<String, Object> toFtlModel(EndpointDescriptor d) {
         String lower = d.getEntityName().toLowerCase();
         String base = d.getBasePackage();

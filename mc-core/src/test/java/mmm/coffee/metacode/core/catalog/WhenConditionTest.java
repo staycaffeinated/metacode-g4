@@ -23,6 +23,15 @@ class WhenConditionTest {
     // ── flavor only ───────────────────────────────────────────────────────────
 
     @Test
+    void flavorList_nullSelectedFlavor_noMatch() {
+        // line 26: !flavor.isEmpty() && selectedFlavor == null → false
+        var when = new WhenCondition();
+        when.setFlavor(List.of(Flavor.WEBMVC));
+
+        assertThat(when.matches(null, Set.of())).isFalse();
+    }
+
+    @Test
     void flavorList_matchesWhenFlavorPresent() {
         var when = new WhenCondition();
         when.setFlavor(List.of(Flavor.WEBMVC));

@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.util.Map;
 import java.util.Set;
 import mmm.coffee.metacode.core.archetype.ArchetypeModel;
+import mmm.coffee.metacode.core.descriptor.Architecture;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
 import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
@@ -146,6 +147,87 @@ class EndpointTemplateModelConverterTest {
                 .containsKey("testFixturesBasePackagePath");
     }
 
+    // ── null flavor — covers ternary else-branch on line 27 ──────────────────
+
+    @Test
+    void toFtlModel_nullFlavor_putsEmptyStringForFlavor() {
+        var d = EndpointDescriptor.builder()
+                .entityName("Pet")
+                .route("/pet")
+                .basePackage(BASE_PACKAGE)
+                .baseDirectory("/tmp/my-app")
+                .flavor(null)
+                .appModule(APP_MODULE)
+                .javaVersion("21")
+                .build();
+        var model = converter.toFtlModel(d);
+        assertThat(model).containsEntry("flavor", "");
+    }
+
+    // ── CLEAN architecture — toFtlModel ───────────────────────────────────────
+
+    @Test
+    void toFtlModel_cleanArch_controllerPackageUsesInterfacesRest() {
+        var model = converter.toFtlModel(cleanEndpointDescriptor("Order"));
+        ArchetypeModel controller = (ArchetypeModel) model.get("Controller");
+        assertThat(controller.packageName()).contains("interfaces.rest");
+        assertThat(controller.className()).isEqualTo("OrderController");
+    }
+
+    @Test
+    void toFtlModel_cleanArch_entityResourcePackageUsesDomainModel() {
+        var model = converter.toFtlModel(cleanEndpointDescriptor("Order"));
+        ArchetypeModel resource = (ArchetypeModel) model.get("EntityResource");
+        assertThat(resource.packageName()).endsWith("domain.model");
+        assertThat(resource.className()).isEqualTo("Order");
+    }
+
+    @Test
+    void toFtlModel_cleanArch_dataStoreUsesGatewaySuffix() {
+        var model = converter.toFtlModel(cleanEndpointDescriptor("Order"));
+        ArchetypeModel dataStore = (ArchetypeModel) model.get("ConcreteDataStoreApi");
+        assertThat(dataStore.className()).isEqualTo("OrderGateway");
+        ArchetypeModel dataStoreImpl = (ArchetypeModel) model.get("ConcreteDataStoreImpl");
+        assertThat(dataStoreImpl.className()).isEqualTo("OrderGatewayProvider");
+    }
+
+    @Test
+    void toFtlModel_cleanArch_persistPackageUsesInfrastructure() {
+        var model = converter.toFtlModel(cleanEndpointDescriptor("Order"));
+        ArchetypeModel entity = (ArchetypeModel) model.get("Entity");
+        assertThat(entity.packageName()).contains("infrastructure.persistence");
+    }
+
+    // ── CLEAN architecture — toMustacheTokens ─────────────────────────────────
+
+    @Test
+    void toMustacheTokens_cleanArch_segmentsUseCleanPaths() {
+        var tokens = converter.toMustacheTokens(cleanEndpointDescriptor("Order"));
+        assertThat(tokens)
+                .containsEntry("webSegment", "interfaces/rest")
+                .containsEntry("persistSegment", "infrastructure/persistence")
+                .containsEntry("inboundSegment", "application/usecase")
+                .containsEntry("outboundSegment", "application/gateway")
+                .containsEntry("domainSegment", "domain/model")
+                .containsEntry("dataStoreSuffix", "Gateway")
+                .containsEntry("dataStoreImplSuffix", "GatewayProvider");
+    }
+
+    // ── HEXAGONAL mustache tokens — verify else-branch segments ───────────────
+
+    @Test
+    void toMustacheTokens_hexagonalArch_segmentsUseAdapterPaths() {
+        var tokens = converter.toMustacheTokens(endpointDescriptor("Pet"));
+        assertThat(tokens)
+                .containsEntry("webSegment", "adapter/inbound/web")
+                .containsEntry("persistSegment", "adapter/outbound/persistence")
+                .containsEntry("inboundSegment", "application/port/inbound")
+                .containsEntry("outboundSegment", "application/port/outbound")
+                .containsEntry("domainSegment", "domain")
+                .containsEntry("dataStoreSuffix", "DataStore")
+                .containsEntry("dataStoreImplSuffix", "DataStoreProvider");
+    }
+
     // -------------------------------------------------------------------------
     // helpers
     // -------------------------------------------------------------------------
@@ -160,6 +242,20 @@ class EndpointTemplateModelConverterTest {
                 .appModule(APP_MODULE)
                 .javaVersion("21")
                 .features(Set.of(Feature.POSTGRES))
+                .build();
+    }
+
+    private static EndpointDescriptor cleanEndpointDescriptor(String entityName) {
+        return EndpointDescriptor.builder()
+                .entityName(entityName)
+                .route("/" + entityName.toLowerCase())
+                .basePackage(BASE_PACKAGE)
+                .baseDirectory("/tmp/my-app")
+                .flavor(Flavor.WEBMVC)
+                .appModule(APP_MODULE)
+                .javaVersion("21")
+                .features(Set.of(Feature.POSTGRES))
+                .architecture(Architecture.CLEAN)
                 .build();
     }
 }

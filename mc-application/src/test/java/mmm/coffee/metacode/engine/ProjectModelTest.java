@@ -216,6 +216,23 @@ class ProjectModelTest {
     }
 
     @Test
+    void shouldDefaultSchemaToPublic_whenDescriptorSchemaIsNull() {
+        // line 27: d.getSchema() == null → "public" default
+        var descriptor = ProjectDescriptor.builder()
+                .flavor(Flavor.WEBMVC)
+                .applicationName("app")
+                .basePackage("com.example")
+                .basePath("/api/v1")
+                .schema(null)
+                .features(Set.of())
+                .build();
+
+        var model = new ProjectModel(descriptor);
+
+        assertThat(model.getSchema()).isEqualTo("public");
+    }
+
+    @Test
     void shouldTreatNullFeaturesAsEmpty() {
         var descriptor = ProjectDescriptor.builder()
                 .flavor(Flavor.WEBMVC)
