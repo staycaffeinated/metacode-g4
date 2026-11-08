@@ -7,7 +7,7 @@ import lombok.Value;
 
 /**
  * Captures the user's choices for 'create endpoint': entity name, route,
- * and project settings read back from metacode.properties.
+ * and project settings read back from {@code .metacode}.
  */
 @Value
 @Builder
@@ -16,7 +16,7 @@ public class EndpointDescriptor {
     private String entityName;
     private String route;
 
-    // Read from metacode.properties via Flavor.fromId()
+    // Read from .metacode via Flavor.fromId()
     private Flavor flavor;
     private String basePackage;
     private String basePath;

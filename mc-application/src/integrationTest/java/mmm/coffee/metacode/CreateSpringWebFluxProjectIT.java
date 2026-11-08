@@ -21,7 +21,7 @@ import picocli.CommandLine;
  * Exercises the full "metacode create project java-app" pipeline:
  * catalog loading → template rendering → (no-op) write.
  * No files are written to disk; the NoOpContentToFileWriter swallows all write calls.
- * metacode.properties is written to a JUnit-managed temp directory and cleaned up automatically.
+ * .metacode is written to a JUnit-managed temp directory and cleaned up automatically.
  */
 @SpringBootTest(args = {})
 @ActiveProfiles({SpringProfiles.TEST, SpringProfiles.INTEGRATION_TEST})

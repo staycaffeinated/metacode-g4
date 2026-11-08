@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 /**
  * The project flavor selected by the user on the CLI.
  * The {@link #id()} value is used in catalog YAML {@code when.flavor} lists
- * and written to {@code metacode.properties} as the {@code framework} key.
+ * and written to {@code .metacode} as the {@code framework} key.
  */
 public enum Flavor {
     WEBMVC("webmvc"),

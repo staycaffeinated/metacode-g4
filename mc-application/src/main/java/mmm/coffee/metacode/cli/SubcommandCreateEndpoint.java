@@ -37,7 +37,7 @@ public class SubcommandCreateEndpoint implements Runnable {
 
     @CommandLine.Option(
             names = {"-d", "--directory"},
-            description = "Project directory containing metacode.properties (default: current directory)",
+            description = "Project directory containing .metacode (default: current directory)",
             defaultValue = ".")
     private String directory;
 
@@ -76,18 +76,18 @@ public class SubcommandCreateEndpoint implements Runnable {
     }
 
     private Properties readMetaProperties(String dir) {
-        File file = new File(dir, "metacode.properties");
+        File file = new File(dir, ".metacode");
         if (!file.exists()) {
             throw new CommandLine.ExecutionException(
                     new CommandLine(this),
-                    "metacode.properties not found in " + new File(dir).getAbsolutePath()
+                    ".metacode not found in " + new File(dir).getAbsolutePath()
                             + ". Run 'metacode create project' first.");
         }
         Properties props = new Properties();
         try (FileReader fr = new FileReader(file)) {
             props.load(fr);
         } catch (IOException e) {
-            throw new MetacodeException("Failed to read metacode.properties: " + e.getMessage(), e);
+            throw new MetacodeException("Failed to read .metacode: " + e.getMessage(), e);
         }
         return props;
     }

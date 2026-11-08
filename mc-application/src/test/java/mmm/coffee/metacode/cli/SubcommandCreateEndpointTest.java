@@ -99,8 +99,7 @@ class SubcommandCreateEndpointTest {
         props.setProperty("appModule", appModule);
         props.setProperty("javaVersion", javaVersion);
         props.setProperty("features", features);
-        try (FileWriter fw =
-                new FileWriter(tempDir.resolve("metacode.properties").toFile())) {
+        try (FileWriter fw = new FileWriter(tempDir.resolve(".metacode").toFile())) {
             props.store(fw, null);
         }
     }

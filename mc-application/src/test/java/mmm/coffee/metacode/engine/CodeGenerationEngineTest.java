@@ -31,10 +31,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class CodeGenerationEngineTest {
 
-    /** Cleans up metacode.properties written to CWD by the null-baseDirectory test. */
+    /** Cleans up .metacode written to CWD by the null-baseDirectory test. */
     @AfterEach
     void cleanUpCwdPropertiesFile() {
-        new File(".", "metacode.properties").delete();
+        new File(".", ".metacode").delete();
     }
 
     @Mock
@@ -65,7 +65,7 @@ class CodeGenerationEngineTest {
     @Test
     void doPreprocessing_writesMetacodePropertiesFile(@TempDir Path tempDir) {
         engine.doPreprocessing(descriptor(tempDir));
-        assertThat(tempDir.resolve("metacode.properties")).exists();
+        assertThat(tempDir.resolve(".metacode")).exists();
     }
 
     @Test
@@ -73,7 +73,7 @@ class CodeGenerationEngineTest {
         ProjectDescriptor sparse =
                 ProjectDescriptor.builder().baseDirectory(tempDir.toString()).build();
         assertThatCode(() -> engine.doPreprocessing(sparse)).doesNotThrowAnyException();
-        assertThat(tempDir.resolve("metacode.properties")).exists();
+        assertThat(tempDir.resolve(".metacode")).exists();
     }
 
     @Test
@@ -307,7 +307,7 @@ class CodeGenerationEngineTest {
         // line 64: d.getBaseDirectory() == null → dir defaults to "."
         ProjectDescriptor d = ProjectDescriptor.builder().build();
         assertThatCode(() -> engine.doPreprocessing(d)).doesNotThrowAnyException();
-        assertThat(new File(".", "metacode.properties")).exists();
+        assertThat(new File(".", ".metacode")).exists();
     }
 
     // -------------------------------------------------------------------------
@@ -385,8 +385,7 @@ class CodeGenerationEngineTest {
 
     private static Properties loadProperties(Path baseDir) throws IOException {
         Properties props = new Properties();
-        try (FileReader fr =
-                new FileReader(baseDir.resolve("metacode.properties").toFile())) {
+        try (FileReader fr = new FileReader(baseDir.resolve(".metacode").toFile())) {
             props.load(fr);
         }
         return props;

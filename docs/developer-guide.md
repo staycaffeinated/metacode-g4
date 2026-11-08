@@ -28,7 +28,7 @@ MetaCode is a command-line code generator that scaffolds Spring Boot projects an
 - Catalog-driven generation: templates and their placement on disk are declared in YAML, not hardcoded.
 - Architecture-aware: selecting `--architecture hexagonal` (default) or `--architecture clean` changes both the package layout and the naming of ports, adapters, and gateways across every generated file.
 - Feature-conditional output: adding `--add postgres,liquibase` activates additional catalog entries that emit Flyway/Liquibase migration stubs, `application.yml` datasource blocks, and Testcontainers base classes — without touching any code path that ignores those features.
-- Incremental: `create endpoint` reads the existing `metacode.properties` written during project generation so it knows the flavor, base package, architecture, and active features without re-asking the user.
+- Incremental: `create endpoint` reads the existing `.metacode` written during project generation so it knows the flavor, base package, architecture, and active features without re-asking the user.
 
 ---
 
@@ -55,7 +55,7 @@ flowchart TD
     A[User invokes CLI] --> B[PicoCLI subcommand]
     B --> C[Build ProjectDescriptor\nor EndpointDescriptor]
     C --> D[ICodeGenerator.doPreprocessing]
-    D --> E[Write metacode.properties\nproject generation only]
+    D --> E[Write .metacode\nproject generation only]
     E --> F[ICodeGenerator.generateCode]
     C --> F
     F --> G[CatalogRegistry]
@@ -73,13 +73,13 @@ flowchart TD
 
 1. The user runs `metacode create project spring-webmvc -n MyApp -p com.example.myapp --add postgres,openapi`. PicoCLI routes to `SubcommandCreateWebMvcProject`.
 2. The subcommand builds a `ProjectDescriptor` with `flavor=WEBMVC`, `features={POSTGRES, OPENAPI}`, and delegates to `CodeGenerationEngine`.
-3. `CodeGenerationEngine.doPreprocessing` writes a `metacode.properties` file into the target directory capturing all choices for later use by `create endpoint`.
+3. `CodeGenerationEngine.doPreprocessing` writes a `.metacode` file into the target directory capturing all choices for later use by `create endpoint`.
 4. `CodeGenerationEngine.generateCode` calls `CatalogRegistry.projectEntriesFor(descriptor)`.
 5. `CatalogRegistry` iterates all `CatalogContributor` beans, calls `CatalogReader.read` on each catalog resource, and filters the resulting `CatalogEntry` list to entries where `entry.matches(WEBMVC, {POSTGRES, OPENAPI})` returns `true`.
 6. For each matching entry, the engine calls `ProjectTemplateModelConverter.toFtlModel` and `toMustacheTokens` to build the two maps needed for rendering.
 7. For each `TemplateFacet` in the entry the engine calls `FreemarkerTemplateRenderer.render(sourceTemplate, ftlModel)` to produce a `String`, then `MustacheExpressionResolver.resolve(destination, tokens)` to expand `{{basePackagePath}}` and similar tokens into the actual file path, then `ContentToFileWriter.write` to persist the file.
 
-For endpoint generation, `SubcommandCreateEndpoint` reads `metacode.properties` to reconstruct context, builds an `EndpointDescriptor`, and delegates to `EndpointCodeGenerationEngine`, which uses `EndpointTemplateModelConverter` and applies the same render/resolve/write loop against endpoint-scoped catalog entries.
+For endpoint generation, `SubcommandCreateEndpoint` reads `.metacode` to reconstruct context, builds an `EndpointDescriptor`, and delegates to `EndpointCodeGenerationEngine`, which uses `EndpointTemplateModelConverter` and applies the same render/resolve/write loop against endpoint-scoped catalog entries.
 
 ---
 
@@ -140,7 +140,7 @@ Both are immutable Lombok `@Value` / `@Builder` records that carry user choices 
 | `schema` | `String` | `"public"` | PostgreSQL schema name |
 | `architecture` | `Architecture` | `HEXAGONAL` | Package layout variant |
 
-`EndpointDescriptor` carries the same package/flavor/feature/architecture context (read back from `metacode.properties`) plus:
+`EndpointDescriptor` carries the same package/flavor/feature/architecture context (read back from `.metacode`) plus:
 
 | Field | Type | Description |
 |---|---|---|
@@ -188,7 +188,7 @@ Both engines implement `ICodeGenerator<T>` and are Spring `@Component` beans.
 
 **`CodeGenerationEngine`** handles `ProjectDescriptor`:
 
-- `doPreprocessing` writes `metacode.properties` to the target directory.
+- `doPreprocessing` writes `.metacode` to the target directory.
 - `generateCode` retrieves only `Scope.PROJECT` entries via `CatalogRegistry.projectEntriesFor`, builds both model maps from `ProjectTemplateModelConverter`, and renders each facet.
 - Destination resolution: if a facet carries an explicit `destination`, it is used directly. If not, the engine looks up the archetype name in the Freemarker model map, retrieves the `ArchetypeModel`, and derives the path from the facet's source-set role (`main` → `{{basePackagePath}}/...`, `test` → `{{testBasePackagePath}}/...Class**Test**.java`, etc.).
 
@@ -585,9 +585,9 @@ metacode create endpoint [OPTIONS]
 |---|---|---|---|---|
 | `--resource` | `-e` | Yes | — | PascalCase resource/entity name (e.g. `Book`) |
 | `--route` | `-r` | Yes | — | Base URL for this resource (e.g. `/books`) |
-| `--directory` | `-d` | No | `.` | Project root directory containing `metacode.properties` |
+| `--directory` | `-d` | No | `.` | Project root directory containing `.metacode` |
 
-The endpoint subcommand reads `metacode.properties` from the project directory to recover the flavor, base package, app module, java version, active features, and architecture. All these values were written during `create project`. If `metacode.properties` is absent, the command fails with an informative error.
+The endpoint subcommand reads `.metacode` from the project directory to recover the flavor, base package, app module, java version, active features, and architecture. All these values were written during `create project`. If `.metacode` is absent, the command fails with an informative error.
 
 The `resource` value is capitalized automatically, so `--resource book` and `--resource Book` both produce a `Book` entity.
 
@@ -716,7 +716,7 @@ logging:
 
 No datasource, server port, or actuator configuration is present. The application starts, runs the CLI command, and exits.
 
-### metacode.properties
+### .metacode
 
 This file is **generated** by MetaCode during `create project`; it is not an input configuration file. It is written to the target directory and must not be edited manually. It records the choices made at project-creation time so the `create endpoint` command can reconstruct context without asking the user again.
 
