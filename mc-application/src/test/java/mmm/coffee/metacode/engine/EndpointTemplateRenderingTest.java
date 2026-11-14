@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import mmm.coffee.metacode.core.catalog.CatalogReader;
 import mmm.coffee.metacode.core.contributor.CatalogContributor;
+import mmm.coffee.metacode.core.descriptor.Architecture;
 import mmm.coffee.metacode.core.descriptor.EndpointDescriptor;
 import mmm.coffee.metacode.core.descriptor.Feature;
 import mmm.coffee.metacode.core.descriptor.Flavor;
@@ -78,6 +79,30 @@ class EndpointTemplateRenderingTest {
                 .appModule("application")
                 .javaVersion("21")
                 .features(Set.of(Feature.POSTGRES, Feature.OPENAPI, Feature.TESTCONTAINERS))
+                .build();
+
+        assertThatNoException().isThrownBy(() -> {
+            int exitCode = engineUnderTest.doPreprocessing(descriptor).generateCode(descriptor);
+            assertThat(exitCode).isZero();
+        });
+    }
+
+    @ParameterizedTest(name = "flavor={0} with clean architecture, all templates render")
+    @EnumSource(
+            value = Flavor.class,
+            names = {"WEBMVC", "WEBFLUX"})
+    void shouldRenderAllEndpointTemplatesWithCleanArchitecture(Flavor flavor) {
+        EndpointDescriptor descriptor = EndpointDescriptor.builder()
+                .entityName("Pet")
+                .route("/pets")
+                .flavor(flavor)
+                .basePackage("org.example.petstore")
+                .basePath("/petstore")
+                .baseDirectory("/tmp")
+                .appModule("application")
+                .javaVersion("21")
+                .features(Set.of(Feature.OPENAPI))
+                .architecture(Architecture.CLEAN)
                 .build();
 
         assertThatNoException().isThrownBy(() -> {

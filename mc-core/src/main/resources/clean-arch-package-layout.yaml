@@ -85,6 +85,9 @@ archetypes:
   PageQuery:
     subPackage: domain.model
     className: PageQuery
+  ResourceIdentity:
+    subPackage: domain.model
+    className: ResourceIdentity
 
   # infrastructure.persistence (outbound adapters — clean arch: infrastructure layer)
   UpdateAwareConverter:
