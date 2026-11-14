@@ -8,6 +8,7 @@ import picocli.CommandLine;
         name = "metacode",
         subcommands = {CreateCommand.class, CommandLine.HelpCommand.class},
         mixinStandardHelpOptions = true,
+        versionProvider = VersionProvider.class,
         description = "MetaCode - Spring project code generator")
 @SuppressWarnings({"java:S106" // We want output to go to System.out
 })

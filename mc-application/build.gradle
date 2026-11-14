@@ -45,6 +45,10 @@ application {
     applicationName = 'metacode'
 }
 
+springBoot {
+    buildInfo()
+}
+
 tasks.named('bootJar') {
     archiveBaseName = application.applicationName
     manifest.attributes['Implementation-Title'] = 'MetaCode'
